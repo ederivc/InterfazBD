@@ -65,25 +65,23 @@ interface_agregar[3].configure(bg='green')
 interface_agregar[3].pack_forget()
 
 #Treeview 1
-insert_data = ttk.Treeview(options)
-insert_data.pack(side=tk.TOP,fill=tk.BOTH, expand=True)
-insert_data.insert('','0','add', text='Agregar')
-insert_data.insert('add','0','empleado', text='Empleado')
-insert_data.insert('add','1','proveedor', text='Proveedor')
-insert_data.insert('add','2','producto', text='Producto')
-insert_data.insert('add','3','venta', text='Venta')
+tree_data = ttk.Treeview(options)
+tree_data.pack(side=tk.TOP,fill=tk.BOTH, expand=True)
+
+tree_data.insert('','0','add', text='Agregar')
+tree_data.insert('add','0','empleado', text='Empleado')
+tree_data.insert('add','1','proveedor', text='Proveedor')
+tree_data.insert('add','2','producto', text='Producto')
+tree_data.insert('add','3','venta', text='Venta')
 
 
-#Treeview 2
-table_view = ttk.Treeview(options)
-table_view.pack(side=tk.BOTTOM,fill=tk.BOTH, expand=True)
-table_view.insert('','1','table', text='Tablas')
-table_view.insert('table','0','tabla1', text='Tabla 1')
-table_view.insert('table','1','tabla2', text='Tabla 2')
-table_view.insert('table','2','tabla3', text='Tabla 3')
-table_view.insert('table','3','tabla4', text='Tabla 4')
+tree_data.insert('','1','table', text='Tablas')
+tree_data.insert('table','0','tabla1', text='Tabla 1')
+tree_data.insert('table','1','tabla2', text='Tabla 2')
+tree_data.insert('table','2','tabla3', text='Tabla 3')
+tree_data.insert('table','3','tabla4', text='Tabla 4')
  
 
-insert_data.bind("<Double-1>", OnDoubleClick)
+tree_data.bind("<Double-1>", OnDoubleClick)
 
 main()
