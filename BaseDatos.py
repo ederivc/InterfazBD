@@ -47,20 +47,43 @@ interface_agregar= []
 for x in range(4):
     interface_agregar.append(tk.Frame(display))
 
-interface_agregar[0].pack(fill=tk.BOTH, expand=True)
-interface_agregar[1].pack(fill=tk.BOTH, expand=True)
-interface_agregar[2].pack(fill=tk.BOTH, expand=True)
-interface_agregar[3].pack(fill=tk.BOTH, expand=True)
 
+#Empleado
+interface_agregar[0].pack(fill=tk.BOTH, expand=True)
 interface_agregar[0].configure(bg='black')
 interface_agregar[0].pack_forget()
 
+ttk.Label(interface_agregar[0], text="ID:").grid(row=0, column=0)
+ttk.Label(interface_agregar[0], text="Nombre:").grid(row=2, column=0)
+ttk.Label(interface_agregar[0], text="RFC:").grid(row=4, column=0)
+ttk.Label(interface_agregar[0], text="Fecha de nacimiento:").grid(row=6, column=0)
+ttk.Label(interface_agregar[0], text="Fecha de Ingreso:").grid(row=8, column=0)
+ttk.Label(interface_agregar[0], text="Lugar de nacimiento").grid(row=10, column=0)
+ttk.Label(interface_agregar[0], text="Ciudad:").grid(row=12, column=0)
+ttk.Label(interface_agregar[0], text="Estado:").grid(row=14, column=0)
+ttk.Label(interface_agregar[0], text="País:").grid(row=16, column=0)
+ttk.Label(interface_agregar[0], text="Dirección:").grid(row=18, column=0)
+ttk.Label(interface_agregar[0], text="Calle:").grid(row=20, column=0)
+ttk.Label(interface_agregar[0], text="Colonia:").grid(row=22, column=0)
+ttk.Label(interface_agregar[0], text="CP:").grid(row=24, column=0)
+ttk.Label(interface_agregar[0], text="Ciudad:").grid(row=26, column=0)
+ttk.Label(interface_agregar[0], text="Teléfono:").grid(row=28, column=0)
+ttk.Label(interface_agregar[0], text="Sueldo:").grid(row=30, column=0)
+
+
+#Proveedor
+interface_agregar[1].pack(fill=tk.BOTH, expand=True)
 interface_agregar[1].configure(bg='red')
 interface_agregar[1].pack_forget()
 
+#Producto
+interface_agregar[2].pack(fill=tk.BOTH, expand=True)
 interface_agregar[2].configure(bg='blue')
 interface_agregar[2].pack_forget()
 
+
+#Venta
+interface_agregar[3].pack(fill=tk.BOTH, expand=True)
 interface_agregar[3].configure(bg='green')
 interface_agregar[3].pack_forget()
 
