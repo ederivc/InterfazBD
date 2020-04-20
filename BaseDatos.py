@@ -13,24 +13,22 @@ def OnDoubleClick(event=None):
     #item = event.widget.item(item_id)
     if(item_id=="empleado"):
         ShowAgregar(0)
-        interface_agregar1.pack(fill=tk.BOTH, expand=True)
     elif(item_id=="proveedor"):
         ShowAgregar(1)
-        interface_agregar2.pack(fill=tk.BOTH, expand=True)
     elif(item_id=="producto"):
         ShowAgregar(2)
-        interface_agregar3.pack(fill=tk.BOTH, expand=True)
     elif(item_id=="venta"):
         ShowAgregar(3)
-        interface_agregar4.pack(fill=tk.BOTH, expand=True)
     else:
         return
 
 def ShowAgregar(index):
-        interface_agregar1.pack_forget()
-        interface_agregar2.pack_forget()
-        interface_agregar3.pack_forget()
-        interface_agregar4.pack_forget()
+    x=0
+    while(x<len(interface_agregar)):
+        if x!=index:
+            interface_agregar[x].pack_forget()
+        x+=1
+    interface_agregar[index].pack(fill=tk.BOTH, expand=True)
 
 
 
@@ -44,26 +42,27 @@ options.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
 display=tk.Frame(window)
 display.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
 
-interface_agregar1= tk.Frame(display)
-interface_agregar2= tk.Frame(display)
-interface_agregar3= tk.Frame(display)
-interface_agregar4= tk.Frame(display)
-interface_agregar1.pack(fill=tk.BOTH, expand=True)
-interface_agregar2.pack(fill=tk.BOTH, expand=True)
-interface_agregar3.pack(fill=tk.BOTH, expand=True)
-interface_agregar4.pack(fill=tk.BOTH, expand=True)
+interface_agregar= []
 
-interface_agregar4.configure(bg='black')
-interface_agregar4.pack_forget()
+for x in range(4):
+    interface_agregar.append(tk.Frame(display))
 
-interface_agregar1.configure(bg='red')
-interface_agregar1.pack_forget()
+interface_agregar[0].pack(fill=tk.BOTH, expand=True)
+interface_agregar[1].pack(fill=tk.BOTH, expand=True)
+interface_agregar[2].pack(fill=tk.BOTH, expand=True)
+interface_agregar[3].pack(fill=tk.BOTH, expand=True)
 
-interface_agregar2.configure(bg='blue')
-interface_agregar2.pack_forget()
+interface_agregar[0].configure(bg='black')
+interface_agregar[0].pack_forget()
 
-interface_agregar3.configure(bg='green')
-interface_agregar3.pack_forget()
+interface_agregar[1].configure(bg='red')
+interface_agregar[1].pack_forget()
+
+interface_agregar[2].configure(bg='blue')
+interface_agregar[2].pack_forget()
+
+interface_agregar[3].configure(bg='green')
+interface_agregar[3].pack_forget()
 
 #Treeview 1
 insert_data = ttk.Treeview(options)
