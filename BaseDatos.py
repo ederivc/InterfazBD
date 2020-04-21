@@ -36,11 +36,12 @@ window = tk.Tk()
 window.title('Base de datos')
 window.geometry('1080x600')
 
-options= tk.Frame(window)
-options.pack(side=tk.LEFT, fill=tk.BOTH, expand=True)
+options= tk.Frame(window, bg="#04517D")
+options.pack(side=tk.LEFT, fill= tk.BOTH ,expand=1)
 
-display=tk.Frame(window)
-display.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True)
+
+display=tk.Frame(window, bg="#c4dbe9")
+display.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
 
 interface_agregar= []
 
@@ -70,6 +71,10 @@ ttk.Label(interface_agregar[0], text="Ciudad:").grid(row=26, column=0)
 ttk.Label(interface_agregar[0], text="Teléfono:").grid(row=28, column=0)
 ttk.Label(interface_agregar[0], text="Sueldo:").grid(row=30, column=0)
 
+id_ = tk.StringVar()
+nombreCapturado = ttk.Entry(interface_agregar[0], width=12, textvariable=id_)
+nombreCapturado.grid(row=0, column=1)
+
 
 #Proveedor
 interface_agregar[1].pack(fill=tk.BOTH, expand=True)
@@ -88,23 +93,26 @@ interface_agregar[3].configure(bg='green')
 interface_agregar[3].pack_forget()
 
 #Treeview 1
-tree_data = ttk.Treeview(options)
-tree_data.pack(side=tk.TOP,fill=tk.BOTH, expand=True)
+data_tree = ttk.Treeview(options)
+data_tree.pack(side=tk.LEFT, fill=tk.Y)
+data_tree.pack_configure(padx=10, pady=10)
 
-tree_data.insert('','0','add', text='Agregar')
-tree_data.insert('add','0','empleado', text='Empleado')
-tree_data.insert('add','1','proveedor', text='Proveedor')
-tree_data.insert('add','2','producto', text='Producto')
-tree_data.insert('add','3','venta', text='Venta')
+data_tree.insert('','0','add', text='Agregar', tags = ('add',))
+data_tree.insert('add','0','empleado', text='Empleado',tags = ('data',))
+data_tree.insert('add','1','proveedor', text='Proveedor',tags = ('data',))
+data_tree.insert('add','2','producto', text='Producto',tags = ('data',))
+data_tree.insert('add','3','venta', text='Venta',tags = ('data',))
 
 
-tree_data.insert('','1','table', text='Tablas')
-tree_data.insert('table','0','tabla1', text='Tabla 1')
-tree_data.insert('table','1','tabla2', text='Tabla 2')
-tree_data.insert('table','2','tabla3', text='Tabla 3')
-tree_data.insert('table','3','tabla4', text='Tabla 4')
+data_tree.insert('','1','table', text='Tablas', tags = ('table',))
+data_tree.insert('table','0','tabla1', text='Tabla 1',tags = ('data',))
+data_tree.insert('table','1','tabla2', text='Tabla 2',tags = ('data',))
+data_tree.insert('table','2','tabla3', text='Tabla 3',tags = ('data',))
+data_tree.insert('table','3','tabla4', text='Tabla 4',tags = ('data',))
  
 
-tree_data.bind("<Double-1>", OnDoubleClick)
+data_tree.tag_configure('data', background='#E8E8E8')
+
+data_tree.bind("<Double-1>", OnDoubleClick)
 
 main()
