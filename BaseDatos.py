@@ -2,25 +2,22 @@ import tkinter as tk
 from tkinter import ttk
 from tkinter import Menu
 from tkinter import messagebox as mBox
-
+from tkinter import *
 
 def main():
     window.mainloop()
 
 
-def OnDoubleClick(event=None):
-    item_id = event.widget.focus()
-    #item = event.widget.item(item_id)
-    if(item_id=="empleado"):
+def OnDoubleClick(event):
+    if(event==0):
         ShowAgregar(0)
-    elif(item_id=="proveedor"):
+    if(event==1):
         ShowAgregar(1)
-    elif(item_id=="producto"):
+    if(event==2):
         ShowAgregar(2)
-    elif(item_id=="venta"):
+    if(event==3):
         ShowAgregar(3)
-    else:
-        return
+    return
 
 def ShowAgregar(index):
     x=0
@@ -34,14 +31,20 @@ def ShowAgregar(index):
 
 window = tk.Tk()
 window.title('Base de datos')
-window.geometry('1080x600')
+window.minsize(1080, 600)
+window.columnconfigure(0, weight=1)
+window.rowconfigure(0, weight=1)
+window.columnconfigure(1, weight=4)
+
+
 
 options= tk.Frame(window, bg="#04517D")
-options.pack(side=tk.LEFT, fill= tk.BOTH ,expand=1)
-
+options.grid(row=0,column=0, sticky='NSWE')
+options.columnconfigure(0, weight=1)
 
 display=tk.Frame(window, bg="#c4dbe9")
-display.pack(side=tk.LEFT, fill=tk.BOTH, expand=1)
+display.grid(row=0,column=1, sticky='NSWE')
+
 
 interface_agregar= []
 
@@ -92,27 +95,28 @@ interface_agregar[3].pack(fill=tk.BOTH, expand=True)
 interface_agregar[3].configure(bg='green')
 interface_agregar[3].pack_forget()
 
-#Treeview 1
-data_tree = ttk.Treeview(options)
-data_tree.pack(side=tk.LEFT, fill=tk.Y)
-data_tree.pack_configure(padx=10, pady=10)
+#Agregar
 
-data_tree.insert('','0','add', text='Agregar', tags = ('add',))
-data_tree.insert('add','0','empleado', text='Empleado',tags = ('data',))
-data_tree.insert('add','1','proveedor', text='Proveedor',tags = ('data',))
-data_tree.insert('add','2','producto', text='Producto',tags = ('data',))
-data_tree.insert('add','3','venta', text='Venta',tags = ('data',))
+agregar=ttk.Label(options, text="AGREGAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+agregar.grid(row=0, column=0, sticky='NWSE', pady=5)
+
+empleado=ttk.Label(options, text="EMPLEADO", anchor=tk.CENTER)
+empleado.grid(row=1, column=0, sticky='NWSE', pady=2, padx=10)
+empleado.bind("<1>", lambda x: OnDoubleClick(0))
+
+proveedor=ttk.Label(options, text="PROVEEDOR", anchor=tk.CENTER)
+proveedor.grid(row=2, column=0, sticky='NWSE', pady=2, padx=10)
+proveedor.bind("<1>", lambda x: OnDoubleClick(1))
+
+producto=ttk.Label(options, text="PRODUCTO", anchor=tk.CENTER)
+producto.grid(row=3, column=0, sticky='NWSE', pady=2, padx=10)
+producto.bind("<1>", lambda x: OnDoubleClick(2))
+
+categoria=ttk.Label(options, text="CATEGORIA", anchor=tk.CENTER)
+categoria.grid(row=4, column=0, sticky='NWSE', pady=2, padx=10)
+categoria.bind("<1>", lambda x: OnDoubleClick(3))
 
 
-data_tree.insert('','1','table', text='Tablas', tags = ('table',))
-data_tree.insert('table','0','tabla1', text='Tabla 1',tags = ('data',))
-data_tree.insert('table','1','tabla2', text='Tabla 2',tags = ('data',))
-data_tree.insert('table','2','tabla3', text='Tabla 3',tags = ('data',))
-data_tree.insert('table','3','tabla4', text='Tabla 4',tags = ('data',))
- 
-
-data_tree.tag_configure('data', background='#E8E8E8')
-
-data_tree.bind("<Double-1>", OnDoubleClick)
+#Tables
 
 main()
