@@ -77,25 +77,125 @@ ttk.Label(interface_agregar[0], text="Dirección:").grid(row=18, column=0)
 ttk.Label(interface_agregar[0], text="Calle:").grid(row=20, column=0)
 ttk.Label(interface_agregar[0], text="Colonia:").grid(row=22, column=0)
 ttk.Label(interface_agregar[0], text="CP:").grid(row=24, column=0)
-ttk.Label(interface_agregar[0], text="Ciudad:").grid(row=26, column=0)
-ttk.Label(interface_agregar[0], text="Teléfono:").grid(row=28, column=0)
-ttk.Label(interface_agregar[0], text="Sueldo:").grid(row=30, column=0)
+ttk.Label(interface_agregar[0], text="Teléfono:").grid(row=26, column=0)
+ttk.Label(interface_agregar[0], text="Sueldo:").grid(row=38, column=0)
 
 id_ = tk.StringVar()
-nombreCapturado = ttk.Entry(interface_agregar[0], width=12, textvariable=id_)
-nombreCapturado.grid(row=0, column=1)
+aidi = ttk.Entry(interface_agregar[0], width=15, textvariable=id_)
+aidi.grid(row=0, column=1)
 
+nombreEmp = ttk.Entry(interface_agregar[0], width = 15)
+nombreEmp.grid(row = 2, column = 1)
+
+rfcEmp = ttk.Entry(interface_agregar[0], width = 15)
+rfcEmp.grid(row = 4, column = 1)
+
+fechaNacEmp = ttk.Entry(interface_agregar[0], width = 15)
+fechaNacEmp.grid(row = 6, column = 1) 
+
+fechaIngresoEmp = ttk.Entry(interface_agregar[0], width = 15)
+fechaIngresoEmp.grid(row = 8, column = 1)
+
+lugNacEmp = ttk.Entry(interface_agregar[0], width = 15)
+lugNacEmp.grid(row = 10, column = 1)
+
+ciudadEmp = ttk.Entry(interface_agregar[0], width = 15)
+ciudadEmp.grid(row = 12, column = 1)
+
+estadoEmp = ttk.Entry(interface_agregar[0], width = 15)
+estadoEmp.grid(row = 14, column = 1)
+
+paisEmp = ttk.Entry(interface_agregar[0], width = 15)
+paisEmp.grid(row = 16, column = 1)
+
+direccEmp = ttk.Entry(interface_agregar[0], width = 15)
+direccEmp.grid(row = 18, column = 1)
+
+calleEmp = ttk.Entry(interface_agregar[0], width = 15)
+calleEmp.grid(row = 20, column = 1)
+
+coloniaEmp = ttk.Entry(interface_agregar[0], width = 15)
+coloniaEmp.grid(row = 22, column = 1)
+
+cpEmp = ttk.Entry(interface_agregar[0], width = 15)
+cpEmp.grid(row = 24, column = 1)
+
+telEmp = ttk.Entry(interface_agregar[0], width = 15)
+telEmp.grid(row = 26, column = 1)
+
+sueldoEmp = ttk.Entry(interface_agregar[0], width = 15)
+sueldoEmp.grid(row = 28, column = 1)
+#*****************************************************************************
 
 #Proveedor
 interface_agregar[1].pack(fill=tk.BOTH, expand=True)
 interface_agregar[1].configure(bg='red')
 interface_agregar[1].pack_forget()
 
+ttk.Label(interface_agregar[1], text="Clave:").grid(row=0, column=0)
+ttk.Label(interface_agregar[1], text="Nombre:").grid(row=2, column=0)
+ttk.Label(interface_agregar[1], text="RFC:").grid(row=4, column=0)
+ttk.Label(interface_agregar[1], text="Nombre Empresa:").grid(row=6, column=0)
+ttk.Label(interface_agregar[1], text="Ciudad:").grid(row=8, column=0)
+ttk.Label(interface_agregar[1], text="Calle:").grid(row=10, column=0)
+ttk.Label(interface_agregar[1], text="Colonia:").grid(row=12, column=0)
+ttk.Label(interface_agregar[1], text="CP:").grid(row=14, column=0)
+
+claveProv = ttk.Entry(interface_agregar[1], width = 15)
+claveProv.grid(row = 0, column = 1)
+
+nombreProv = ttk.Entry(interface_agregar[1], width = 15)
+nombreProv.grid(row = 2, column = 1)
+
+rfcProv = ttk.Entry(interface_agregar[1], width = 15)
+rfcProv.grid(row = 4, column = 1)
+
+empresaProv = ttk.Entry(interface_agregar[1], width = 15)
+empresaProv.grid(row = 6, column = 1)
+
+ciudadProv = ttk.Entry(interface_agregar[1], width = 15)
+ciudadProv.grid(row = 8, column = 1)
+
+calleProv = ttk.Entry(interface_agregar[1], width = 15)
+calleProv.grid(row = 10, column = 1)
+
+coloniaProv = ttk.Entry(interface_agregar[1], width = 15)
+coloniaProv.grid(row = 12, column = 1)
+
+cpProv = ttk.Entry(interface_agregar[1], width = 15)
+cpProv.grid(row = 14, column = 1)
+#************************************************************************
+
 #Producto
 interface_agregar[2].pack(fill=tk.BOTH, expand=True)
 interface_agregar[2].configure(bg='blue')
 interface_agregar[2].pack_forget()
 
+ttk.Label(interface_agregar[2], text="Codigo de barras:").grid(row=0, column=0)
+ttk.Label(interface_agregar[2], text="Nombre:").grid(row=2, column=0)
+ttk.Label(interface_agregar[2], text="Marca:").grid(row=4, column=0)
+ttk.Label(interface_agregar[2], text="Existencia:").grid(row=6, column=0)
+ttk.Label(interface_agregar[2], text="Costo:").grid(row=8, column=0)
+ttk.Label(interface_agregar[2], text="Proveedor:").grid(row=10, column=0)
+
+codigoProd = ttk.Entry(interface_agregar[2], width = 15)
+codigoProd.grid(row = 0, column = 1)
+
+nombreProd = ttk.Entry(interface_agregar[2], width = 15)
+nombreProd.grid(row = 2, column = 1)
+
+marcaProd = ttk.Entry(interface_agregar[2], width = 15)
+marcaProd.grid(row = 4, column = 1)
+
+existProd = ttk.Entry(interface_agregar[2], width = 15)
+existProd.grid(row = 6, column = 1)
+
+costoProd = ttk.Entry(interface_agregar[2], width = 15)
+costoProd.grid(row = 8, column = 1)
+
+provedorProd = ttk.Entry(interface_agregar[2], width = 15)
+provedorProd.grid(row = 10, column = 1)
+#**************************************************************************
 
 #Venta
 interface_agregar[3].pack(fill=tk.BOTH, expand=True)
@@ -103,8 +203,13 @@ interface_agregar[3].configure(bg='green')
 interface_agregar[3].pack_forget()
 
 #Agregar
-titulo=ttk.Label(options, text="titulo", anchor=tk.CENTER, background='yellow', foreground='black')
-titulo.grid(row=1, column=0, sticky='NWSE', pady=5)
+title = tk.Frame(options)
+title.grid(row=0, column=0, sticky='NWSE', pady=5)
+title.config(bg = 'yellow', height = 400)
+
+labelTitle = ttk.Label(title, text = '     TIENDA DE \n    CONVENIENCIA', width = 18)
+labelTitle.pack(side = TOP, anchor = 'center')
+labelTitle.config(font=("Courier", 15))
 
 agregar=ttk.Label(options, text="AGREGAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
 agregar.grid(row=2, column=0, sticky='NWSE', pady=5)
@@ -130,5 +235,6 @@ categoria.bind("<Button-1>", lambda x: OnDoubleClick(3))
 
 
 #Tables
-
+mostrar = ttk.Label(options, text="MOSTRAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+mostrar.grid(row=20, column=0, sticky='NWSE', pady=5)
 main()
