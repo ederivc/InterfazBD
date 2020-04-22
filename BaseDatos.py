@@ -19,6 +19,13 @@ def OnDoubleClick(event):
         ShowAgregar(3)
     return
 
+def LabelEnter(event):
+    print(event)
+    empleado.config(background='#FFFFFF')
+
+def LabelLeave(event):
+    empleado.config(background='#A4A4A4')
+
 def ShowAgregar(index):
     x=0
     while(x<len(interface_agregar)):
@@ -38,11 +45,11 @@ window.columnconfigure(1, weight=4)
 
 
 
-options= tk.Frame(window, bg="#04517D")
+options= tk.Frame(window, bg="#080808")
 options.grid(row=0,column=0, sticky='NSWE')
 options.columnconfigure(0, weight=1)
 
-display=tk.Frame(window, bg="#c4dbe9")
+display=tk.Frame(window, bg="#04517D")
 display.grid(row=0,column=1, sticky='NSWE')
 
 
@@ -54,7 +61,7 @@ for x in range(4):
 
 #Empleado
 interface_agregar[0].pack(fill=tk.BOTH, expand=True)
-interface_agregar[0].configure(bg='black')
+interface_agregar[0].configure(bg='purple')
 interface_agregar[0].pack_forget()
 
 ttk.Label(interface_agregar[0], text="ID:").grid(row=0, column=0)
@@ -96,25 +103,30 @@ interface_agregar[3].configure(bg='green')
 interface_agregar[3].pack_forget()
 
 #Agregar
+titulo=ttk.Label(options, text="titulo", anchor=tk.CENTER, background='yellow', foreground='black')
+titulo.grid(row=1, column=0, sticky='NWSE', pady=5)
 
 agregar=ttk.Label(options, text="AGREGAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
-agregar.grid(row=0, column=0, sticky='NWSE', pady=5)
+agregar.grid(row=2, column=0, sticky='NWSE', pady=5)
 
-empleado=ttk.Label(options, text="EMPLEADO", anchor=tk.CENTER)
-empleado.grid(row=1, column=0, sticky='NWSE', pady=2, padx=10)
-empleado.bind("<1>", lambda x: OnDoubleClick(0))
+empleado=ttk.Label(options, text="EMPLEADO", anchor=tk.CENTER, background='#E0E0E0')
+empleado.grid(row=3, column=0, sticky='NWSE', pady=2, padx=10)
+empleado.bind("<Button-1>", lambda x: OnDoubleClick(0))
+empleado.bind("<Enter>", LabelEnter)
+empleado.bind("<Leave>", LabelLeave)
+
 
 proveedor=ttk.Label(options, text="PROVEEDOR", anchor=tk.CENTER)
-proveedor.grid(row=2, column=0, sticky='NWSE', pady=2, padx=10)
-proveedor.bind("<1>", lambda x: OnDoubleClick(1))
+proveedor.grid(row=4, column=0, sticky='NWSE', pady=2, padx=10)
+proveedor.bind("<Button-1>", lambda x: OnDoubleClick(1))
 
 producto=ttk.Label(options, text="PRODUCTO", anchor=tk.CENTER)
-producto.grid(row=3, column=0, sticky='NWSE', pady=2, padx=10)
-producto.bind("<1>", lambda x: OnDoubleClick(2))
+producto.grid(row=5, column=0, sticky='NWSE', pady=2, padx=10)
+producto.bind("<Button-1>", lambda x: OnDoubleClick(2))
 
 categoria=ttk.Label(options, text="CATEGORIA", anchor=tk.CENTER)
-categoria.grid(row=4, column=0, sticky='NWSE', pady=2, padx=10)
-categoria.bind("<1>", lambda x: OnDoubleClick(3))
+categoria.grid(row=6, column=0, sticky='NWSE', pady=2, padx=10)
+categoria.bind("<Button-1>", lambda x: OnDoubleClick(3))
 
 
 #Tables
