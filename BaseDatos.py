@@ -11,6 +11,7 @@ def main():
 def OnDoubleClick(event):
     if(event==0):
         ShowAgregar(0)
+        display.config(bg="#04517D")
     if(event==1):
         ShowAgregar(1)
         display.config(bg='#2ECC71')
@@ -19,7 +20,7 @@ def OnDoubleClick(event):
         display.config(bg='#0781F4')
     if(event==3):
         ShowAgregar(3)
-        display.config(bg='#FBBE00')
+        display.config(bg='#FF8F00')
     if(event==4):
         ShowAgregar(4)
         display.config(bg='#F50052')
