@@ -153,6 +153,9 @@ telEmp.grid(row = 26, column = 1)
 
 sueldoEmp = ttk.Entry(interface_agregar[1], width = 15)
 sueldoEmp.grid(row = 28, column = 1)
+
+submitEmp=tk.Button(interface_agregar[1], text="Ingresar", background='#2ECC71', fg='white',relief=tk.FLAT)
+submitEmp.grid(row=30, column=1)
 #*****************************************************************************
 
 #Proveedor
@@ -192,6 +195,9 @@ coloniaProv.grid(row = 12, column = 1)
 
 cpProv = ttk.Entry(interface_agregar[2], width = 15)
 cpProv.grid(row = 14, column = 1)
+
+submitProv=tk.Button(interface_agregar[2], text="Ingresar", background='#0781F4', fg='white',relief=tk.FLAT)
+submitProv.grid(row=16, column=1)
 #************************************************************************
 
 
@@ -200,7 +206,7 @@ interface_agregar[3].pack(fill=tk.BOTH, expand=True)
 interface_agregar[3].configure(bg='white')
 interface_agregar[3].pack_forget()
 
-ttk.Label(interface_agregar[3], text="Codigo de barras:",font=("Fixedsys", 16), background='white').grid(row=0, column=0)
+ttk.Label(interface_agregar[3], text="Código de barras:",font=("Fixedsys", 16), background='white').grid(row=0, column=0)
 ttk.Label(interface_agregar[3], text="Nombre:",font=("Fixedsys", 16), background='white').grid(row=2, column=0)
 ttk.Label(interface_agregar[3], text="Marca:",font=("Fixedsys", 16), background='white').grid(row=4, column=0)
 ttk.Label(interface_agregar[3], text="Existencia:",font=("Fixedsys", 16), background='white').grid(row=6, column=0)
@@ -224,6 +230,9 @@ costoProd.grid(row = 8, column = 1)
 
 provedorProd = ttk.Entry(interface_agregar[3], width = 15)
 provedorProd.grid(row = 10, column = 1)
+
+submitProd=tk.Button(interface_agregar[3], text="Ingresar", background='#FF8F00', fg='white',relief=tk.FLAT)
+submitProd.grid(row=12, column=1)
 #**************************************************************************
 
 #Venta
@@ -231,7 +240,10 @@ interface_agregar[4].pack(fill=tk.BOTH, expand=True)
 interface_agregar[4].configure(bg='white')
 interface_agregar[4].pack_forget()
 
+ttk.Label(interface_agregar[4], text="xd",font=("Fixedsys", 16), background='white').grid(row=0, column=0)
 
+submitVenta=tk.Button(interface_agregar[4], text="Ingresar", background='#F50052', fg='white',relief=tk.FLAT)
+submitVenta.grid(row=1, column=1)
 
 
 #Option -> Agregar
