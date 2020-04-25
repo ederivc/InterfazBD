@@ -3,10 +3,12 @@ from tkinter import ttk
 from tkinter import Menu
 from tkinter import messagebox as mBox
 from tkinter import *
+import mysql.connector as mysql
 
 def main():
     window.mainloop()
-
+    hola()
+    tableEmp()
 
 def OnClick(event):
     if(event==0):
@@ -29,6 +31,10 @@ def OnClick(event):
         labelDisplay.pack(side='top')
         ShowAgregar(4)
         display.config(bg='#F50052')
+    if(event==5):
+        labelDisplay.pack(side='top')
+        ShowAgregar(5)
+        display.config(bg='#ffa751')
     return
 
 def LabelEnter(event):
@@ -40,7 +46,6 @@ def LabelLeave(event):
  
 def ShowAgregar(index):
     x=0
-
     while(x<len(interface_agregar)):
         if x!=index:
             interface_agregar[x].pack_forget()
@@ -49,6 +54,15 @@ def ShowAgregar(index):
     interface_agregar[index].pack(fill=tk.BOTH, expand=True,  padx=5, pady=5)
     agregar_frames[index].config(bg='#0781F4')
     
+def hola():
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()
+    operacion.execute( "SELECT * FROM employee" )
+    for id,nombre,apPat,apMat, rfc, fechaNac, fechaIng, lugarNac,ciudad,estado, pais, calle, colonia, cp, telefono, sueldo in operacion.fetchall():
+        print(id,nombre,apPat,apMat, rfc, fechaNac, fechaIng, lugarNac, ciudad,
+            estado, pais, calle, colonia, cp, telefono, sueldo)
+    conexion.close()
+
 window = tk.Tk()
 window.title('Base de datos')
 window.minsize(1080, 700)
@@ -103,7 +117,7 @@ boxImg = boxImg.subsample(6)
 #*************************************** LABELS ****************************************
 interface_agregar= []
 
-for x in range(5):
+for x in range(6):
     interface_agregar.append(tk.Frame(display))
 
 
@@ -275,7 +289,7 @@ submitProd=tk.Button(interface_agregar[3], text="Ingresar", background='#FF8F00'
 submitProd.grid(row=14, column=2, pady=5)
 #**************************************************************************
 
-#Venta
+#**************************************** INGRESAR ****************************************
 interface_agregar[4].pack(fill=tk.BOTH, expand=True)
 interface_agregar[4].configure(bg='white')
 interface_agregar[4].pack_forget()
@@ -285,13 +299,11 @@ ttk.Label(interface_agregar[4], text="que va aqui xd?",font=("Fixedsys", 16), ba
 submitVenta=tk.Button(interface_agregar[4], text="Ingresar", background='#F50052', fg='white',relief=tk.FLAT)
 submitVenta.grid(row=1, column=1)
 
-
 #Option -> Agregar
 agregar_frames= []
 
-for x in range(5):
+for x in range(6):
     agregar_frames.append(tk.Frame(options))
-
 
 
 title = tk.Frame(options, bg = '#005ea5')
@@ -340,10 +352,35 @@ categoria.bind("<Enter>", LabelEnter)
 categoria.bind("<Leave>", LabelLeave)
 
 
-#Tables
+#**************************************** MOSTRAR ************************************
 
 show = ttk.Label(options, text="MOSTRAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
-show.grid(row=20, column=0, sticky='NWSE', pady=5)
+show.grid(row=6, column=0, sticky='NWSE', pady=5)
+
+interface_agregar[5].pack(side='bottom',fill=tk.BOTH, expand=True)
+interface_agregar[5].configure(bg='white')
+interface_agregar[5].pack_forget()
+
+ttk.Label(interface_agregar[5], text="        LISTA DE EMPLEADOS     ", 
+font=("Times", 20), background='white').grid(row=0, column=2)
+
+agregar_frames[5]=tk.Frame(options, bg = '#ffa751')
+agregar_frames[5].grid(row=7,column=0,sticky='NWSE', pady=2, padx=10)
+employeeShow=ttk.Label(agregar_frames[5], text="EMPLEADO", anchor=tk.CENTER, background='#E0E0E0')
+employeeShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
+employeeShow.bind("<Button-1>", lambda x: OnClick(5))
+employeeShow.bind("<Enter>", LabelEnter)
+employeeShow.bind("<Leave>", LabelLeave)
+
+employeeTable = ttk.Treeview(interface_agregar[5])
+employeeTable.grid()
+employeeTable['columns'] = ( 'jhgjh')
+
+def tableEmp():
+    employeeTable.heading("#0", text='aahhh', anchor='center')
+    employeeTable.column("#0", anchor="w",width=80)
+    employeeTable.heading('jhgjh', text='jeje')
+    employeeTable.column('jhgjh', anchor='center', width=80)
 
 
 main()
