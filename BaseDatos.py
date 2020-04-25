@@ -34,16 +34,20 @@ def OnClick(event):
 def LabelEnter(event):
     event.widget.config(background='#7f7f7f')
 
+
 def LabelLeave(event):
     event.widget.config(background='#E0E0E0')
  
 def ShowAgregar(index):
     x=0
+
     while(x<len(interface_agregar)):
         if x!=index:
             interface_agregar[x].pack_forget()
+            agregar_frames[x].config(bg='#080808')
         x+=1
     interface_agregar[index].pack(fill=tk.BOTH, expand=True,  padx=5, pady=5)
+    agregar_frames[index].config(bg='#0781F4')
     
 window = tk.Tk()
 window.title('Base de datos')
@@ -283,6 +287,13 @@ submitVenta.grid(row=1, column=1)
 
 
 #Option -> Agregar
+agregar_frames= []
+
+for x in range(5):
+    agregar_frames.append(tk.Frame(options))
+
+
+
 title = tk.Frame(options, bg = '#005ea5')
 title.grid(row=0, column=0, sticky='NWSE', pady=5)
 labelTitle = ttk.Label(title, text = '     TIENDA DE \n    CONVENIENCIA', width = 18, background = '#446b75')
@@ -290,30 +301,40 @@ labelTitle.pack(side = tk.TOP, anchor = 'center')
 labelTitle.config(font=("Courier", 15))
 labelTitle.bind("<Button-1>", lambda x: OnClick(0))
 
-agregar=ttk.Label(options, text="AGREGAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
-agregar.grid(row=1, column=0, sticky='NWSE', pady=5)
+agregar_frames[0]=tk.Frame(options)
+agregar_frames[0].grid(row=1,column=0,sticky='NWSE', pady=2)
+agregar=ttk.Label(agregar_frames[0], text="AGREGAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+agregar.pack(side='right', fill='both', expand=1)
 
-empleado=ttk.Label(options, text="EMPLEADO", anchor=tk.CENTER, background='#E0E0E0')
-empleado.grid(row=2, column=0, sticky='NWSE', pady=2, padx=10)
+agregar_frames[1]=tk.Frame(options, bg = '#080808')
+agregar_frames[1].grid(row=2,column=0,sticky='NWSE', pady=2, padx=10)
+empleado=ttk.Label(agregar_frames[1], text="EMPLEADO", anchor=tk.CENTER, background='#E0E0E0')
+empleado.pack(side='right', fill='both', expand=1, padx=5, pady=1)
 empleado.bind("<Button-1>", lambda x: OnClick(1))
 empleado.bind("<Enter>", LabelEnter)
 empleado.bind("<Leave>", LabelLeave)
 
 
-proveedor=ttk.Label(options, text="PROVEEDOR", anchor=tk.CENTER, background='#E0E0E0')
-proveedor.grid(row=3, column=0, sticky='NWSE', pady=2, padx=10)
+agregar_frames[2]=tk.Frame(options, bg = '#080808')
+agregar_frames[2].grid(row=3,column=0,sticky='NWSE', pady=2, padx=10)
+proveedor=ttk.Label(agregar_frames[2], text="PROVEEDOR", anchor=tk.CENTER, background='#E0E0E0')
+proveedor.pack(side='right', fill='both', expand=1, padx=5, pady=1)
 proveedor.bind("<Button-1>", lambda x: OnClick(2))
 proveedor.bind("<Enter>", LabelEnter)
 proveedor.bind("<Leave>", LabelLeave)
 
-producto=ttk.Label(options, text="PRODUCTO", anchor=tk.CENTER, background='#E0E0E0')
-producto.grid(row=4, column=0, sticky='NWSE', pady=2, padx=10)
+agregar_frames[3]=tk.Frame(options, bg = '#080808')
+agregar_frames[3].grid(row=4,column=0,sticky='NWSE', pady=2, padx=10)
+producto=ttk.Label(agregar_frames[3], text="PRODUCTO", anchor=tk.CENTER, background='#E0E0E0')
+producto.pack(side='right', fill='both', expand=1, padx=5, pady=1)
 producto.bind("<Button-1>", lambda x: OnClick(3))
 producto.bind("<Enter>", LabelEnter)
 producto.bind("<Leave>", LabelLeave)
 
-categoria=ttk.Label(options, text="CATEGORIA", anchor=tk.CENTER, background='#E0E0E0') 
-categoria.grid(row=5, column=0, sticky='NWSE', pady=2, padx=10)
+agregar_frames[4]=tk.Frame(options, bg = '#080808')
+agregar_frames[4].grid(row=5,column=0,sticky='NWSE', pady=2, padx=10)
+categoria=ttk.Label(agregar_frames[4], text="CATEGORIA", anchor=tk.CENTER, background='#E0E0E0')
+categoria.pack(side='right', fill='both', expand=1, padx=5, pady=1)
 categoria.bind("<Button-1>", lambda x: OnClick(4))
 categoria.bind("<Enter>", LabelEnter)
 categoria.bind("<Leave>", LabelLeave)
