@@ -12,16 +12,21 @@ def OnClick(event):
     if(event==0):
         ShowAgregar(0)
         display.config(bg="#04517D")
+        labelDisplay.pack_forget()
     if(event==1):
+        labelDisplay.pack(side='top')
         ShowAgregar(1)
         display.config(bg='#2ECC71')
     if(event==2):
+        labelDisplay.pack(side='top')
         ShowAgregar(2)
         display.config(bg='#0781F4')
     if(event==3):
+        labelDisplay.pack(side='top')
         ShowAgregar(3)
         display.config(bg='#FF8F00')
     if(event==4):
+        labelDisplay.pack(side='top')
         ShowAgregar(4)
         display.config(bg='#F50052')
     return
@@ -42,10 +47,10 @@ def ShowAgregar(index):
     
 window = tk.Tk()
 window.title('Base de datos')
-window.minsize(1080, 600)
+window.minsize(1080, 700)
 
 w = 1080 # width for the Tk root
-h = 600 # height for the Tk root
+h = 700 # height for the Tk root
 
 # get screen width and height
 ws = window.winfo_screenwidth() # width of the screen
@@ -77,6 +82,7 @@ marketImg = marketImg.subsample(6)
 
 labelDisplay = tk.Label(display, bg = '#eee6b8', image = marketImg)
 labelDisplay.pack()
+labelDisplay.pack_forget()
 #********************************** IMAGES ********************************************
 employeeImg = PhotoImage(file = "employee.png")
 employeeImg = employeeImg.zoom(2)
@@ -103,7 +109,7 @@ interface_agregar[0].configure(bg='#04517D')
 interface_agregar[0].pack_forget()
 
 #---------------------------------------->Empleado<-------------------------------------
-interface_agregar[1].pack(fill=tk.BOTH, expand=True)
+interface_agregar[1].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[1].configure(bg='white')
 interface_agregar[1].pack_forget()
 
@@ -112,70 +118,70 @@ LabelEmployee.grid(row = 10, column = 4, columnspan = 2, rowspan = 12)
 
 ttk.Label(interface_agregar[1], text="   REGISTRO DE EMPLEADO     ", 
 font=("Times", 20), background='white').grid(row=0, column=2)
-ttk.Label(interface_agregar[1], text="ID:", font=("Fixedsys", 16), background='white').grid(row=2, column=1)
-ttk.Label(interface_agregar[1], text="Nombre:", font=("Fixedsys", 16),  background='white').grid(row=4, column=1)
-ttk.Label(interface_agregar[1], text="RFC:", font=("Fixedsys", 16),  background='white').grid(row=6, column=1)
-ttk.Label(interface_agregar[1], text="Fecha Nacimiento:", font=("Fixedsys", 16),  background='white').grid(row=8, column=1)
-ttk.Label(interface_agregar[1], text="Fecha Ingreso:", font=("Fixedsys", 16),  background='white').grid(row=10, column=1)
-ttk.Label(interface_agregar[1], text="Lugar Nacimiento:", font=("Fixedsys", 16),  background='white').grid(row=12, column=1)
-ttk.Label(interface_agregar[1], text="Ciudad:", font=("Fixedsys", 16),  background='white').grid(row=14, column=1)
-ttk.Label(interface_agregar[1], text="Estado:", font=("Fixedsys", 16),  background='white').grid(row=16, column=1)
-ttk.Label(interface_agregar[1], text="País:", font=("Fixedsys", 16),  background='white').grid(row=18, column=1)
-ttk.Label(interface_agregar[1], text="Dirección:", font=("Fixedsys", 16),  background='white').grid(row=20, column=1)
-ttk.Label(interface_agregar[1], text="Calle:", font=("Fixedsys", 16),  background='white').grid(row=22, column=1)
-ttk.Label(interface_agregar[1], text="Colonia:", font=("Fixedsys", 16),  background='white').grid(row=24, column=1)
-ttk.Label(interface_agregar[1], text="CP:", font=("Fixedsys", 16),  background='white').grid(row=26, column=1)
-ttk.Label(interface_agregar[1], text="Teléfono:", font=("Fixedsys", 16),  background='white').grid(row=28, column=1)
-ttk.Label(interface_agregar[1], text="Sueldo:", font=("Fixedsys", 16),  background='white').grid(row=30, column=1)
+ttk.Label(interface_agregar[1], text="ID:", font=("Fixedsys", 16), background='white').grid(row=2, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Nombre:", font=("Fixedsys", 16),  background='white').grid(row=4, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="RFC:", font=("Fixedsys", 16),  background='white').grid(row=6, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Fecha Nacimiento:", font=("Fixedsys", 16),  background='white').grid(row=8, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Fecha Ingreso:", font=("Fixedsys", 16),  background='white').grid(row=10, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Lugar Nacimiento:", font=("Fixedsys", 16),  background='white').grid(row=12, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Ciudad:", font=("Fixedsys", 16),  background='white').grid(row=14, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Estado:", font=("Fixedsys", 16),  background='white').grid(row=16, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="País:", font=("Fixedsys", 16),  background='white').grid(row=18, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Dirección:", font=("Fixedsys", 16),  background='white').grid(row=20, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Calle:", font=("Fixedsys", 16),  background='white').grid(row=22, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Colonia:", font=("Fixedsys", 16),  background='white').grid(row=24, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="CP:", font=("Fixedsys", 16),  background='white').grid(row=26, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Teléfono:", font=("Fixedsys", 16),  background='white').grid(row=28, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Sueldo:", font=("Fixedsys", 16),  background='white').grid(row=30, column=1, pady=2)
 
 
 aidi = ttk.Entry(interface_agregar[1], width=15)
-aidi.grid(row=2, column=2)
+aidi.grid(row=2, column=2, pady=2)
 
 nombreEmp = ttk.Entry(interface_agregar[1], width = 15)
-nombreEmp.grid(row = 4, column = 2)
+nombreEmp.grid(row = 4, column = 2, pady=2)
 
 rfcEmp = ttk.Entry(interface_agregar[1], width = 15)
-rfcEmp.grid(row = 6, column = 2)
+rfcEmp.grid(row = 6, column = 2, pady=2)
 
 fechaNacEmp = ttk.Entry(interface_agregar[1], width = 15)
-fechaNacEmp.grid(row = 8, column = 2) 
+fechaNacEmp.grid(row = 8, column = 2, pady=2) 
 
 fechaIngresoEmp = ttk.Entry(interface_agregar[1], width = 15)
-fechaIngresoEmp.grid(row = 10, column = 2)
+fechaIngresoEmp.grid(row = 10, column = 2, pady=2)
 
 lugNacEmp = ttk.Entry(interface_agregar[1], width = 15)
-lugNacEmp.grid(row = 12, column = 2)
+lugNacEmp.grid(row = 12, column = 2, pady=2)
 
 ciudadEmp = ttk.Entry(interface_agregar[1], width = 15)
-ciudadEmp.grid(row = 14, column = 2)
+ciudadEmp.grid(row = 14, column = 2, pady=2)
 
 estadoEmp = ttk.Entry(interface_agregar[1], width = 15)
-estadoEmp.grid(row = 16, column = 2)
+estadoEmp.grid(row = 16, column = 2, pady=2)
 
 paisEmp = ttk.Entry(interface_agregar[1], width = 15)
-paisEmp.grid(row = 18, column = 2)
+paisEmp.grid(row = 18, column = 2, pady=2)
 
 direccEmp = ttk.Entry(interface_agregar[1], width = 15)
-direccEmp.grid(row = 20, column = 2)
+direccEmp.grid(row = 20, column = 2, pady=2)
 
 calleEmp = ttk.Entry(interface_agregar[1], width = 15)
-calleEmp.grid(row = 22, column = 2)
+calleEmp.grid(row = 22, column = 2, pady=2)
 
 coloniaEmp = ttk.Entry(interface_agregar[1], width = 15)
-coloniaEmp.grid(row = 24, column = 2)
+coloniaEmp.grid(row = 24, column = 2, pady=2)
 
 cpEmp = ttk.Entry(interface_agregar[1], width = 15)
-cpEmp.grid(row = 26, column = 2)
+cpEmp.grid(row = 26, column = 2, pady=2)
 
 telEmp = ttk.Entry(interface_agregar[1], width = 15)
-telEmp.grid(row = 28, column = 2)
+telEmp.grid(row = 28, column = 2, pady=2)
 
 sueldoEmp = ttk.Entry(interface_agregar[1], width = 15)
-sueldoEmp.grid(row = 30, column = 2)
+sueldoEmp.grid(row = 30, column = 2, pady=2)
 
 submitEmp=tk.Button(interface_agregar[1], text="Ingresar", background='#2ECC71', fg='white',relief=tk.FLAT)
-submitEmp.grid(row=32, column=2)
+submitEmp.grid(row=32, column=2, pady=2)
 #*****************************************************************************
 
 #************************************************Proveedor******************************************
@@ -188,41 +194,41 @@ labelSupplier.grid(row = 10, column = 4, columnspan = 2, rowspan = 12)
 
 ttk.Label(interface_agregar[2], text="      REGISTRO DE PROVEEDOR     ", 
 font=("Times", 20), background='white').grid(row=2, column=2)
-ttk.Label(interface_agregar[2], text="Clave:",font=("Fixedsys", 16), background='white').grid(row=4, column=1)
-ttk.Label(interface_agregar[2], text="Nombre:",font=("Fixedsys", 16), background='white').grid(row=6, column=1)
-ttk.Label(interface_agregar[2], text="RFC:",font=("Fixedsys", 16), background='white').grid(row=8, column=1)
-ttk.Label(interface_agregar[2], text="Nombre Empresa:",font=("Fixedsys", 16), background='white').grid(row=10, column=1)
-ttk.Label(interface_agregar[2], text="Ciudad:",font=("Fixedsys", 16), background='white').grid(row=12, column=1)
-ttk.Label(interface_agregar[2], text="Calle:",font=("Fixedsys", 16), background='white').grid(row=14, column=1)
-ttk.Label(interface_agregar[2], text="Colonia:",font=("Fixedsys", 16), background='white').grid(row=16, column=1)
-ttk.Label(interface_agregar[2], text="CP:",font=("Fixedsys", 16), background='white').grid(row=18, column=1)
+ttk.Label(interface_agregar[2], text="Clave:",font=("Fixedsys", 16), background='white').grid(row=4, column=1, pady=5)
+ttk.Label(interface_agregar[2], text="Nombre:",font=("Fixedsys", 16), background='white').grid(row=6, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="RFC:",font=("Fixedsys", 16), background='white').grid(row=8, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Nombre Empresa:",font=("Fixedsys", 16), background='white').grid(row=10, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Ciudad:",font=("Fixedsys", 16), background='white').grid(row=12, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Calle:",font=("Fixedsys", 16), background='white').grid(row=14, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Colonia:",font=("Fixedsys", 16), background='white').grid(row=16, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="CP:",font=("Fixedsys", 16), background='white').grid(row=18, column=1,pady=5)
 
 claveProv = ttk.Entry(interface_agregar[2], width = 15)
-claveProv.grid(row = 4, column = 2)
+claveProv.grid(row = 4, column = 2,pady=5)
 
 nombreProv = ttk.Entry(interface_agregar[2], width = 15)
-nombreProv.grid(row = 6, column = 2)
+nombreProv.grid(row = 6, column = 2,pady=5)
 
 rfcProv = ttk.Entry(interface_agregar[2], width = 15)
-rfcProv.grid(row = 8, column = 2)
+rfcProv.grid(row = 8, column = 2,pady=5)
 
 empresaProv = ttk.Entry(interface_agregar[2], width = 15)
-empresaProv.grid(row = 10, column = 2)
+empresaProv.grid(row = 10, column = 2,pady=5)
 
 ciudadProv = ttk.Entry(interface_agregar[2], width = 15)
-ciudadProv.grid(row = 12, column = 2)
+ciudadProv.grid(row = 12, column = 2,pady=5)
 
 calleProv = ttk.Entry(interface_agregar[2], width = 15)
-calleProv.grid(row = 14, column = 2)
+calleProv.grid(row = 14, column = 2,pady=5)
 
 coloniaProv = ttk.Entry(interface_agregar[2], width = 15)
-coloniaProv.grid(row = 16, column = 2)
+coloniaProv.grid(row = 16, column = 2,pady=5)
 
 cpProv = ttk.Entry(interface_agregar[2], width = 15)
-cpProv.grid(row = 18, column = 2)
+cpProv.grid(row = 18, column = 2,pady=5)
 
 submitProv=tk.Button(interface_agregar[2], text="Ingresar", background='#0781F4', fg='white',relief=tk.FLAT)
-submitProv.grid(row=22, column=2)
+submitProv.grid(row=22, column=2,pady=5)
 #************************************************************************
 
 
@@ -236,33 +242,33 @@ labelBox.grid(row = 4, column = 4, columnspan = 2, rowspan = 12)
 
 ttk.Label(interface_agregar[3], text="   REGISTRO DE PRODUCTOS     ", 
 font=("Times", 20), background='white').grid(row=0, column=2)
-ttk.Label(interface_agregar[3], text="Código de barras:",font=("Fixedsys", 16), background='white').grid(row=2, column=1)
-ttk.Label(interface_agregar[3], text="Nombre:",font=("Fixedsys", 16), background='white').grid(row=4, column=1)
-ttk.Label(interface_agregar[3], text="Marca:",font=("Fixedsys", 16), background='white').grid(row=6, column=1)
-ttk.Label(interface_agregar[3], text="Existencia:",font=("Fixedsys", 16), background='white').grid(row=8, column=1)
-ttk.Label(interface_agregar[3], text="Costo:",font=("Fixedsys", 16), background='white').grid(row=10, column=1)
-ttk.Label(interface_agregar[3], text="Proveedor:",font=("Fixedsys", 16), background='white').grid(row=12, column=1)
+ttk.Label(interface_agregar[3], text="Código de barras:",font=("Fixedsys", 16), background='white').grid(row=2, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Nombre:",font=("Fixedsys", 16), background='white').grid(row=4, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Marca:",font=("Fixedsys", 16), background='white').grid(row=6, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Existencia:",font=("Fixedsys", 16), background='white').grid(row=8, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Costo:",font=("Fixedsys", 16), background='white').grid(row=10, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Proveedor:",font=("Fixedsys", 16), background='white').grid(row=12, column=1, pady=5)
 
 codigoProd = ttk.Entry(interface_agregar[3], width = 15)
-codigoProd.grid(row = 2, column = 2)
+codigoProd.grid(row = 2, column = 2, pady=5)
 
 nombreProd = ttk.Entry(interface_agregar[3], width = 15)
-nombreProd.grid(row = 4, column = 2)
+nombreProd.grid(row = 4, column = 2, pady=5)
 
 marcaProd = ttk.Entry(interface_agregar[3], width = 15)
-marcaProd.grid(row = 6, column = 2)
+marcaProd.grid(row = 6, column = 2, pady=5)
 
 existProd = ttk.Entry(interface_agregar[3], width = 15)
-existProd.grid(row = 8, column = 2)
+existProd.grid(row = 8, column = 2, pady=5)
 
 costoProd = ttk.Entry(interface_agregar[3], width = 15)
-costoProd.grid(row = 10, column = 2)
+costoProd.grid(row = 10, column = 2, pady=5)
 
 provedorProd = ttk.Entry(interface_agregar[3], width = 15)
-provedorProd.grid(row = 12, column = 2)
+provedorProd.grid(row = 12, column = 2, pady=5)
 
 submitProd=tk.Button(interface_agregar[3], text="Ingresar", background='#FF8F00', fg='white',relief=tk.FLAT)
-submitProd.grid(row=14, column=2)
+submitProd.grid(row=14, column=2, pady=5)
 #**************************************************************************
 
 #Venta
