@@ -6,9 +6,9 @@ from tkinter import *
 import mysql.connector as mysql
 
 def main():
-    window.mainloop()
     hola()
     tableEmp()
+    window.mainloop()
 
 def OnClick(event):
     if(event==0):
@@ -359,10 +359,12 @@ show.grid(row=6, column=0, sticky='NWSE', pady=5)
 
 interface_agregar[5].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[5].configure(bg='white')
+interface_agregar[5].rowconfigure(0, weight=1)
+interface_agregar[5].rowconfigure(2, weight=1)
 interface_agregar[5].pack_forget()
 
 ttk.Label(interface_agregar[5], text="        LISTA DE EMPLEADOS     ", 
-font=("Times", 20), background='white').grid(row=0, column=2)
+font=("Times", 20), background='white').grid(row=0, column=0, sticky='NEWS')
 
 agregar_frames[5]=tk.Frame(options, bg = '#ffa751')
 agregar_frames[5].grid(row=7,column=0,sticky='NWSE', pady=2, padx=10)
@@ -373,14 +375,46 @@ employeeShow.bind("<Enter>", LabelEnter)
 employeeShow.bind("<Leave>", LabelLeave)
 
 employeeTable = ttk.Treeview(interface_agregar[5])
-employeeTable.grid()
-employeeTable['columns'] = ( 'jhgjh')
+employeeTable.grid(row=2, column=0,sticky='NEWS')
+employeeTable['columns'] = (
+                             'nombre','apellidoP','apellidoM','rfc','fechaNac',
+                             'fechaIng','lugarNac','ciudad','estado','pais','calle',
+                             'colonia','cp','telefono','sueldo'
+                            )
 
 def tableEmp():
-    employeeTable.heading("#0", text='aahhh', anchor='center')
+    employeeTable.heading("#0", text='ay di', anchor='center')
     employeeTable.column("#0", anchor="w",width=80)
-    employeeTable.heading('jhgjh', text='jeje')
-    employeeTable.column('jhgjh', anchor='center', width=80)
+    employeeTable.heading('nombre', text='Nombre')
+    employeeTable.column('nombre', anchor='center', width=80)
+    employeeTable.heading('apellidoP', text='Apellido P')
+    employeeTable.column('apellidoP', anchor='center', width=80)
+    employeeTable.heading('apellidoM', text='Apelldio M')
+    employeeTable.column('apellidoM', anchor='center', width=80)
+    employeeTable.heading('rfc', text='RFC')
+    employeeTable.column('rfc', anchor='center', width=80)
+    employeeTable.heading('fechaNac', text='FechaNac')
+    employeeTable.column('fechaNac', anchor='center', width=80)
+    employeeTable.heading('fechaIng', text='FechaIng')
+    employeeTable.column('fechaIng', anchor='center', width=80)
+    employeeTable.heading('lugarNac', text='LugarNac')
+    employeeTable.column('lugarNac', anchor='center', width=80)
+    employeeTable.heading('ciudad', text='Ciudad')
+    employeeTable.column('ciudad', anchor='center', width=80)
+    employeeTable.heading('estado', text='Estado')
+    employeeTable.column('estado', anchor='center', width=80)
+    employeeTable.heading('pais', text='Pais')
+    employeeTable.column('pais', anchor='center', width=80)
+    employeeTable.heading('calle', text='Calle')
+    employeeTable.column('calle', anchor='center', width=80)
+    employeeTable.heading('colonia', text='Colonia')
+    employeeTable.column('colonia', anchor='center', width=80)
+    employeeTable.heading('cp', text='CP')
+    employeeTable.column('cp', anchor='center', width=80)
+    employeeTable.heading('telefono', text='Tel')
+    employeeTable.column('telefono', anchor='center', width=80)
+    employeeTable.heading('sueldo', text='Sueldo')
+    employeeTable.column('sueldo', anchor='center', width=80)
 
 
 main()
