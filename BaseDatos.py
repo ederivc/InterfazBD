@@ -304,7 +304,7 @@ relief=tk.FLAT, command = lambda: regEmp(aidi.get(), nombreEmp.get(), apPatEmp.g
 apMatEmp.get(), rfcEmp.get(), fechaNacEmp.get(), fechaIngresoEmp.get(), lugNacEmp.get(),
 ciudadEmp.get(), estadoEmp.get(), paisEmp.get(), calleEmp.get(), coloniaEmp.get(), 
 cpEmp.get(), telEmp.get(), sueldoEmp.get()))
-submitEmp.grid(row=30, column=2, pady=2)
+submitEmp.grid(row=34, column=2, pady=2)
 #*****************************************************************************
 
 #************************************************PROVEEDOR******************************************
