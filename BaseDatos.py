@@ -180,7 +180,6 @@ y = (hs/2) - (h/2)
 # and where it is placed
 window.geometry('%dx%d+%d+%d' % (w, h, x, y))
 
-window.columnconfigure(0, weight=1)
 window.rowconfigure(0, weight=1)
 window.columnconfigure(1, weight=4)
 window.config(bg='#282828')
@@ -474,11 +473,15 @@ show.grid(row=6, column=0, sticky='NWSE', pady=5)
 interface_agregar[5].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[5].configure(bg='white')
 interface_agregar[5].rowconfigure(0, weight=1)
-interface_agregar[5].rowconfigure(2, weight=1)
+interface_agregar[5].rowconfigure(4, weight=1)
+interface_agregar[5].columnconfigure(0, weight=1)
+interface_agregar[5].columnconfigure(1, weight=2)
+interface_agregar[5].columnconfigure(2, weight=2)
+interface_agregar[5].columnconfigure(3, weight=2)
 interface_agregar[5].pack_forget()
 
 ttk.Label(interface_agregar[5], text="       \t LISTA DE EMPLEADOS     ", 
-font=("Times", 20), background='white').grid(row=0, column=0, sticky='NEWS')
+font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
 
 agregar_frames[5]=tk.Frame(options, bg = '#080808')
 agregar_frames[5].grid(row=7,column=0,sticky='NWSE', pady=2, padx=10)
@@ -522,8 +525,9 @@ supplierShow.bind("<Button-1>", lambda x: OnClick(7))
 supplierShow.bind("<Enter>", LabelEnter)
 supplierShow.bind("<Leave>", LabelLeave)
 #***********************************************************************************
+
 employeeTable = ttk.Treeview(interface_agregar[5])
-employeeTable.grid(row=2, column=0,sticky='NEWS')
+employeeTable.grid(row=2, column=1, columnspan=2, padx=15, pady=5)
 employeeTable['columns'] = (
                              'nombre','apellidoP','apellidoM','rfc','fechaNac',
                              'fechaIng','lugarNac','ciudad','estado','pais','calle',
@@ -540,39 +544,49 @@ productTable.grid(row=2, column=0,sticky='NEWS')
 productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Proveedor', 
                             'Categoria')
 
+#--------------------scrollbar----------------
+employee_xscrollb= ttk.Scrollbar(interface_agregar[5], orient="horizontal", command=employeeTable.xview)
+employee_xscrollb.grid(row=3, column=1, sticky='WE')
+employeeTable.configure(xscrollcommand=employee_xscrollb.set)
+
+employee_yscrollb= ttk.Scrollbar(interface_agregar[5], orient="vertical", command=employeeTable.yview)
+employee_yscrollb.grid(row=2, column=4, sticky='NS')
+employeeTable.configure(yscrollcommand=employee_yscrollb.set)
+
+
 def tableEmp():
     employeeTable.heading("#0", text='ay di', anchor='center')
-    employeeTable.column("#0", anchor="w",width=80)
+    employeeTable.column("#0", anchor="w",width=80, stretch=False)
     employeeTable.heading('nombre', text='Nombre')
-    employeeTable.column('nombre', anchor='center', width=80)
+    employeeTable.column('nombre', anchor='center', width=80, stretch=False)
     employeeTable.heading('apellidoP', text='Apellido P')
-    employeeTable.column('apellidoP', anchor='center', width=80)
+    employeeTable.column('apellidoP', anchor='center', width=80, stretch=False)
     employeeTable.heading('apellidoM', text='Apelldio M')
-    employeeTable.column('apellidoM', anchor='center', width=80)
+    employeeTable.column('apellidoM', anchor='center', width=80, stretch=False)
     employeeTable.heading('rfc', text='RFC')
-    employeeTable.column('rfc', anchor='center', width=80)
+    employeeTable.column('rfc', anchor='center', width=80, stretch=False)
     employeeTable.heading('fechaNac', text='FechaNac')
-    employeeTable.column('fechaNac', anchor='center', width=80)
+    employeeTable.column('fechaNac', anchor='center', width=80, stretch=False)
     employeeTable.heading('fechaIng', text='FechaIng')
-    employeeTable.column('fechaIng', anchor='center', width=80)
+    employeeTable.column('fechaIng', anchor='center', width=80, stretch=False)
     employeeTable.heading('lugarNac', text='LugarNac')
-    employeeTable.column('lugarNac', anchor='center', width=80)
+    employeeTable.column('lugarNac', anchor='center', width=80, stretch=False)
     employeeTable.heading('ciudad', text='Ciudad')
-    employeeTable.column('ciudad', anchor='center', width=80)
+    employeeTable.column('ciudad', anchor='center', width=80, stretch=False)
     employeeTable.heading('estado', text='Estado')
-    employeeTable.column('estado', anchor='center', width=80)
+    employeeTable.column('estado', anchor='center', width=80, stretch=False)
     employeeTable.heading('pais', text='Pais')
-    employeeTable.column('pais', anchor='center', width=80)
+    employeeTable.column('pais', anchor='center', width=80, stretch=False)
     employeeTable.heading('calle', text='Calle')
-    employeeTable.column('calle', anchor='center', width=80)
+    employeeTable.column('calle', anchor='center', width=80, stretch=False)
     employeeTable.heading('colonia', text='Colonia')
-    employeeTable.column('colonia', anchor='center', width=80)
+    employeeTable.column('colonia', anchor='center', width=80, stretch=False)
     employeeTable.heading('cp', text='CP')
-    employeeTable.column('cp', anchor='center', width=80)
+    employeeTable.column('cp', anchor='center', width=80, stretch=False)
     employeeTable.heading('telefono', text='Tel')
-    employeeTable.column('telefono', anchor='center', width=80)
+    employeeTable.column('telefono', anchor='center', width=80, stretch=False)
     employeeTable.heading('sueldo', text='Sueldo')
-    employeeTable.column('sueldo', anchor='center', width=80)
+    employeeTable.column('sueldo', anchor='center', width=80, stretch=False)
 
 
 def tableSupplier():
