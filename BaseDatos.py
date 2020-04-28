@@ -42,11 +42,7 @@ def OnClick(event):
     if(event == 6):
         labelDisplay.pack(side='top')
         ShowAgregar(6)
-        display.config(bg='#6f3eab')  
-    if(event == 7):
-        labelDisplay.pack(side='top')
-        ShowAgregar(7)
-        display.config(bg='#ffc0cb')        
+        display.config(bg='#6f3eab')         
     return
 
 def LabelEnter(event):
@@ -65,6 +61,28 @@ def ShowAgregar(index):
         x+=1
     interface_agregar[index].pack(fill=tk.BOTH, expand=True,  padx=5, pady=5)
     agregar_frames[index].config(bg='#0781F4')
+
+def choose():
+    window = tk.Tk()
+    window.title("CATALOGOS")
+    window.minsize(297, 200)
+    window.maxsize(297,200)
+    window.configure(bg = 'red')
+
+    frame1 = tk.Frame(window)
+    frame1.grid(row = 0, column = 0)
+
+    labeQue = ttk.Label(frame1, text=" ¿Que catalogo quieres ver?", font= ("Times",20), 
+    background = 'blue')
+    labeQue.grid(row = 0, column = 0)
+
+    rad1 = ttk.Radiobutton(frame1, text = "Productos")
+    rad1.grid(row = 2, column = 0, padx = 0)
+
+    rad2 = ttk.Radiobutton(frame1, text = "Formas de pago")
+    rad2.grid(row = 3, column = 0, padx = 0)
+
+    window.mainloop()
     
 def regEmp(aidi, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp, lugNacEmp,
 ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
@@ -165,7 +183,7 @@ window = tk.Tk()
 window.title('Base de datos')
 window.minsize(1080, 700)
 
-w = 1080 # width for the Tk root
+w = 1140 # width for the Tk root
 h = 700 # height for the Tk root
 
 # get screen width and height
@@ -184,11 +202,15 @@ window.rowconfigure(0, weight=1)
 window.columnconfigure(1, weight=4)
 window.config(bg='#282828')
 
-options= tk.Frame(window, bg="#080808")
+options= tk.Frame(window, bg="#8c95f1")
 options.grid(row=0,column=0, sticky='NSWE')
 options.columnconfigure(0, weight=1)
 
-display=tk.Frame(window, bg="#04517D")
+shopImg = PhotoImage(file = "shop.png")
+shopImg = shopImg.zoom(2)
+shopImg = shopImg.subsample(6)
+
+display = tk.Frame(window, bg="#04517D")
 display.grid(row=0,column=1, sticky='NSWE', padx=7, pady=7)
 
 marketImg = PhotoImage(file = "market.png")
@@ -403,15 +425,6 @@ submitProd.grid(row=16, column=2, pady=5)
 #**************************************************************************
 
 #**************************************** INGRESAR ****************************************
-interface_agregar[4].pack(fill=tk.BOTH, expand=True)
-interface_agregar[4].configure(bg='white')
-interface_agregar[4].pack_forget()
-
-ttk.Label(interface_agregar[4], text="que va aqui xd?",font=("Fixedsys", 16), background='white').grid(row=0, column=0)
-
-submitVenta=tk.Button(interface_agregar[4], text="Ingresar", background='#F50052', fg='white',relief=tk.FLAT)
-submitVenta.grid(row=1, column=1)
-
 #Option -> Agregar
 agregar_frames= []
 
@@ -420,10 +433,10 @@ for x in range(8):
 
 
 title = tk.Frame(options, bg = '#005ea5')
-title.grid(row=0, column=0, sticky='NWSE', pady=5)
-labelTitle = ttk.Label(title, text = '     TIENDA DE \n    CONVENIENCIA', width = 18, background = '#446b75')
+title.grid(row=0, column=0, sticky='NWSE', pady=8)
+labelTitle = ttk.Label(title, text = '      TIENDA DE \n    CONVENIENCIA', width = 20, background = '#90d2d8')
 labelTitle.pack(side = tk.TOP, anchor = 'center')
-labelTitle.config(font=("Courier", 15))
+labelTitle.config(font=("Courier", 20))
 labelTitle.bind("<Button-1>", lambda x: OnClick(0))
 
 agregar_frames[0]=tk.Frame(options)
@@ -456,106 +469,106 @@ producto.bind("<Button-1>", lambda x: OnClick(3))
 producto.bind("<Enter>", LabelEnter)
 producto.bind("<Leave>", LabelLeave)
 
-agregar_frames[4]=tk.Frame(options, bg = '#080808')
-agregar_frames[4].grid(row=5,column=0,sticky='NWSE', pady=2, padx=10)
-categoria=ttk.Label(agregar_frames[4], text="CATEGORIA", anchor=tk.CENTER, background='#E0E0E0')
-categoria.pack(side='right', fill='both', expand=1, padx=5, pady=1)
-categoria.bind("<Button-1>", lambda x: OnClick(4))
-categoria.bind("<Enter>", LabelEnter)
-categoria.bind("<Leave>", LabelLeave)
-
-
 #**************************************** MOSTRAR ************************************
 
 show = ttk.Label(options, text="MOSTRAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
-show.grid(row=6, column=0, sticky='NWSE', pady=5)
+show.grid(row=5, column=0, sticky='NWSE', pady=5)
 #************************************************************************************
-interface_agregar[5].pack(side='bottom',fill=tk.BOTH, expand=True)
-interface_agregar[5].configure(bg='white')
-interface_agregar[5].rowconfigure(0, weight=1)
-interface_agregar[5].rowconfigure(4, weight=1)
-interface_agregar[5].columnconfigure(0, weight=1)
-interface_agregar[5].columnconfigure(1, weight=2)
-interface_agregar[5].columnconfigure(2, weight=2)
-interface_agregar[5].columnconfigure(3, weight=2)
-interface_agregar[5].pack_forget()
+interface_agregar[4].pack(side='bottom',fill=tk.BOTH, expand=True)
+interface_agregar[4].configure(bg='white')
+interface_agregar[4].rowconfigure(0, weight=1)
+interface_agregar[4].rowconfigure(4, weight=1)
+interface_agregar[4].columnconfigure(0, weight=1)
+interface_agregar[4].columnconfigure(1, weight=2)
+interface_agregar[4].columnconfigure(2, weight=2)
+interface_agregar[4].columnconfigure(3, weight=2)
+interface_agregar[4].pack_forget()
 
-ttk.Label(interface_agregar[5], text="       \t LISTA DE EMPLEADOS     ", 
-font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+ttk.Label(interface_agregar[4], text="       \t LISTA DE EMPLEADOS     ", 
+font=("Times", 20), background='white').grid(row=0, column=2, sticky='NEWS')
 
-agregar_frames[5]=tk.Frame(options, bg = '#080808')
-agregar_frames[5].grid(row=7,column=0,sticky='NWSE', pady=2, padx=10)
-employeeShow=ttk.Label(agregar_frames[5], text="EMPLEADO", anchor=tk.CENTER, background='#E0E0E0')
+agregar_frames[4]=tk.Frame(options, bg = '#080808')
+agregar_frames[4].grid(row=6,column=0,sticky='NWSE', pady=2, padx=10)
+employeeShow=ttk.Label(agregar_frames[4], text="EMPLEADO", anchor=tk.CENTER, background='#E0E0E0')
 employeeShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
-employeeShow.bind("<Button-1>", lambda x: OnClick(5))
+employeeShow.bind("<Button-1>", lambda x: OnClick(4))
 employeeShow.bind("<Enter>", LabelEnter)
 employeeShow.bind("<Leave>", LabelLeave)
 #********************************************************************************************
+interface_agregar[5].pack(side='bottom',fill=tk.BOTH, expand=True)
+interface_agregar[5].configure(bg='white')
+interface_agregar[5].rowconfigure(0, weight=1)
+interface_agregar[5].rowconfigure(2, weight=1)
+interface_agregar[5].pack_forget()
+
+ttk.Label(interface_agregar[5], text="       \t LISTA DE PROVEEDORES     ", 
+font=("Times", 20), background='white').grid(row=0, column=0, sticky='NEWS')
+
+agregar_frames[5]=tk.Frame(options, bg = '#080808')
+agregar_frames[5].grid(row=7,column=0,sticky='NWSE', pady=2, padx=10)
+supplierShow=ttk.Label(agregar_frames[5], text="PROVEEDOR", anchor=tk.CENTER, background='#E0E0E0')
+supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
+supplierShow.bind("<Button-1>", lambda x: OnClick(5))
+supplierShow.bind("<Enter>", LabelEnter)
+supplierShow.bind("<Leave>", LabelLeave)
+#*************************************************************************
 interface_agregar[6].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[6].configure(bg='white')
 interface_agregar[6].rowconfigure(0, weight=1)
 interface_agregar[6].rowconfigure(2, weight=1)
 interface_agregar[6].pack_forget()
 
-ttk.Label(interface_agregar[6], text="       \t LISTA DE PROVEEDORES     ", 
+ttk.Label(interface_agregar[6], text="       \t LISTA DE PRODUCTOS     ", 
 font=("Times", 20), background='white').grid(row=0, column=0, sticky='NEWS')
 
 agregar_frames[6]=tk.Frame(options, bg = '#080808')
 agregar_frames[6].grid(row=8,column=0,sticky='NWSE', pady=2, padx=10)
-supplierShow=ttk.Label(agregar_frames[6], text="PROVEEDOR", anchor=tk.CENTER, background='#E0E0E0')
+supplierShow=ttk.Label(agregar_frames[6], text="PRODUCTO", anchor=tk.CENTER, background='#E0E0E0')
 supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
 supplierShow.bind("<Button-1>", lambda x: OnClick(6))
 supplierShow.bind("<Enter>", LabelEnter)
 supplierShow.bind("<Leave>", LabelLeave)
-#*************************************************************************
-interface_agregar[7].pack(side='bottom',fill=tk.BOTH, expand=True)
-interface_agregar[7].configure(bg='white')
-interface_agregar[7].rowconfigure(0, weight=1)
-interface_agregar[7].rowconfigure(2, weight=1)
-interface_agregar[7].pack_forget()
-
-ttk.Label(interface_agregar[7], text="       \t LISTA DE PRODUCTOS     ", 
-font=("Times", 20), background='white').grid(row=0, column=0, sticky='NEWS')
+#***********************************************************************************
 
 agregar_frames[7]=tk.Frame(options, bg = '#080808')
 agregar_frames[7].grid(row=9,column=0,sticky='NWSE', pady=2, padx=10)
-supplierShow=ttk.Label(agregar_frames[7], text="PRODUCTO", anchor=tk.CENTER, background='#E0E0E0')
+supplierShow=ttk.Label(agregar_frames[7], text="CATEGORIAS", anchor=tk.CENTER, background='#E0E0E0')
 supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
-supplierShow.bind("<Button-1>", lambda x: OnClick(7))
+supplierShow.bind("<Button-1>", lambda x: choose())
 supplierShow.bind("<Enter>", LabelEnter)
 supplierShow.bind("<Leave>", LabelLeave)
-#***********************************************************************************
 
-employeeTable = ttk.Treeview(interface_agregar[5])
-employeeTable.grid(row=2, column=1, columnspan=2, padx=15, pady=5)
+#*****************************************************************************************
+employeeTable = ttk.Treeview(interface_agregar[4])
+employeeTable.grid(row=1, column=1, columnspan=2, padx=15, pady=5)
 employeeTable['columns'] = (
                              'nombre','apellidoP','apellidoM','rfc','fechaNac',
                              'fechaIng','lugarNac','ciudad','estado','pais','calle',
                              'colonia','cp','telefono','sueldo'
                             )
 
-supplierTable = ttk.Treeview(interface_agregar[6])
+supplierTable = ttk.Treeview(interface_agregar[5])
 supplierTable.grid(row=2, column=0,sticky='NEWS')
 supplierTable['columns'] = ('Nombre', 'RFC', 'Empresa', 'Ciudad', 'Calle', 
                             'Colonia', 'CP')
 
-productTable = ttk.Treeview(interface_agregar[7])
+productTable = ttk.Treeview(interface_agregar[6])
 productTable.grid(row=2, column=0,sticky='NEWS')
 productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Proveedor', 
                             'Categoria')
 
 #--------------------scrollbar----------------
-employee_xscrollb= ttk.Scrollbar(interface_agregar[5], orient="horizontal", command=employeeTable.xview)
+employee_xscrollb= ttk.Scrollbar(interface_agregar[4], orient="horizontal", command=employeeTable.xview)
 employee_xscrollb.grid(row=3, column=1, sticky='WE')
 employeeTable.configure(xscrollcommand=employee_xscrollb.set)
 
-employee_yscrollb= ttk.Scrollbar(interface_agregar[5], orient="vertical", command=employeeTable.yview)
-employee_yscrollb.grid(row=2, column=4, sticky='NS')
+employee_yscrollb= ttk.Scrollbar(interface_agregar[4], orient="vertical", command=employeeTable.yview)
+employee_yscrollb.grid(row=1, column=4, sticky='NS')
 employeeTable.configure(yscrollcommand=employee_yscrollb.set)
 
 
 def tableEmp():
-    employeeTable.heading("#0", text='ay di', anchor='center')
+    employeeTable.heading("#0", text='ID', anchor='center')
     employeeTable.column("#0", anchor="w",width=80, stretch=False)
     employeeTable.heading('nombre', text='Nombre')
     employeeTable.column('nombre', anchor='center', width=80, stretch=False)
