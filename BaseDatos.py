@@ -171,6 +171,9 @@ def showSupplier(supplierTable):
     conexion.close()
 
 def showProduct(productTable):
+    for i in productTable.get_children():
+        productTable.delete(i)
+
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()
     operacion.execute( "SELECT * FROM product" )
@@ -428,7 +431,7 @@ submitProd.grid(row=16, column=2, pady=5)
 #Option -> Agregar
 agregar_frames= []
 
-for x in range(8):
+for x in range(9):
     agregar_frames.append(tk.Frame(options))
 
 
@@ -485,7 +488,7 @@ interface_agregar[4].columnconfigure(3, weight=2)
 interface_agregar[4].pack_forget()
 
 ttk.Label(interface_agregar[4], text="       \t LISTA DE EMPLEADOS     ", 
-font=("Times", 20), background='white').grid(row=0, column=2, sticky='NEWS')
+font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
 
 agregar_frames[4]=tk.Frame(options, bg = '#080808')
 agregar_frames[4].grid(row=6,column=0,sticky='NWSE', pady=2, padx=10)
@@ -497,12 +500,18 @@ employeeShow.bind("<Leave>", LabelLeave)
 #********************************************************************************************
 interface_agregar[5].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[5].configure(bg='white')
+
 interface_agregar[5].rowconfigure(0, weight=1)
 interface_agregar[5].rowconfigure(2, weight=1)
+interface_agregar[5].rowconfigure(3, weight=1)
+interface_agregar[5].columnconfigure(0, weight=1)
+interface_agregar[5].columnconfigure(1, weight=2)
+interface_agregar[5].columnconfigure(2, weight=2)
+interface_agregar[5].columnconfigure(3, weight=2)
 interface_agregar[5].pack_forget()
 
 ttk.Label(interface_agregar[5], text="       \t LISTA DE PROVEEDORES     ", 
-font=("Times", 20), background='white').grid(row=0, column=0, sticky='NEWS')
+font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
 
 agregar_frames[5]=tk.Frame(options, bg = '#080808')
 agregar_frames[5].grid(row=7,column=0,sticky='NWSE', pady=2, padx=10)
@@ -516,10 +525,15 @@ interface_agregar[6].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[6].configure(bg='white')
 interface_agregar[6].rowconfigure(0, weight=1)
 interface_agregar[6].rowconfigure(2, weight=1)
+interface_agregar[6].rowconfigure(3, weight=1)
+interface_agregar[6].columnconfigure(0, weight=1)
+interface_agregar[6].columnconfigure(1, weight=2)
+interface_agregar[6].columnconfigure(2, weight=2)
+interface_agregar[6].columnconfigure(3, weight=2)
 interface_agregar[6].pack_forget()
 
 ttk.Label(interface_agregar[6], text="       \t LISTA DE PRODUCTOS     ", 
-font=("Times", 20), background='white').grid(row=0, column=0, sticky='NEWS')
+font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
 
 agregar_frames[6]=tk.Frame(options, bg = '#080808')
 agregar_frames[6].grid(row=8,column=0,sticky='NWSE', pady=2, padx=10)
@@ -538,8 +552,28 @@ supplierShow.bind("<Button-1>", lambda x: choose())
 supplierShow.bind("<Enter>", LabelEnter)
 supplierShow.bind("<Leave>", LabelLeave)
 
+#**************************************** MOSTRAR ************************************
+
+show = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+show.grid(row=12, column=0, sticky='NWSE', pady=5)
+#************************************************************************************
+
 #*****************************************************************************************
-employeeTable = ttk.Treeview(interface_agregar[4])
+style = ttk.Style()
+style.element_create("Custom.Treeheading.border", "from", "default")
+style.layout("Custom.Treeview.Heading", [
+    ("Custom.Treeheading.cell", {'sticky': 'nswe'}),
+    ("Custom.Treeheading.border", {'sticky':'nswe', 'children': [
+        ("Custom.Treeheading.padding", {'sticky':'nswe', 'children': [
+            ("Custom.Treeheading.image", {'side':'right', 'sticky':''}),
+            ("Custom.Treeheading.text", {'sticky':'we'})
+        ]})
+    ]}),
+])
+style.configure("Custom.Treeview.Heading",
+    background="#212F3C", foreground="white",font=('Calibri',10,'bold') ,relief="flat")
+
+employeeTable = ttk.Treeview(interface_agregar[4],style="Custom.Treeview")
 employeeTable.grid(row=1, column=1, columnspan=2, padx=15, pady=5)
 employeeTable['columns'] = (
                              'nombre','apellidoP','apellidoM','rfc','fechaNac',
@@ -547,24 +581,33 @@ employeeTable['columns'] = (
                              'colonia','cp','telefono','sueldo'
                             )
 
-supplierTable = ttk.Treeview(interface_agregar[5])
-supplierTable.grid(row=2, column=0,sticky='NEWS')
+
+supplierTable = ttk.Treeview(interface_agregar[5], style="Custom.Treeview")
+supplierTable.grid(row=2, column=1,sticky='NEWS')
 supplierTable['columns'] = ('Nombre', 'RFC', 'Empresa', 'Ciudad', 'Calle', 
                             'Colonia', 'CP')
 
-productTable = ttk.Treeview(interface_agregar[6])
-productTable.grid(row=2, column=0,sticky='NEWS')
+productTable = ttk.Treeview(interface_agregar[6], style="Custom.Treeview")
+productTable.grid(row=2, column=1,sticky='NEWS')
 productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Proveedor', 
                             'Categoria')
 
 #--------------------scrollbar----------------
 employee_xscrollb= ttk.Scrollbar(interface_agregar[4], orient="horizontal", command=employeeTable.xview)
-employee_xscrollb.grid(row=3, column=1, sticky='WE')
+employee_xscrollb.grid(row=3, column=1, columnspan=2, sticky='WE')
 employeeTable.configure(xscrollcommand=employee_xscrollb.set)
 
 employee_yscrollb= ttk.Scrollbar(interface_agregar[4], orient="vertical", command=employeeTable.yview)
 employee_yscrollb.grid(row=1, column=4, sticky='NS')
 employeeTable.configure(yscrollcommand=employee_yscrollb.set)
+
+supplier_yscrollb= ttk.Scrollbar(interface_agregar[5], orient="vertical", command=supplierTable.yview)
+supplier_yscrollb.grid(row=2, column=2, sticky='NS')
+supplierTable.configure(yscrollcommand=supplier_yscrollb.set)
+
+product_yscrollb= ttk.Scrollbar(interface_agregar[6], orient="vertical", command=productTable.yview)
+product_yscrollb.grid(row=2, column=2, sticky='NS')
+productTable.configure(yscrollcommand=product_yscrollb.set)
 
 
 def tableEmp():
