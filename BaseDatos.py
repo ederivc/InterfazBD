@@ -65,23 +65,49 @@ def ShowAgregar(index):
 def choose():
     window = tk.Tk()
     window.title("CATALOGOS")
-    window.minsize(297, 200)
-    window.maxsize(297,200)
-    window.configure(bg = 'red')
+    window.minsize(297, 240)
+    window.maxsize(297,240)
 
-    frame1 = tk.Frame(window)
-    frame1.grid(row = 0, column = 0)
+    tabControl = ttk.Notebook(window)
+    tab1 = ttk.Frame(tabControl)
+    tab2 = ttk.Frame(tabControl)
 
-    labeQue = ttk.Label(frame1, text=" ¿Que catalogo quieres ver?", font= ("Times",20), 
-    background = 'blue')
-    labeQue.grid(row = 0, column = 0)
+    tabControl.add(tab1, text = "Productos")
+    tabControl.pack(expand = 1, fill = 'both')
 
-    rad1 = ttk.Radiobutton(frame1, text = "Productos")
-    rad1.grid(row = 2, column = 0, padx = 0)
+    tabControl.add(tab2, text = "Formas de pago")
+    tabControl.pack(expand = 1, fill = 'both')
 
-    rad2 = ttk.Radiobutton(frame1, text = "Formas de pago")
-    rad2.grid(row = 3, column = 0, padx = 0)
+    titleProd = ttk.Label(tab1, text = "Productos", font = ("Times", 15))
+    titleProd.grid(row = 1, column = 0)
 
+    cerveza_var = tk.IntVar()
+    cerveza = chBoton(tab1, "Cervezas", cerveza_var, 2, 0)
+    botana_var = tk.IntVar()
+    botana = chBoton(tab1, "Botanas  ", botana_var, 3, 0)
+    refrescos_var = tk.IntVar()
+    refrescos = chBoton(tab1, "Refrescos", refrescos_var, 4, 0)
+    abarrotes_var = tk.IntVar()
+    abarrotes = chBoton(tab1, "Abarrotes", abarrotes_var, 5, 0)
+    bot1 = defBoton(tab1, "Mostrar", 6, 5, print("a") , 20)
+
+    titlePay = ttk.Label(tab2, text = "Formas de Pago", font = ("Times", 15))
+    titlePay.grid(row = 1, column = 0)
+
+    cheques_var = tk.IntVar()
+    cheques = chBoton(tab2, "Cheques\t\t",cheques_var, 2, 0)
+    vales_var = tk.IntVar()
+    vales = chBoton(tab2, "Vales\t\t",vales_var, 3, 0)
+    tarCred_var = tk.IntVar()
+    tarCred = chBoton(tab2, "Tarjetas de credito  ", tarCred_var, 4, 0)
+    tarDeb_var = tk.IntVar()
+    tarDeb = chBoton(tab2, "Tarjetas de debito   ", tarDeb_var, 5, 0)
+    pagare_var = tk.IntVar()
+    pagare = chBoton(tab2, "Pagarés\t\t", pagare_var, 6, 0)
+    efect_var = tk.IntVar()
+    efect = chBoton(tab2, "Efectivo\t\t", efect_var, 7, 0)
+    bot2 = defBoton(tab2, "Mostrar", 8, 2, print("S"), 5)
+    
     window.mainloop()
     
 def regEmp(aidi, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp, lugNacEmp,
@@ -182,6 +208,13 @@ def showProduct(productTable):
         costoProd,provedorProd,categProd))
     conexion.close()
 
+def chBoton(tab, texto, variable, x ,y):
+    return ttk.Checkbutton(tab, text = texto, variable = variable).grid(row = x, 
+    column = y)
+
+def defBoton(tab, text, row, col, comando, px):
+    return ttk.Button(tab, text = text, command = comando).grid(row = row, column = col, padx = px)
+
 window = tk.Tk()
 window.title('Base de datos')
 window.minsize(1080, 700)
@@ -209,9 +242,9 @@ options= tk.Frame(window, bg="#8c95f1")
 options.grid(row=0,column=0, sticky='NSWE')
 options.columnconfigure(0, weight=1)
 
-shopImg = PhotoImage(file = "shop.png")
-shopImg = shopImg.zoom(2)
-shopImg = shopImg.subsample(6)
+#shopImg = PhotoImage(file = "shop.png")
+#shopImg = shopImg.zoom(2)
+#shopImg = shopImg.subsample(6)
 
 display = tk.Frame(window, bg="#04517D")
 display.grid(row=0,column=1, sticky='NSWE', padx=7, pady=7)
@@ -488,7 +521,7 @@ interface_agregar[4].columnconfigure(3, weight=2)
 interface_agregar[4].pack_forget()
 
 ttk.Label(interface_agregar[4], text="       \t LISTA DE EMPLEADOS     ", 
-font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+font=("Times", 20), background='white').grid(row=0, column=2, sticky='NEWS')
 
 agregar_frames[4]=tk.Frame(options, bg = '#080808')
 agregar_frames[4].grid(row=6,column=0,sticky='NWSE', pady=2, padx=10)
