@@ -49,6 +49,19 @@ def OnClick(event):
         display.config(bg='#3EBD5E')           
     return
 
+def  on_entry_click(event, widget):
+    if(widget=='codigoVenta'):
+        if codigoVenta.get() == 'Ingresa codigo de venta':
+            codigoVenta.delete(0, "end") # delete all the text in the entry
+            codigoVenta.insert(0, '') #Insert blank for user input
+            codigoVenta.config(foreground = 'black')
+
+def on_focusout(event, widget):
+    if(widget=='codigoVenta'):
+        if codigoVenta.get() == '':
+            codigoVenta.insert(0, 'Ingresa codigo de venta')
+            codigoVenta.config(foreground = 'grey')
+
 def LabelEnter(event):
     event.widget.config(background='#7f7f7f')
 
@@ -620,29 +633,47 @@ ttk.Label(interface_agregar[8], text="Clave empleado:",font=("Fixedsys", 9), bac
 
 
 
-codigoVenta = ttk.Entry(interface_agregar[8], width = 15)
+codigoVenta = ttk.Entry(interface_agregar[8], width = 30)
 codigoVenta.grid(row = 2, column = 2, pady=5)
+codigoVenta.insert(0, 'Ingresa codigo de venta')
+codigoVenta.config(foreground='grey')
+codigoVenta.bind('<FocusIn>', lambda event:on_entry_click(event,'codigoVenta'))
+codigoVenta.bind('<FocusOut>',lambda event: on_focusout(event,'codigoVenta'))
 
-codigoProdVenta = ttk.Entry(interface_agregar[8], width = 15)
+codigoProdVenta = ttk.Entry(interface_agregar[8], width = 30)
 codigoProdVenta.grid(row = 4, column = 2, pady=5)
+codigoProdVenta.insert(0, 'Ingresa codigo del producto')
+codigoProdVenta.config(foreground='grey')
 
-cantidadVenta = ttk.Entry(interface_agregar[8], width = 15)
+cantidadVenta = ttk.Entry(interface_agregar[8], width = 30)
 cantidadVenta.grid(row = 6, column = 2, pady=5)
+cantidadVenta.insert(0, 'Ingresa cantidad')
+cantidadVenta.config(foreground='grey')
 
-precioUnitVenta = ttk.Entry(interface_agregar[8], width = 15)
+precioUnitVenta = ttk.Entry(interface_agregar[8], width = 30)
 precioUnitVenta.grid(row = 8, column = 2, pady=5)
+precioUnitVenta.insert(0, 'Ingresa precio unitario')
+precioUnitVenta.config(foreground='grey')
 
-importeVenta = ttk.Entry(interface_agregar[8], width = 15)
+importeVenta = ttk.Entry(interface_agregar[8], width = 30)
 importeVenta.grid(row = 10, column = 2, pady=5)
+importeVenta.insert(0, 'Ingresa importe')
+importeVenta.config(foreground='grey')
 
-fechaVenta = ttk.Entry(interface_agregar[8], width = 15)
+fechaVenta = ttk.Entry(interface_agregar[8], width = 30)
 fechaVenta.grid(row = 12, column = 2, pady=5)
+fechaVenta.insert(0, 'Ingresa fecha')
+fechaVenta.config(foreground='grey')
 
-pagoVenta = ttk.Entry(interface_agregar[8], width = 15)
+pagoVenta = ttk.Entry(interface_agregar[8], width = 30)
 pagoVenta.grid(row = 14, column = 2, pady = 5)
+pagoVenta.insert(0, 'Ingresa forma de pago')
+pagoVenta.config(foreground='grey')
 
-codigoEmpVenta = ttk.Entry(interface_agregar[8], width = 15)
+codigoEmpVenta = ttk.Entry(interface_agregar[8], width = 30)
 codigoEmpVenta.grid(row = 16, column = 2, pady = 5)
+codigoEmpVenta.insert(0, 'Ingresa codigo del empleado')
+codigoEmpVenta.config(foreground='grey')
 
 #************************************************************************************
 
