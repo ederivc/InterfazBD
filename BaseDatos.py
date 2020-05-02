@@ -42,7 +42,11 @@ def OnClick(event):
     if(event == 6):
         labelDisplay.pack(side='top')
         ShowAgregar(6)
-        display.config(bg='#6f3eab')         
+        display.config(bg='#6f3eab')
+    if(event == 8):
+        labelDisplay.pack(side='top')
+        ShowAgregar(8)
+        display.config(bg='#3EBD5E')           
     return
 
 def LabelEnter(event):
@@ -61,6 +65,7 @@ def ShowAgregar(index):
         x+=1
     interface_agregar[index].pack(fill=tk.BOTH, expand=True,  padx=5, pady=5)
     agregar_frames[index].config(bg='#0781F4')
+
 
 def choose():
     window = tk.Tk()
@@ -272,7 +277,7 @@ boxImg = boxImg.subsample(6)
 #*************************************** LABELS ****************************************
 interface_agregar= []
 
-for x in range(8):
+for x in range(9):
     interface_agregar.append(tk.Frame(display))
 
 
@@ -291,22 +296,22 @@ LabelEmployee.grid(row = 10, column = 4, columnspan = 2, rowspan = 12)
 
 ttk.Label(interface_agregar[1], text="   REGISTRO DE EMPLEADO     ", 
 font=("Times", 20), background='white').grid(row=0, column=2)
-ttk.Label(interface_agregar[1], text="ID:", font=("Fixedsys", 16), background='white').grid(row=2, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Nombre:", font=("Fixedsys", 16),  background='white').grid(row=4, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Apellido Paterno:", font=("Fixedsys", 16),  background='white').grid(row=6, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Apellido Materno:", font=("Fixedsys", 16),  background='white').grid(row=8, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="RFC:", font=("Fixedsys", 16),  background='white').grid(row=10, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Fecha Nacimiento:", font=("Fixedsys", 16),  background='white').grid(row=12, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Fecha Ingreso:", font=("Fixedsys", 16),  background='white').grid(row=14, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Lugar Nacimiento:", font=("Fixedsys", 16),  background='white').grid(row=16, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Ciudad:", font=("Fixedsys", 16),  background='white').grid(row=18, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Estado:", font=("Fixedsys", 16),  background='white').grid(row=20, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="País:", font=("Fixedsys", 16),  background='white').grid(row=22, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Calle:", font=("Fixedsys", 16),  background='white').grid(row=24, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Colonia:", font=("Fixedsys", 16),  background='white').grid(row=26, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="CP:", font=("Fixedsys", 16),  background='white').grid(row=28, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Teléfono:", font=("Fixedsys", 16),  background='white').grid(row=30, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Sueldo:", font=("Fixedsys", 16),  background='white').grid(row=32, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="ID:", font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Nombre:", font=("Fixedsys", 9),  background='white').grid(row=4, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Apellido Paterno:", font=("Fixedsys", 9),  background='white').grid(row=6, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Apellido Materno:", font=("Fixedsys", 9),  background='white').grid(row=8, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="RFC:", font=("Fixedsys", 9),  background='white').grid(row=10, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Fecha Nacimiento:", font=("Fixedsys", 9),  background='white').grid(row=12, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Fecha Ingreso:", font=("Fixedsys", 9),  background='white').grid(row=14, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Lugar Nacimiento:", font=("Fixedsys", 9),  background='white').grid(row=16, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Ciudad:", font=("Fixedsys", 9),  background='white').grid(row=18, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Estado:", font=("Fixedsys", 9),  background='white').grid(row=20, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="País:", font=("Fixedsys", 9),  background='white').grid(row=22, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Calle:", font=("Fixedsys", 9),  background='white').grid(row=24, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Colonia:", font=("Fixedsys", 9),  background='white').grid(row=26, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="CP:", font=("Fixedsys", 9),  background='white').grid(row=28, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Teléfono:", font=("Fixedsys", 9),  background='white').grid(row=30, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Sueldo:", font=("Fixedsys", 9),  background='white').grid(row=32, column=1, pady=2)
 
 
 aidi = ttk.Entry(interface_agregar[1], width=15)
@@ -375,14 +380,14 @@ labelSupplier.grid(row = 10, column = 4, columnspan = 2, rowspan = 12)
 
 ttk.Label(interface_agregar[2], text="      REGISTRO DE PROVEEDOR     ", 
 font=("Times", 20), background='white').grid(row=2, column=2)
-ttk.Label(interface_agregar[2], text="Clave:",font=("Fixedsys", 16), background='white').grid(row=4, column=1, pady=5)
-ttk.Label(interface_agregar[2], text="Nombre:",font=("Fixedsys", 16), background='white').grid(row=6, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="RFC:",font=("Fixedsys", 16), background='white').grid(row=8, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="Nombre Empresa:",font=("Fixedsys", 16), background='white').grid(row=10, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="Ciudad:",font=("Fixedsys", 16), background='white').grid(row=12, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="Calle:",font=("Fixedsys", 16), background='white').grid(row=14, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="Colonia:",font=("Fixedsys", 16), background='white').grid(row=16, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="CP:",font=("Fixedsys", 16), background='white').grid(row=18, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Clave:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
+ttk.Label(interface_agregar[2], text="Nombre:",font=("Fixedsys", 9), background='white').grid(row=6, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="RFC:",font=("Fixedsys", 9), background='white').grid(row=8, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Nombre Empresa:",font=("Fixedsys", 9), background='white').grid(row=10, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Ciudad:",font=("Fixedsys", 9), background='white').grid(row=12, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Calle:",font=("Fixedsys", 9), background='white').grid(row=14, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Colonia:",font=("Fixedsys", 9), background='white').grid(row=16, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="CP:",font=("Fixedsys", 9), background='white').grid(row=18, column=1,pady=5)
 
 claveProv = ttk.Entry(interface_agregar[2], width = 15)
 claveProv.grid(row = 4, column = 2,pady=5)
@@ -425,13 +430,13 @@ labelBox.grid(row = 4, column = 4, columnspan = 2, rowspan = 12)
 
 ttk.Label(interface_agregar[3], text="   REGISTRO DE PRODUCTOS     ", 
 font=("Times", 20), background='white').grid(row=0, column=2)
-ttk.Label(interface_agregar[3], text="Código de barras:",font=("Fixedsys", 16), background='white').grid(row=2, column=1, pady=5)
-ttk.Label(interface_agregar[3], text="Nombre:",font=("Fixedsys", 16), background='white').grid(row=4, column=1, pady=5)
-ttk.Label(interface_agregar[3], text="Marca:",font=("Fixedsys", 16), background='white').grid(row=6, column=1, pady=5)
-ttk.Label(interface_agregar[3], text="Existencia:",font=("Fixedsys", 16), background='white').grid(row=8, column=1, pady=5)
-ttk.Label(interface_agregar[3], text="Costo:",font=("Fixedsys", 16), background='white').grid(row=10, column=1, pady=5)
-ttk.Label(interface_agregar[3], text="Proveedor:",font=("Fixedsys", 16), background='white').grid(row=12, column=1, pady=5)
-ttk.Label(interface_agregar[3], text="Categoria:",font=("Fixedsys", 16), background='white').grid(row=14, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Nombre:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Marca:",font=("Fixedsys", 9), background='white').grid(row=6, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Existencia:",font=("Fixedsys", 9), background='white').grid(row=8, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Costo:",font=("Fixedsys", 9), background='white').grid(row=10, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Proveedor:",font=("Fixedsys", 9), background='white').grid(row=12, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Categoria:",font=("Fixedsys", 9), background='white').grid(row=14, column=1, pady=5)
 
 codigoProd = ttk.Entry(interface_agregar[3], width = 15)
 codigoProd.grid(row = 2, column = 2, pady=5)
@@ -585,10 +590,60 @@ supplierShow.bind("<Button-1>", lambda x: choose())
 supplierShow.bind("<Enter>", LabelEnter)
 supplierShow.bind("<Leave>", LabelLeave)
 
-#**************************************** MOSTRAR ************************************
+#**************************************** VENTAS ************************************
+interface_agregar[8].pack(side='bottom',fill=tk.BOTH, expand=True)
+interface_agregar[8].configure(bg='white')
+interface_agregar[8].pack_forget()
 
-show = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
-show.grid(row=12, column=0, sticky='NWSE', pady=5)
+sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+sales.grid(row=12, column=0, sticky='NWSE', pady=5)
+
+agregar_frames[8]=tk.Frame(options, bg = '#080808')
+agregar_frames[8].grid(row=13,column=0,sticky='NWSE', pady=2, padx=10)
+salesShow=ttk.Label(agregar_frames[8], text="REGISTRAR VENTAS", anchor=tk.CENTER, background='#E0E0E0')
+salesShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
+salesShow.bind("<Button-1>", lambda x: OnClick(8))
+salesShow.bind("<Enter>", LabelEnter)
+salesShow.bind("<Leave>", LabelLeave)
+
+
+ttk.Label(interface_agregar[8], text="   REGISTRO DE VENTAS    ", 
+font=("Times", 20), background='white').grid(row=0, column=2)
+ttk.Label(interface_agregar[8], text="Clave venta:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
+ttk.Label(interface_agregar[8], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
+ttk.Label(interface_agregar[8], text="Cantidad:",font=("Fixedsys", 9), background='white').grid(row=6, column=1, pady=5)
+ttk.Label(interface_agregar[8], text="Precio unitario:",font=("Fixedsys", 9), background='white').grid(row=8, column=1, pady=5)
+ttk.Label(interface_agregar[8], text="Importe",font=("Fixedsys", 9), background='white').grid(row=10, column=1, pady=5)
+ttk.Label(interface_agregar[8], text="Fecha venta:",font=("Fixedsys", 9), background='white').grid(row=12, column=1, pady=5)
+ttk.Label(interface_agregar[8], text="Forma pago:",font=("Fixedsys", 9), background='white').grid(row=14, column=1, pady=5)
+ttk.Label(interface_agregar[8], text="Clave empleado:",font=("Fixedsys", 9), background='white').grid(row=16, column=1, pady=5)
+
+
+
+codigoVenta = ttk.Entry(interface_agregar[8], width = 15)
+codigoVenta.grid(row = 2, column = 2, pady=5)
+
+codigoProdVenta = ttk.Entry(interface_agregar[8], width = 15)
+codigoProdVenta.grid(row = 4, column = 2, pady=5)
+
+cantidadVenta = ttk.Entry(interface_agregar[8], width = 15)
+cantidadVenta.grid(row = 6, column = 2, pady=5)
+
+precioUnitVenta = ttk.Entry(interface_agregar[8], width = 15)
+precioUnitVenta.grid(row = 8, column = 2, pady=5)
+
+importeVenta = ttk.Entry(interface_agregar[8], width = 15)
+importeVenta.grid(row = 10, column = 2, pady=5)
+
+fechaVenta = ttk.Entry(interface_agregar[8], width = 15)
+fechaVenta.grid(row = 12, column = 2, pady=5)
+
+pagoVenta = ttk.Entry(interface_agregar[8], width = 15)
+pagoVenta.grid(row = 14, column = 2, pady = 5)
+
+codigoEmpVenta = ttk.Entry(interface_agregar[8], width = 15)
+codigoEmpVenta.grid(row = 16, column = 2, pady = 5)
+
 #************************************************************************************
 
 #*****************************************************************************************
