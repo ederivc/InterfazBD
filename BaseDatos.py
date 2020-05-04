@@ -64,7 +64,6 @@ def OnClick(event):
 def LabelEnter(event):
     event.widget.config(background='#7f7f7f')
 
-
 def LabelLeave(event):
     event.widget.config(background='#E0E0E0')
  
@@ -80,6 +79,10 @@ def ShowAgregar(index):
 
 
 def choose():
+    def accion():
+        if (pagare_var.get() != 0):
+            print("jkhaka")
+
     window = tk.Tk()
     window.title("CATALOGOS")
     window.minsize(297, 240)
@@ -113,18 +116,26 @@ def choose():
 
     cheques_var = tk.IntVar()
     cheques = chBoton(tab2, "Cheques\t\t",cheques_var, 2, 0)
+
     vales_var = tk.IntVar()
     vales = chBoton(tab2, "Vales\t\t",vales_var, 3, 0)
+
     tarCred_var = tk.IntVar()
     tarCred = chBoton(tab2, "Tarjetas de credito  ", tarCred_var, 4, 0)
+
     tarDeb_var = tk.IntVar()
     tarDeb = chBoton(tab2, "Tarjetas de debito   ", tarDeb_var, 5, 0)
+
     pagare_var = tk.IntVar()
     pagare = chBoton(tab2, "Pagarés\t\t", pagare_var, 6, 0)
+
     efect_var = tk.IntVar()
     efect = chBoton(tab2, "Efectivo\t\t", efect_var, 7, 0)
-    bot2 = defBoton(tab2, "Mostrar", 8, 2, print("S"), 5)
-    
+
+    bot2 = ttk.Button(tab2, text = "MOstrar")
+    bot2.configure(command = accion)
+    bot2.grid(row = 8, column = 2)
+
     window.mainloop()
     
 def regEmp(aidi, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp, lugNacEmp,
@@ -191,8 +202,23 @@ provedorProd, categProd):
     except Exception as e:
         print("Failed to insert record into Product table {}".format(e))
 
-def regVenta():
-    print(fechaVenta.get_date())
+def regVenta(claveVenta, codigoProd, cantidad, precioUnit, importe,
+fechaVent, formaPago, idEmp):
+    try:
+        connection = mysql.connect(host='localhost',
+                    user='root',
+                    passwd='',
+                    database='registration')
+        mySql_insert_query  =f"""INSERT INTO sales VALUES ({claveVenta}, '{codigoProd}', '{cantidad}', 
+        '{precioUnit}', '{importe}', '{fechaVent}', '{formaPago}', '{idEmp}')"""
+
+        cursor = connection.cursor()
+        cursor.execute(mySql_insert_query)
+        connection.commit()
+        print(cursor.rowcount, "Record inserted successfully into Sales table")
+        cursor.close()
+    except Exception as e:
+        print("Failed to insert record into Sales table {}".format(e))
 
 def showEmployee(employeeTable):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
@@ -288,6 +314,10 @@ supplierImg = supplierImg.subsample(6)
 boxImg = PhotoImage(file = "box.png")
 boxImg = boxImg.zoom(2)
 boxImg = boxImg.subsample(6)
+
+saleImg = PhotoImage(file = "sale.png")
+saleImg = saleImg.zoom(2)
+saleImg = saleImg.subsample(6)
 
 #*************************************** LABELS ****************************************
 interface_agregar= []
@@ -621,8 +651,10 @@ salesShow.bind("<Button-1>", lambda x: OnClick(8))
 salesShow.bind("<Enter>", LabelEnter)
 salesShow.bind("<Leave>", LabelLeave)
 
+labelSale = tk.Label(interface_agregar[8], background = 'white', image = saleImg)
+labelSale.grid(row = 4, column = 4, columnspan = 2, rowspan = 12)
 
-ttk.Label(interface_agregar[8], text="   REGISTRO DE VENTAS    ", 
+ttk.Label(interface_agregar[8], text="\t     REGISTRO DE VENTAS \n   ", 
 font=("Times", 20), background='white').grid(row=0, column=2)
 ttk.Label(interface_agregar[8], text="Clave venta:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
 ttk.Label(interface_agregar[8], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
@@ -675,15 +707,21 @@ fechaVenta = MyDateEntry(interface_agregar[8],
             
 fechaVenta.grid(row = 12, column = 2, pady = 5)
 
-pagoVenta = ttk.Entry(interface_agregar[8], width = 30)
-pagoVenta.grid(row = 14, column = 2, pady = 5)
+pago_var = tk.StringVar()
+comboOne = ttk.Combobox(interface_agregar[8], width = 28, textvariable = pago_var,
+state = "readonly")
+comboOne['values'] = ("Cheque", "Vale", "Tarjeta de Credito", "Tarjeta de Debito",
+"Pagaré", "Efectivo")
+comboOne.current(0)
+comboOne.grid(row = 14, column = 2,)
 
 
 codigoEmpVenta = ttk.Entry(interface_agregar[8], width = 30)
 codigoEmpVenta.grid(row = 16, column = 2, pady = 5)
 
 submitVenta=tk.Button(interface_agregar[8], text="Ingresar", background='#2ECC71', fg='white',
-relief=tk.FLAT, command = regVenta)
+relief=tk.FLAT, command = lambda: regVenta(codigoVenta.get(), codigoProdVenta.get(), cantidadVenta.get(),
+precioUnitVenta.get(), importeVenta.get(), fechaVenta.get(), pago_var.get(), codigoEmpVenta.get()))
 submitVenta.grid(row=18, column = 2, pady = 5)
 #************************************************************************************
 
