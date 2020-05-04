@@ -3,7 +3,18 @@ from tkinter import ttk
 from tkinter import Menu
 from tkinter import messagebox as mBox
 from tkinter import *
+from tkcalendar import DateEntry
+from datetime import date
 import mysql.connector as mysql
+
+class MyDateEntry(DateEntry):
+    def __init__(self, master, **kw):
+        DateEntry.__init__(self, master, **kw)
+        # add black border around drop-down calendar
+        self._top_cal.configure(bg='black', bd=1)
+        # add label displaying today's date below
+        tk.Label(self._top_cal, bg='gray90', anchor='w', width=35,
+                 text='Today: %s' % date.today().strftime('%x')).pack()
 
 def main():
     showEmployee(employeeTable)
@@ -49,18 +60,6 @@ def OnClick(event):
         display.config(bg='#3EBD5E')           
     return
 
-def  on_entry_click(event, widget):
-    if(widget=='codigoVenta'):
-        if codigoVenta.get() == 'Ingresa codigo de venta':
-            codigoVenta.delete(0, "end") # delete all the text in the entry
-            codigoVenta.insert(0, '') #Insert blank for user input
-            codigoVenta.config(foreground = 'black')
-
-def on_focusout(event, widget):
-    if(widget=='codigoVenta'):
-        if codigoVenta.get() == '':
-            codigoVenta.insert(0, 'Ingresa codigo de venta')
-            codigoVenta.config(foreground = 'grey')
 
 def LabelEnter(event):
     event.widget.config(background='#7f7f7f')
@@ -191,6 +190,9 @@ provedorProd, categProd):
         cursor.close()
     except Exception as e:
         print("Failed to insert record into Product table {}".format(e))
+
+def regVenta():
+    print(fechaVenta.get_date())
 
 def showEmployee(employeeTable):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
@@ -327,52 +329,52 @@ ttk.Label(interface_agregar[1], text="Teléfono:", font=("Fixedsys", 9),  backgr
 ttk.Label(interface_agregar[1], text="Sueldo:", font=("Fixedsys", 9),  background='white').grid(row=32, column=1, pady=2)
 
 
-aidi = ttk.Entry(interface_agregar[1], width=15)
+aidi = ttk.Entry(interface_agregar[1], width=30)
 aidi.grid(row=2, column=2, pady=2)
 
-nombreEmp = ttk.Entry(interface_agregar[1], width = 15)
+nombreEmp = ttk.Entry(interface_agregar[1], width = 30)
 nombreEmp.grid(row = 4, column = 2, pady=2)
 
-apPatEmp = ttk.Entry(interface_agregar[1], width = 15)
+apPatEmp = ttk.Entry(interface_agregar[1], width = 30)
 apPatEmp.grid(row = 6, column = 2)
 
-apMatEmp = ttk.Entry(interface_agregar[1], width = 15)
+apMatEmp = ttk.Entry(interface_agregar[1], width = 30)
 apMatEmp.grid(row = 8, column = 2)
 
-rfcEmp = ttk.Entry(interface_agregar[1], width = 15)
+rfcEmp = ttk.Entry(interface_agregar[1], width = 30)
 rfcEmp.grid(row = 10, column = 2, pady=2)
 
-fechaNacEmp = ttk.Entry(interface_agregar[1], width = 15)
+fechaNacEmp = ttk.Entry(interface_agregar[1], width = 30)
 fechaNacEmp.grid(row = 12, column = 2, pady=2) 
 
-fechaIngresoEmp = ttk.Entry(interface_agregar[1], width = 15)
+fechaIngresoEmp = ttk.Entry(interface_agregar[1], width = 30)
 fechaIngresoEmp.grid(row = 14, column = 2, pady=2)
 
-lugNacEmp = ttk.Entry(interface_agregar[1], width = 15)
+lugNacEmp = ttk.Entry(interface_agregar[1], width = 30)
 lugNacEmp.grid(row = 16, column = 2, pady=2)
 
-ciudadEmp = ttk.Entry(interface_agregar[1], width = 15)
+ciudadEmp = ttk.Entry(interface_agregar[1], width = 30)
 ciudadEmp.grid(row = 18, column = 2, pady=2)
 
-estadoEmp = ttk.Entry(interface_agregar[1], width = 15)
+estadoEmp = ttk.Entry(interface_agregar[1], width = 30)
 estadoEmp.grid(row = 20, column = 2, pady=2)
 
-paisEmp = ttk.Entry(interface_agregar[1], width = 15)
+paisEmp = ttk.Entry(interface_agregar[1], width = 30)
 paisEmp.grid(row = 22, column = 2, pady=2)
 
-calleEmp = ttk.Entry(interface_agregar[1], width = 15)
+calleEmp = ttk.Entry(interface_agregar[1], width = 30)
 calleEmp.grid(row = 24, column = 2, pady=2)
 
-coloniaEmp = ttk.Entry(interface_agregar[1], width = 15)
+coloniaEmp = ttk.Entry(interface_agregar[1], width = 30)
 coloniaEmp.grid(row = 26, column = 2, pady=2)
 
-cpEmp = ttk.Entry(interface_agregar[1], width = 15)
+cpEmp = ttk.Entry(interface_agregar[1], width = 30)
 cpEmp.grid(row = 28, column = 2, pady=2)
 
-telEmp = ttk.Entry(interface_agregar[1], width = 15)
+telEmp = ttk.Entry(interface_agregar[1], width = 30)
 telEmp.grid(row = 30, column = 2, pady=2)
 
-sueldoEmp = ttk.Entry(interface_agregar[1], width = 15)
+sueldoEmp = ttk.Entry(interface_agregar[1], width = 30)
 sueldoEmp.grid(row = 32, column = 2, pady=2)
 
 submitEmp=tk.Button(interface_agregar[1], text="Ingresar", background='#2ECC71', fg='white',
@@ -635,50 +637,59 @@ ttk.Label(interface_agregar[8], text="Clave empleado:",font=("Fixedsys", 9), bac
 
 codigoVenta = ttk.Entry(interface_agregar[8], width = 30)
 codigoVenta.grid(row = 2, column = 2, pady=5)
-codigoVenta.insert(0, 'Ingresa codigo de venta')
-codigoVenta.config(foreground='grey')
-codigoVenta.bind('<FocusIn>', lambda event:on_entry_click(event,'codigoVenta'))
-codigoVenta.bind('<FocusOut>',lambda event: on_focusout(event,'codigoVenta'))
 
 codigoProdVenta = ttk.Entry(interface_agregar[8], width = 30)
 codigoProdVenta.grid(row = 4, column = 2, pady=5)
-codigoProdVenta.insert(0, 'Ingresa codigo del producto')
-codigoProdVenta.config(foreground='grey')
+
 
 cantidadVenta = ttk.Entry(interface_agregar[8], width = 30)
 cantidadVenta.grid(row = 6, column = 2, pady=5)
-cantidadVenta.insert(0, 'Ingresa cantidad')
-cantidadVenta.config(foreground='grey')
+
 
 precioUnitVenta = ttk.Entry(interface_agregar[8], width = 30)
 precioUnitVenta.grid(row = 8, column = 2, pady=5)
-precioUnitVenta.insert(0, 'Ingresa precio unitario')
-precioUnitVenta.config(foreground='grey')
+
 
 importeVenta = ttk.Entry(interface_agregar[8], width = 30)
 importeVenta.grid(row = 10, column = 2, pady=5)
-importeVenta.insert(0, 'Ingresa importe')
-importeVenta.config(foreground='grey')
 
-fechaVenta = ttk.Entry(interface_agregar[8], width = 30)
-fechaVenta.grid(row = 12, column = 2, pady=5)
-fechaVenta.insert(0, 'Ingresa fecha')
-fechaVenta.config(foreground='grey')
+
+fechaVenta = MyDateEntry(interface_agregar[8],
+                 width=28,
+                 justify='center',
+                 selectbackground='gray80',
+                 selectforeground='black',
+                 normalbackground='white',
+                 normalforeground='black',
+                 background='gray90',
+                 foreground='black',
+                 bordercolor='gray90',
+                 othermonthforeground='gray50',
+                 othermonthbackground='white',
+                 othermonthweforeground='gray50',
+                 othermonthwebackground='white',
+                 weekendbackground='white',
+                 weekendforeground='black',
+                 headersbackground='white',
+                 headersforeground='gray70')
+            
+fechaVenta.grid(row = 12, column = 2, pady = 5)
 
 pagoVenta = ttk.Entry(interface_agregar[8], width = 30)
 pagoVenta.grid(row = 14, column = 2, pady = 5)
-pagoVenta.insert(0, 'Ingresa forma de pago')
-pagoVenta.config(foreground='grey')
+
 
 codigoEmpVenta = ttk.Entry(interface_agregar[8], width = 30)
 codigoEmpVenta.grid(row = 16, column = 2, pady = 5)
-codigoEmpVenta.insert(0, 'Ingresa codigo del empleado')
-codigoEmpVenta.config(foreground='grey')
 
+submitVenta=tk.Button(interface_agregar[8], text="Ingresar", background='#2ECC71', fg='white',
+relief=tk.FLAT, command = regVenta)
+submitVenta.grid(row=18, column = 2, pady = 5)
 #************************************************************************************
 
 #*****************************************************************************************
-style = ttk.Style()
+style = ttk.Style(window)
+style.theme_use('clam')
 style.element_create("Custom.Treeheading.border", "from", "default")
 style.layout("Custom.Treeview.Heading", [
     ("Custom.Treeheading.cell", {'sticky': 'nswe'}),
