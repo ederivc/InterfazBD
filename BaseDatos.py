@@ -522,26 +522,31 @@ ttk.Label(interface_agregar[3], text="Costo:",font=("Fixedsys", 9), background='
 ttk.Label(interface_agregar[3], text="Proveedor:",font=("Fixedsys", 9), background='white').grid(row=12, column=1, pady=5)
 ttk.Label(interface_agregar[3], text="Categoria:",font=("Fixedsys", 9), background='white').grid(row=14, column=1, pady=5)
 
-codigoProd = ttk.Entry(interface_agregar[3], width = 15)
+codigoProd = ttk.Entry(interface_agregar[3], width = 30)
 codigoProd.grid(row = 2, column = 2, pady=5)
 
-nombreProd = ttk.Entry(interface_agregar[3], width = 15)
+nombreProd = ttk.Entry(interface_agregar[3], width = 30)
 nombreProd.grid(row = 4, column = 2, pady=5)
 
-marcaProd = ttk.Entry(interface_agregar[3], width = 15)
+marcaProd = ttk.Entry(interface_agregar[3], width = 30)
 marcaProd.grid(row = 6, column = 2, pady=5)
 
-existProd = ttk.Entry(interface_agregar[3], width = 15)
+existProd = ttk.Entry(interface_agregar[3], width = 30)
 existProd.grid(row = 8, column = 2, pady=5)
 
-costoProd = ttk.Entry(interface_agregar[3], width = 15)
+costoProd = ttk.Entry(interface_agregar[3], width = 30)
 costoProd.grid(row = 10, column = 2, pady=5)
 
-provedorProd = ttk.Entry(interface_agregar[3], width = 15)
+provedorProd = ttk.Entry(interface_agregar[3], width = 30)
 provedorProd.grid(row = 12, column = 2, pady = 5)
 
-categProd = ttk.Entry(interface_agregar[3], width = 15)
-categProd.grid(row = 14, column = 2, pady = 5)
+categProd = tk.StringVar()
+comboTwo = ttk.Combobox(interface_agregar[3], width = 28, textvariable = categProd,
+state = "readonly", justify='center')
+comboTwo['values'] = ("Refrescos", "Cerveza", "Botanas", "Abarrotes")
+comboTwo.current(0)
+comboTwo.grid(row = 14, column = 2, pady = 5)
+
 
 submitProd=tk.Button(interface_agregar[3], text="Ingresar", background='#FF8F00', fg='white',
 relief=tk.FLAT, command = lambda: regProd(codigoProd.get(), nombreProd.get(), marcaProd.get(), 
