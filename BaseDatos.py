@@ -43,14 +43,17 @@ def OnClick(event):
         ShowAgregar(3)
         display.config(bg='#FF8F00')
     if(event==4):
+        showEmployee(employeeTable)
         labelDisplay.pack(side='top')
         ShowAgregar(4)
         display.config(bg='#F50052')
     if(event==5):
+        showSupplier(supplierTable)
         labelDisplay.pack(side='top')
         ShowAgregar(5)
         display.config(bg='#ffa751')
     if(event == 6):
+        showProduct(productTable)
         labelDisplay.pack(side='top')
         ShowAgregar(6)
         display.config(bg='#6f3eab')
@@ -374,10 +377,46 @@ apMatEmp.grid(row = 8, column = 2)
 rfcEmp = ttk.Entry(interface_agregar[1], width = 30)
 rfcEmp.grid(row = 10, column = 2, pady=2)
 
-fechaNacEmp = ttk.Entry(interface_agregar[1], width = 30)
+fechaNacEmp = MyDateEntry(interface_agregar[1],
+                 width=28,
+                 justify='center',
+                 selectbackground='gray80',
+                 selectforeground='black',
+                 normalbackground='white',
+                 normalforeground='black',
+                 background='gray90',
+                 foreground='black',
+                 bordercolor='gray90',
+                 othermonthforeground='gray50',
+                 othermonthbackground='white',
+                 othermonthweforeground='gray50',
+                 othermonthwebackground='white',
+                 weekendbackground='white',
+                 weekendforeground='black',
+                 headersbackground='white',
+                 headersforeground='gray70')
+                 
 fechaNacEmp.grid(row = 12, column = 2, pady=2) 
 
-fechaIngresoEmp = ttk.Entry(interface_agregar[1], width = 30)
+fechaIngresoEmp = MyDateEntry(interface_agregar[1],
+                 width=28,
+                 justify='center',
+                 selectbackground='gray80',
+                 selectforeground='black',
+                 normalbackground='white',
+                 normalforeground='black',
+                 background='gray90',
+                 foreground='black',
+                 bordercolor='gray90',
+                 othermonthforeground='gray50',
+                 othermonthbackground='white',
+                 othermonthweforeground='gray50',
+                 othermonthwebackground='white',
+                 weekendbackground='white',
+                 weekendforeground='black',
+                 headersbackground='white',
+                 headersforeground='gray70')
+
 fechaIngresoEmp.grid(row = 14, column = 2, pady=2)
 
 lugNacEmp = ttk.Entry(interface_agregar[1], width = 30)
@@ -709,7 +748,7 @@ fechaVenta.grid(row = 12, column = 2, pady = 5)
 
 pago_var = tk.StringVar()
 comboOne = ttk.Combobox(interface_agregar[8], width = 28, textvariable = pago_var,
-state = "readonly")
+state = "readonly", justify='center')
 comboOne['values'] = ("Cheque", "Vale", "Tarjeta de Credito", "Tarjeta de Debito",
 "Pagaré", "Efectivo")
 comboOne.current(0)
