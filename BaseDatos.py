@@ -57,6 +57,10 @@ def OnClick(event):
         labelDisplay.pack(side='top')
         ShowAgregar(6)
         display.config(bg='#6f3eab')
+    if(event == 7):
+        labelDisplay.pack(side='top')
+        ShowAgregar(7)
+        display.config(bg='#3EBD5E')  
     if(event == 8):
         labelDisplay.pack(side='top')
         ShowAgregar(8)
@@ -79,68 +83,7 @@ def ShowAgregar(index):
         x+=1
     interface_agregar[index].pack(fill=tk.BOTH, expand=True,  padx=5, pady=5)
     agregar_frames[index].config(bg='#0781F4')
-
-
-def choose():
-    def accion():
-        if (pagare_var.get() != 0):
-            print("jkhaka")
-
-    window = tk.Tk()
-    window.title("CATALOGOS")
-    window.minsize(297, 240)
-    window.maxsize(297,240)
-
-    tabControl = ttk.Notebook(window)
-    tab1 = ttk.Frame(tabControl)
-    tab2 = ttk.Frame(tabControl)
-
-    tabControl.add(tab1, text = "Productos")
-    tabControl.pack(expand = 1, fill = 'both')
-
-    tabControl.add(tab2, text = "Formas de pago")
-    tabControl.pack(expand = 1, fill = 'both')
-
-    titleProd = ttk.Label(tab1, text = "Productos", font = ("Times", 15))
-    titleProd.grid(row = 1, column = 0)
-
-    cerveza_var = tk.IntVar()
-    cerveza = chBoton(tab1, "Cervezas", cerveza_var, 2, 0)
-    botana_var = tk.IntVar()
-    botana = chBoton(tab1, "Botanas  ", botana_var, 3, 0)
-    refrescos_var = tk.IntVar()
-    refrescos = chBoton(tab1, "Refrescos", refrescos_var, 4, 0)
-    abarrotes_var = tk.IntVar()
-    abarrotes = chBoton(tab1, "Abarrotes", abarrotes_var, 5, 0)
-    bot1 = defBoton(tab1, "Mostrar", 6, 5, print("a") , 20)
-
-    titlePay = ttk.Label(tab2, text = "Formas de Pago", font = ("Times", 15))
-    titlePay.grid(row = 1, column = 0)
-
-    cheques_var = tk.IntVar()
-    cheques = chBoton(tab2, "Cheques\t\t",cheques_var, 2, 0)
-
-    vales_var = tk.IntVar()
-    vales = chBoton(tab2, "Vales\t\t",vales_var, 3, 0)
-
-    tarCred_var = tk.IntVar()
-    tarCred = chBoton(tab2, "Tarjetas de credito  ", tarCred_var, 4, 0)
-
-    tarDeb_var = tk.IntVar()
-    tarDeb = chBoton(tab2, "Tarjetas de debito   ", tarDeb_var, 5, 0)
-
-    pagare_var = tk.IntVar()
-    pagare = chBoton(tab2, "Pagarés\t\t", pagare_var, 6, 0)
-
-    efect_var = tk.IntVar()
-    efect = chBoton(tab2, "Efectivo\t\t", efect_var, 7, 0)
-
-    bot2 = ttk.Button(tab2, text = "MOstrar")
-    bot2.configure(command = accion)
-    bot2.grid(row = 8, column = 2)
-
-    window.mainloop()
-    
+  
 def regEmp(aidi, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp, lugNacEmp,
 ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
     try:
@@ -149,7 +92,7 @@ ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
         connection = mysql.connect(host='localhost',
                     user='root',
                     passwd='',
-                    database='registration')
+                    database='registration')         
         mySql_insert_query  =f"""INSERT INTO employee VALUES ({ide}, '{nombreEmp}', '{apPatEmp}',
         '{apMatEmp}', '{rfcEmp}', '{fechaNacEmp}', '{fechaIngresoEmp}', '{lugNacEmp}', '{ciudadEmp}', 
         '{estadoEmp}', '{paisEmp}', '{calleEmp}', '{coloniaEmp}', '{cpEmp}', '{telEmp}','{sueldo}')"""
@@ -157,10 +100,13 @@ ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
         cursor = connection.cursor()
         cursor.execute(mySql_insert_query)
         connection.commit()
-        print(cursor.rowcount, "Record inserted successfully into Employee table")
+        mBox.showinfo("EMPLEADOS", "El usuario: " + str(aidi) + " ha sido"+
+        " agregado correctamente")
         cursor.close()
 
     except Exception as e:
+        mBox.showerror("ERROR", "No se pudo registrar al empleado, verifique sus "+
+        "datos.")
         print("Failed to insert record into Employee table {}".format(e))   
 
 def regProv(cveProv, nombreProv, rfcProv, empresaProv, 
@@ -176,11 +122,14 @@ ciudadProv, calleProv, coloniaProv, cpProv):
         cursor = connection.cursor()
         cursor.execute(mySql_insert_query)
         connection.commit()
-        print(cursor.rowcount, "Record inserted successfully into Supplier table")
+        mBox.showinfo("PROVEEDORES", "El proveedor: " + str(cveProv) + " ha sido"+
+        " agregado correctamente")
         cursor.close()
         showSupplier(supplierTable)
 
     except Exception as e:
+        mBox.showerror("ERROR", "No se pudo registrar al proveedor, verifique sus "+
+        "datos.")
         print("Failed to insert record into Supplier table {}".format(e))
 
 
@@ -200,7 +149,8 @@ provedorProd, categProd):
         cursor = connection.cursor()
         cursor.execute(mySql_insert_query)
         connection.commit()
-        print(cursor.rowcount, "Record inserted successfully into Product table")
+        mBox.showinfo("PRODUCTOS", "El producto: " + str(codP) + " ha sido"+
+        " agregado correctamente")
         cursor.close()
     except Exception as e:
         print("Failed to insert record into Product table {}".format(e))
@@ -224,6 +174,9 @@ fechaVent, formaPago, idEmp):
         print("Failed to insert record into Sales table {}".format(e))
 
 def showEmployee(employeeTable):
+    for i in employeeTable.get_children():
+        employeeTable.delete(i)
+
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()
     operacion.execute( "SELECT * FROM employee" )
@@ -669,15 +622,19 @@ supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
 supplierShow.bind("<Button-1>", lambda x: OnClick(6))
 supplierShow.bind("<Enter>", LabelEnter)
 supplierShow.bind("<Leave>", LabelLeave)
-#***********************************************************************************
+
+#*************************************CATEGORIAS*************************************
+categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+categ.grid(row=9, column=0, sticky='NWSE', pady=5)
 
 agregar_frames[7]=tk.Frame(options, bg = '#080808')
-agregar_frames[7].grid(row=9,column=0,sticky='NWSE', pady=2, padx=10)
-supplierShow=ttk.Label(agregar_frames[7], text="CATEGORIAS", anchor=tk.CENTER, background='#E0E0E0')
-supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
-supplierShow.bind("<Button-1>", lambda x: choose())
-supplierShow.bind("<Enter>", LabelEnter)
-supplierShow.bind("<Leave>", LabelLeave)
+agregar_frames[7].grid(row=10,column=0,sticky='NWSE', pady=2, padx=10)
+prodCatShow=ttk.Label(agregar_frames[7], text="FORMAS DE PAGO", anchor=tk.CENTER, background='#E0E0E0')
+prodCatShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
+prodCatShow.bind("<Button-1>", lambda x: OnClick(7))
+prodCatShow.bind("<Enter>", LabelEnter)
+prodCatShow.bind("<Leave>", LabelLeave)
+
 
 #**************************************** VENTAS ************************************
 interface_agregar[8].pack(side='bottom',fill=tk.BOTH, expand=True)
