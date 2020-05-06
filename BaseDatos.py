@@ -258,7 +258,7 @@ def showProduct(productTable):
     conexion.close()
 
 def chBoton(tab, texto, variable, x ,y):
-    return ttk.Checkbutton(tab, text = texto, variable = variable).grid(row = x, 
+    return tk.Checkbutton(tab, text = texto, variable = variable, borderwidth=0).grid(row = x, 
     column = y)
 
 def defBoton(tab, text, row, col, comando, px):
