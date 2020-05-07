@@ -96,7 +96,7 @@ ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
         mySql_insert_query  =f"""INSERT INTO employee VALUES ({ide}, '{nombreEmp}', '{apPatEmp}',
         '{apMatEmp}', '{rfcEmp}', '{fechaNacEmp}', '{fechaIngresoEmp}', '{lugNacEmp}', '{ciudadEmp}', 
         '{estadoEmp}', '{paisEmp}', '{calleEmp}', '{coloniaEmp}', '{cpEmp}', '{telEmp}','{sueldo}')"""
-
+        
         cursor = connection.cursor()
         cursor.execute(mySql_insert_query)
         connection.commit()
@@ -153,6 +153,8 @@ provedorProd, categProd):
         " agregado correctamente")
         cursor.close()
     except Exception as e:
+        mBox.showerror("ERROR", "No se pudo registrar el producto, verifique sus "+
+        "datos.")
         print("Failed to insert record into Product table {}".format(e))
 
 def regVenta(claveVenta, codigoProd, cantidad, precioUnit, importe,
