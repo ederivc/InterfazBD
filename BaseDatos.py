@@ -28,7 +28,7 @@ def main():
 def OnClick(event):
     if(event==0):
         ShowAgregar(0)
-        display.config(bg="#04517D")
+        display.config(bg="#18191A")
         labelDisplay.pack_forget()
     if(event==1):
         labelDisplay.pack(side='top')
@@ -250,7 +250,7 @@ options.columnconfigure(0, weight=1)
 #shopImg = shopImg.zoom(2)
 #shopImg = shopImg.subsample(6)
 
-display = tk.Frame(window, bg="#04517D")
+display = tk.Frame(window, bg="#18191A")
 display.grid(row=0,column=1, sticky='NSWE', padx=7, pady=7)
 
 marketImg = PhotoImage(file = "market.png")
@@ -277,6 +277,9 @@ saleImg = PhotoImage(file = "sale.png")
 saleImg = saleImg.zoom(2)
 saleImg = saleImg.subsample(6)
 
+stockImg = PhotoImage(file = "stock_2.png")
+
+
 #*************************************** LABELS ****************************************
 interface_agregar= []
 
@@ -286,8 +289,16 @@ for x in range(9):
 
 #*****************************************Inicio*********************************
 interface_agregar[0].pack(fill=tk.BOTH, expand=True)
-interface_agregar[0].configure(bg='#04517D')
-interface_agregar[0].pack_forget()
+interface_agregar[0].configure(bg='#18191A')
+
+canvas = Canvas(interface_agregar[0], bg='#18191A', width=250, height=h,bd=0, relief='flat',highlightthickness=0)
+canvas.create_image(0,0, anchor='nw', image=stockImg)
+canvas.pack(side='right')
+
+home_page=tk.Frame(interface_agregar[0])
+home_page.pack(side='left', fill=BOTH)
+home_page.configure(bg='#18191A')
+ttk.Label(home_page, text="BIENVENIDO", font=("Times", 60, 'bold'), background='#18191A', foreground='white').grid(row=0, column=0, padx=10, pady=20)
 
 #---------------------------------------->Empleado<-------------------------------------
 interface_agregar[1].pack(side='bottom',fill=tk.BOTH, expand=True)
