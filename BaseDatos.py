@@ -20,9 +20,11 @@ def main():
     showEmployee(employeeTable)
     showSupplier(supplierTable)
     showProduct(productTable)
+    showSale(saleTable)
     tableEmp()
     tableSupplier()
     tableProduct()
+    tableSale()
     window.mainloop()
 
 def OnClick(event):
@@ -58,13 +60,22 @@ def OnClick(event):
         ShowAgregar(6)
         display.config(bg='#6f3eab')
     if(event == 7):
+        showSale(saleTable)
         labelDisplay.pack(side='top')
         ShowAgregar(7)
         display.config(bg='#3EBD5E')  
     if(event == 8):
         labelDisplay.pack(side='top')
         ShowAgregar(8)
-        display.config(bg='#3EBD5E')           
+        display.config(bg='#3EBD5E')    
+    if(event == 9):
+        labelDisplay.pack(side='top')
+        ShowAgregar(9)
+        display.config(bg='#3EBD5E') 
+    if(event == 10):
+        labelDisplay.pack(side='top')
+        ShowAgregar(10)
+        display.config(bg='#3EBD5E')          
     return
 
 
@@ -170,9 +181,12 @@ fechaVent, formaPago, idEmp):
         cursor = connection.cursor()
         cursor.execute(mySql_insert_query)
         connection.commit()
-        print(cursor.rowcount, "Record inserted successfully into Sales table")
+        mBox.showinfo("VENTAS", "La venta: " + str(claveVenta) + " ha sido"+
+        " relizada")
         cursor.close()
     except Exception as e:
+        mBox.showerror("ERROR", "No se pudo realizar la venta, verifique sus "+
+        "datos.")
         print("Failed to insert record into Sales table {}".format(e))
 
 def showEmployee(employeeTable):
@@ -210,6 +224,18 @@ def showProduct(productTable):
     for codigoProd,nombreProd,marcaProd,existProd,costoProd,provedorProd,categProd in operacion.fetchall():
         productTable.insert('', 'end', text = codigoProd, values=(nombreProd,marcaProd,existProd,
         costoProd,provedorProd,categProd))
+    conexion.close()
+
+def showSale(saleTable):
+    for i in saleTable.get_children():
+        saleTable.delete(i)
+
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()
+    operacion.execute( "SELECT * FROM sales" )
+    for clave,codigoProd,cantidad,precioUni,importe,fecha,fPago, claveEmp in operacion.fetchall():
+        saleTable.insert('', 'end', text = clave, values=(codigoProd,cantidad,precioUni,
+        importe,fecha,fPago,claveEmp))
     conexion.close()
 
 def chBoton(tab, texto, variable, x ,y):
@@ -283,7 +309,7 @@ stockImg = PhotoImage(file = "stock_2.png")
 #*************************************** LABELS ****************************************
 interface_agregar= []
 
-for x in range(9):
+for x in range(11):
     interface_agregar.append(tk.Frame(display))
 
 
@@ -524,7 +550,7 @@ submitProd.grid(row=16, column=2, pady=5)
 #Option -> Agregar
 agregar_frames= []
 
-for x in range(9):
+for x in range(11):
     agregar_frames.append(tk.Frame(options))
 
 
@@ -635,72 +661,114 @@ supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
 supplierShow.bind("<Button-1>", lambda x: OnClick(6))
 supplierShow.bind("<Enter>", LabelEnter)
 supplierShow.bind("<Leave>", LabelLeave)
+#*******************************************************************
+interface_agregar[7].pack(side='bottom',fill=tk.BOTH, expand=True)
+interface_agregar[7].configure(bg='white')
+interface_agregar[7].rowconfigure(0, weight=1)
+interface_agregar[7].rowconfigure(2, weight=1)
+interface_agregar[7].rowconfigure(3, weight=1)
+interface_agregar[7].columnconfigure(0, weight=1)
+interface_agregar[7].columnconfigure(1, weight=2)
+interface_agregar[7].columnconfigure(2, weight=2)
+interface_agregar[7].columnconfigure(3, weight=2)
+interface_agregar[7].pack_forget()
+
+ttk.Label(interface_agregar[7], text="       \t\tLISTA DE VENTAS     ", 
+font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+
+agregar_frames[7]=tk.Frame(options, bg = '#080808')
+agregar_frames[7].grid(row=9,column=0,sticky='NWSE', pady=2, padx=10)
+supplierShow=ttk.Label(agregar_frames[7], text="VENTAS", anchor=tk.CENTER, background='#E0E0E0')
+supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
+supplierShow.bind("<Button-1>", lambda x: OnClick(7))
+supplierShow.bind("<Enter>", LabelEnter)
+supplierShow.bind("<Leave>", LabelLeave)
 
 #*************************************CATEGORIAS*************************************
 categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
-categ.grid(row=9, column=0, sticky='NWSE', pady=5)
-
-agregar_frames[7]=tk.Frame(options, bg = '#080808')
-agregar_frames[7].grid(row=10,column=0,sticky='NWSE', pady=2, padx=10)
-prodCatShow=ttk.Label(agregar_frames[7], text="FORMAS DE PAGO", anchor=tk.CENTER, background='#E0E0E0')
-prodCatShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
-prodCatShow.bind("<Button-1>", lambda x: OnClick(7))
-prodCatShow.bind("<Enter>", LabelEnter)
-prodCatShow.bind("<Leave>", LabelLeave)
-
-
-#**************************************** VENTAS ************************************
+categ.grid(row=10, column=0, sticky='NWSE', pady=5)
+#**************************************************************************
 interface_agregar[8].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[8].configure(bg='white')
 interface_agregar[8].pack_forget()
 
-sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
-sales.grid(row=12, column=0, sticky='NWSE', pady=5)
+ttk.Label(interface_agregar[8], text="       \t FORMAS DE PAGO     ", 
+font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
 
 agregar_frames[8]=tk.Frame(options, bg = '#080808')
-agregar_frames[8].grid(row=13,column=0,sticky='NWSE', pady=2, padx=10)
-salesShow=ttk.Label(agregar_frames[8], text="REGISTRAR VENTAS", anchor=tk.CENTER, background='#E0E0E0')
+agregar_frames[8].grid(row=11,column=0,sticky='NWSE', pady=2, padx=10)
+prodCatShow=ttk.Label(agregar_frames[8], text="FORMAS DE PAGO", anchor=tk.CENTER, background='#E0E0E0')
+prodCatShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
+prodCatShow.bind("<Button-1>", lambda x: OnClick(8))
+prodCatShow.bind("<Enter>", LabelEnter)
+prodCatShow.bind("<Leave>", LabelLeave)
+#********************************************************************************
+interface_agregar[9].pack(side='bottom',fill=tk.BOTH, expand=True)
+interface_agregar[9].configure(bg='white')
+interface_agregar[9].pack_forget()
+
+ttk.Label(interface_agregar[9], text="       \t PRODUCTOS     ", 
+font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+
+agregar_frames[9]=tk.Frame(options, bg = '#080808')
+agregar_frames[9].grid(row=12,column=0,sticky='NWSE', pady=2, padx=10)
+prodCatShow=ttk.Label(agregar_frames[9], text="PRODUCTOS", anchor=tk.CENTER, background='#E0E0E0')
+prodCatShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
+prodCatShow.bind("<Button-1>", lambda x: OnClick(9))
+prodCatShow.bind("<Enter>", LabelEnter)
+prodCatShow.bind("<Leave>", LabelLeave)
+#**************************************** VENTAS ************************************
+interface_agregar[10].pack(side='bottom',fill=tk.BOTH, expand=True)
+interface_agregar[10].configure(bg='white')
+interface_agregar[10].pack_forget()
+
+sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+sales.grid(row=13, column=0, sticky='NWSE', pady=5)
+
+agregar_frames[10]=tk.Frame(options, bg = '#080808')
+agregar_frames[10].grid(row=14,column=0,sticky='NWSE', pady=2, padx=10)
+salesShow=ttk.Label(agregar_frames[10], text="REGISTRAR VENTAS", anchor=tk.CENTER, background='#E0E0E0')
 salesShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
-salesShow.bind("<Button-1>", lambda x: OnClick(8))
+salesShow.bind("<Button-1>", lambda x: OnClick(10))
 salesShow.bind("<Enter>", LabelEnter)
 salesShow.bind("<Leave>", LabelLeave)
 
-labelSale = tk.Label(interface_agregar[8], background = 'white', image = saleImg)
+labelSale = tk.Label(interface_agregar[10], background = 'white', image = saleImg)
 labelSale.grid(row = 4, column = 4, columnspan = 2, rowspan = 12)
 
-ttk.Label(interface_agregar[8], text="\t     REGISTRO DE VENTAS \n   ", 
+ttk.Label(interface_agregar[10], text="\tREGISTRO DE VENTAS \n   ", 
 font=("Times", 20), background='white').grid(row=0, column=2)
-ttk.Label(interface_agregar[8], text="Clave venta:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
-ttk.Label(interface_agregar[8], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
-ttk.Label(interface_agregar[8], text="Cantidad:",font=("Fixedsys", 9), background='white').grid(row=6, column=1, pady=5)
-ttk.Label(interface_agregar[8], text="Precio unitario:",font=("Fixedsys", 9), background='white').grid(row=8, column=1, pady=5)
-ttk.Label(interface_agregar[8], text="Importe",font=("Fixedsys", 9), background='white').grid(row=10, column=1, pady=5)
-ttk.Label(interface_agregar[8], text="Fecha venta:",font=("Fixedsys", 9), background='white').grid(row=12, column=1, pady=5)
-ttk.Label(interface_agregar[8], text="Forma pago:",font=("Fixedsys", 9), background='white').grid(row=14, column=1, pady=5)
-ttk.Label(interface_agregar[8], text="Clave empleado:",font=("Fixedsys", 9), background='white').grid(row=16, column=1, pady=5)
+ttk.Label(interface_agregar[10], text="Clave venta:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
+ttk.Label(interface_agregar[10], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
+ttk.Label(interface_agregar[10], text="Cantidad:",font=("Fixedsys", 9), background='white').grid(row=6, column=1, pady=5)
+ttk.Label(interface_agregar[10], text="Precio unitario:",font=("Fixedsys", 9), background='white').grid(row=8, column=1, pady=5)
+ttk.Label(interface_agregar[10], text="Importe",font=("Fixedsys", 9), background='white').grid(row=10, column=1, pady=5)
+ttk.Label(interface_agregar[10], text="Fecha venta:",font=("Fixedsys", 9), background='white').grid(row=12, column=1, pady=5)
+ttk.Label(interface_agregar[10], text="Forma pago:",font=("Fixedsys", 9), background='white').grid(row=14, column=1, pady=5)
+ttk.Label(interface_agregar[10], text="Clave empleado:",font=("Fixedsys", 9), background='white').grid(row=16, column=1, pady=5)
 
 
 
-codigoVenta = ttk.Entry(interface_agregar[8], width = 30)
+codigoVenta = ttk.Entry(interface_agregar[10], width = 30)
 codigoVenta.grid(row = 2, column = 2, pady=5)
 
-codigoProdVenta = ttk.Entry(interface_agregar[8], width = 30)
+codigoProdVenta = ttk.Entry(interface_agregar[10], width = 30)
 codigoProdVenta.grid(row = 4, column = 2, pady=5)
 
 
-cantidadVenta = ttk.Entry(interface_agregar[8], width = 30)
+cantidadVenta = ttk.Entry(interface_agregar[10], width = 30)
 cantidadVenta.grid(row = 6, column = 2, pady=5)
 
 
-precioUnitVenta = ttk.Entry(interface_agregar[8], width = 30)
+precioUnitVenta = ttk.Entry(interface_agregar[10], width = 30)
 precioUnitVenta.grid(row = 8, column = 2, pady=5)
 
 
-importeVenta = ttk.Entry(interface_agregar[8], width = 30)
+importeVenta = ttk.Entry(interface_agregar[10], width = 30)
 importeVenta.grid(row = 10, column = 2, pady=5)
 
 
-fechaVenta = MyDateEntry(interface_agregar[8],
+fechaVenta = MyDateEntry(interface_agregar[10],
                  width=28,
                  justify='center',
                  selectbackground='gray80',
@@ -722,7 +790,7 @@ fechaVenta = MyDateEntry(interface_agregar[8],
 fechaVenta.grid(row = 12, column = 2, pady = 5)
 
 pago_var = tk.StringVar()
-comboOne = ttk.Combobox(interface_agregar[8], width = 28, textvariable = pago_var,
+comboOne = ttk.Combobox(interface_agregar[10], width = 28, textvariable = pago_var,
 state = "readonly", justify='center')
 comboOne['values'] = ("Cheque", "Vale", "Tarjeta de Credito", "Tarjeta de Debito",
 "Pagaré", "Efectivo")
@@ -730,10 +798,10 @@ comboOne.current(0)
 comboOne.grid(row = 14, column = 2,)
 
 
-codigoEmpVenta = ttk.Entry(interface_agregar[8], width = 30)
+codigoEmpVenta = ttk.Entry(interface_agregar[10], width = 30)
 codigoEmpVenta.grid(row = 16, column = 2, pady = 5)
 
-submitVenta=tk.Button(interface_agregar[8], text="Ingresar", background='#2ECC71', fg='white',
+submitVenta=tk.Button(interface_agregar[10], text="Ingresar", background='#2ECC71', fg='white',
 relief=tk.FLAT, command = lambda: regVenta(codigoVenta.get(), codigoProdVenta.get(), cantidadVenta.get(),
 precioUnitVenta.get(), importeVenta.get(), fechaVenta.get(), pago_var.get(), codigoEmpVenta.get()))
 submitVenta.grid(row=18, column = 2, pady = 5)
@@ -774,6 +842,10 @@ productTable.grid(row=2, column=1,sticky='NEWS')
 productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Proveedor', 
                             'Categoria')
 
+saleTable = ttk.Treeview(interface_agregar[7], style = "Custom.Treeview")
+saleTable.grid(row = 1, column = 1, sticky = 'NEWS')
+saleTable['columns'] = ('Codigo Producto', 'Cantidad', 'Precio Unitario',
+'Importe', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
 #--------------------scrollbar----------------
 employee_xscrollb= ttk.Scrollbar(interface_agregar[4], orient="horizontal", command=employeeTable.xview)
 employee_xscrollb.grid(row=3, column=1, columnspan=2, sticky='WE')
@@ -860,5 +932,23 @@ def tableProduct():
     productTable.column("Proveedor", anchor="center",width=80)   
     productTable.heading("Categoria", text='Categoria')
     productTable.column("Categoria", anchor="center",width=80)   
+
+def tableSale():
+    saleTable.heading("#0", text='Clave de Venta', anchor='center')
+    saleTable.column("#0", anchor="w",width=80)   
+    saleTable.heading("Codigo Producto", text='Codigo Producto')
+    saleTable.column("Codigo Producto", anchor="center",width=80)   
+    saleTable.heading("Cantidad", text='Cantidad')
+    saleTable.column("Cantidad", anchor="center",width=80)  
+    saleTable.heading("Precio Unitario", text='Precio Unitario')
+    saleTable.column("Precio Unitario", anchor="center",width=80)   
+    saleTable.heading("Importe", text='Importe')
+    saleTable.column("Importe", anchor="center",width=80)   
+    saleTable.heading("Fecha de Venta", text='Fecha de Venta')
+    saleTable.column("Fecha de Venta", anchor="center",width=80)   
+    saleTable.heading("Forma de Pago", text='Forma de Pago')
+    saleTable.column("Forma de Pago", anchor="center",width=80)
+    saleTable.heading("Clave Empleado", text = "Clave Empleado")
+    saleTable.column("Clave Empleado", anchor = "center", width = 80)
 
 main()
