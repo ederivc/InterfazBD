@@ -78,7 +78,6 @@ def OnClick(event):
         display.config(bg='#3EBD5E')          
     return
 
-
 def LabelEnter(event):
     event.widget.config(background='#7f7f7f')
 
@@ -247,7 +246,7 @@ def defBoton(tab, text, row, col, comando, px):
 
 window = tk.Tk()
 window.title('Base de datos')
-window.minsize(1080, 700)
+window.minsize(1140, 700)
 
 w = 1140 # width for the Tk root
 h = 700 # height for the Tk root
@@ -304,6 +303,7 @@ saleImg = saleImg.zoom(2)
 saleImg = saleImg.subsample(6)
 
 stockImg = PhotoImage(file = "stock_2.png")
+soundImg = PhotoImage(file = "sound-wave.png")
 
 
 #*************************************** LABELS ****************************************
@@ -317,14 +317,25 @@ for x in range(11):
 interface_agregar[0].pack(fill=tk.BOTH, expand=True)
 interface_agregar[0].configure(bg='#18191A')
 
-canvas = Canvas(interface_agregar[0], bg='#18191A', width=250, height=h,bd=0, relief='flat',highlightthickness=0)
+canvas = Canvas(interface_agregar[0], bg='#9f01fc', width=250, height=h,bd=0, relief='flat',highlightthickness=0)
 canvas.create_image(0,0, anchor='nw', image=stockImg)
-canvas.pack(side='right')
+canvas.pack(side='right', fill=BOTH)
+
+canvas2 = Canvas(interface_agregar[0], bg='#9f01fc', width=w, height=100,bd=0, relief='flat',highlightthickness=0)
+canvas2.create_image(0,0, anchor='nw', image=soundImg)
+canvas2.pack(side='bottom', fill=BOTH)
 
 home_page=tk.Frame(interface_agregar[0])
 home_page.pack(side='left', fill=BOTH)
 home_page.configure(bg='#18191A')
-ttk.Label(home_page, text="BIENVENIDO", font=("Times", 60, 'bold'), background='#18191A', foreground='white').grid(row=0, column=0, padx=10, pady=20)
+home_page.columnconfigure(1,weight=2)
+home_page.columnconfigure(0,weight=1)
+ttk.Label(home_page, text="BIENVENIDO", font=("Times", 50, 'bold'), background='#18191A', foreground='white').grid(row=0, column=0,padx=50,pady=20, columnspan=2)
+ttk.Label(home_page, text="BASE DE \n\tDATOS", font=("Times", 30, 'bold'), background='#18191A', foreground='#3A3939').grid(row=1, column=1)
+ttk.Label(home_page, text="\n\n⮞ Agregar", font=("Arial", 12, 'bold'), background='#18191A', foreground='white').grid(row=2, column=0,padx=10)
+ttk.Label(home_page, text="\n\n⮞ Mostrar", font=("Arial", 12, 'bold'), background='#18191A', foreground='white').grid(row=3, column=0,padx=10)
+ttk.Label(home_page, text="\n\n⮞ Categorías", font=("Arial", 12, 'bold'), background='#18191A', foreground='white').grid(row=4, column=0,padx=10)
+ttk.Label(home_page, text="\n\n⮞ Ventas", font=("Arial", 12, 'bold'), background='#18191A', foreground='white').grid(row=5, column=0,padx=10)
 
 #---------------------------------------->Empleado<-------------------------------------
 interface_agregar[1].pack(side='bottom',fill=tk.BOTH, expand=True)
