@@ -169,24 +169,33 @@ provedorProd, categProd):
 
 def regVenta(claveVenta, codigoProd, cantidad, precioUnit, importe,
 fechaVent, formaPago, idEmp):
-    try:
-        connection = mysql.connect(host='localhost',
-                    user='root',
-                    passwd='',
-                    database='registration')
-        mySql_insert_query  =f"""INSERT INTO sales VALUES ({claveVenta}, '{codigoProd}', '{cantidad}', 
-        '{precioUnit}', '{importe}', '{fechaVent}', '{formaPago}', '{idEmp}')"""
+    while TRUE:
+        try:
+            connection = mysql.connect(host='localhost',
+                        user='root',
+                        passwd='',
+                        database='registration')
+            mySql_insert_query  =f"""INSERT INTO sales VALUES ({claveVenta}, '{codigoProd}', '{cantidad}', 
+            '{precioUnit}', '{importe}', '{fechaVent}', '{formaPago}', '{idEmp}')"""
 
-        cursor = connection.cursor()
-        cursor.execute(mySql_insert_query)
-        connection.commit()
-        mBox.showinfo("VENTAS", "La venta: " + str(claveVenta) + " ha sido"+
-        " relizada")
-        cursor.close()
-    except Exception as e:
-        mBox.showerror("ERROR", "No se pudo realizar la venta, verifique sus "+
-        "datos.")
-        print("Failed to insert record into Sales table {}".format(e))
+            i = verifica(codigoProd, cantidad)
+            if(i == FALSE):
+                mBox.showerror("ERROR", "Excediste el limite de compra, intenta de nuevo.")
+                break
+
+            cursor = connection.cursor()
+            cursor.execute(mySql_insert_query)
+            connection.commit()
+            mBox.showinfo("VENTAS", "La venta: " + str(claveVenta) + " ha sido"+
+            " relizada")
+            elimina(codigoProd, cantidad)
+            cursor.close()
+            break
+        except Exception as e:
+            mBox.showerror("ERROR", "No se pudo realizar la venta, verifique sus "+
+            "datos.")
+            print("Failed to insert record into Sales table {}".format(e))
+            break
 
 def showEmployee(employeeTable):
     for i in employeeTable.get_children():
@@ -244,6 +253,25 @@ def chBoton(tab, texto, variable, x ,y):
 def defBoton(tab, text, row, col, comando, px):
     return ttk.Button(tab, text = text, command = comando).grid(row = row, column = col, padx = px)
 
+def verifica(codigo, cantidad):
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()
+    operacion.execute("SELECT existencia FROM product WHERE codigoProd = %s",(codigo,)) 
+    valor = operacion.fetchone()
+    if(int(cantidad) >= int(valor[0])):
+        return FALSE
+    conexion.close()
+
+def elimina(codigo, cantidad):
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()
+    operacion.execute("SELECT existencia FROM product WHERE codigoProd = %s",(codigo,))
+    real = operacion.fetchone()
+    total = int(real[0]) - int(cantidad)
+    operacion.execute("UPDATE product SET existencia = %s WHERE codigoProd = %s",(total, codigo))
+    conexion.commit()
+    conexion.close()
+
 window = tk.Tk()
 window.title('Base de datos')
 window.minsize(1140, 700)
@@ -270,10 +298,6 @@ window.config(bg='#282828')
 options= tk.Frame(window, bg="#8c95f1")
 options.grid(row=0,column=0, sticky='NSWE')
 options.columnconfigure(0, weight=1)
-
-#shopImg = PhotoImage(file = "shop.png")
-#shopImg = shopImg.zoom(2)
-#shopImg = shopImg.subsample(6)
 
 display = tk.Frame(window, bg="#18191A")
 display.grid(row=0,column=1, sticky='NSWE', padx=7, pady=7)
@@ -874,6 +898,9 @@ product_yscrollb= ttk.Scrollbar(interface_agregar[6], orient="vertical", command
 product_yscrollb.grid(row=2, column=2, sticky='NS')
 productTable.configure(yscrollcommand=product_yscrollb.set)
 
+sale_yscrollb = ttk.Scrollbar(interface_agregar[7], orient = "vertical", command = saleTable.yview)
+sale_yscrollb.grid(row = 1, column = 2, sticky = 'NS')
+saleTable.configure(yscrollcommand = sale_yscrollb.set)
 
 def tableEmp():
     employeeTable.heading("#0", text='ID', anchor='center')
