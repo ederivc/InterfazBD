@@ -24,6 +24,8 @@ def main():
     tableEmp()
     tableSupplier()
     tableProduct()
+    tableCatPago()
+    tableCatProd()
     tableSale()
     window.mainloop()
 
@@ -95,7 +97,7 @@ def ShowAgregar(index):
     interface_agregar[index].pack(fill=tk.BOTH, expand=True,  padx=5, pady=5)
     agregar_frames[index].config(bg='#0781F4')
   
-def regEmp(aidi, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp, lugNacEmp,
+def regEmp(aidi, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp,
 ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
     try:
         ide = int(aidi)
@@ -105,7 +107,7 @@ ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
                     passwd='',
                     database='registration')         
         mySql_insert_query  =f"""INSERT INTO employee VALUES ({ide}, '{nombreEmp}', '{apPatEmp}',
-        '{apMatEmp}', '{rfcEmp}', '{fechaNacEmp}', '{fechaIngresoEmp}', '{lugNacEmp}', '{ciudadEmp}', 
+        '{apMatEmp}', '{rfcEmp}', '{fechaNacEmp}', '{fechaIngresoEmp}', '{ciudadEmp}', 
         '{estadoEmp}', '{paisEmp}', '{calleEmp}', '{coloniaEmp}', '{cpEmp}', '{telEmp}','{sueldo}')"""
         
         cursor = connection.cursor()
@@ -120,7 +122,10 @@ ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
         "datos.")
         print("Failed to insert record into Employee table {}".format(e))   
 
-def regProv(cveProv, nombreProv, rfcProv, empresaProv, 
+def hola(aidi):
+    aidi.delete(0,END)
+
+def regProv(cveProv, nombreProv, rfcProv, telefonoProv, empresaProv, 
 ciudadProv, calleProv, coloniaProv, cpProv):
     try:
         connection = mysql.connect(host='localhost',
@@ -128,7 +133,8 @@ ciudadProv, calleProv, coloniaProv, cpProv):
                     passwd='',
                     database='registration')
         mySql_insert_query  =f"""INSERT INTO supplier VALUES ({cveProv}, '{nombreProv}', '{rfcProv}', 
-        '{empresaProv}', '{ciudadProv}', '{calleProv}', '{coloniaProv}', '{cpProv}')"""
+        '{telefonoProv}','{empresaProv}', '{ciudadProv}', '{calleProv}', 
+        '{coloniaProv}', '{cpProv}')"""
 
         cursor = connection.cursor()
         cursor.execute(mySql_insert_query)
@@ -145,7 +151,7 @@ ciudadProv, calleProv, coloniaProv, cpProv):
 
 
 def regProd(codigoProd, nombreProd, marcaProd, existProd, costoProd, 
-provedorProd, categProd):
+reordenProd,provedorProd, categProd):
     codP = int(codigoProd)
     exProd = int(existProd)
     cosProd = float(costoProd)
@@ -155,7 +161,7 @@ provedorProd, categProd):
                     passwd='',
                     database='registration')
         mySql_insert_query  =f"""INSERT INTO product VALUES ({codP}, '{nombreProd}', '{marcaProd}', 
-        '{exProd}', '{cosProd}', '{provedorProd}', '{categProd}')"""
+        '{exProd}', '{cosProd}', '{reordenProd}','{provedorProd}', '{categProd}')"""
 
         cursor = connection.cursor()
         cursor.execute(mySql_insert_query)
@@ -190,6 +196,7 @@ fechaVent, formaPago, idEmp):
             mBox.showinfo("VENTAS", "La venta: " + str(claveVenta) + " ha sido"+
             " relizada")
             elimina(codigoProd, cantidad)
+            verificaReo(codigoProd)
             cursor.close()
             break
         except Exception as e:
@@ -205,9 +212,9 @@ def showEmployee(employeeTable):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()
     operacion.execute( "SELECT * FROM employee" )
-    for id, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp, lugNacEmp, ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp in operacion.fetchall():
+    for id, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp, ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp in operacion.fetchall():
         employeeTable.insert('', 'end', text = id, values=(nombreEmp, apPatEmp, apMatEmp, 
-        rfcEmp, fechaNacEmp, fechaIngresoEmp, lugNacEmp, ciudadEmp, estadoEmp, 
+        rfcEmp, fechaNacEmp, fechaIngresoEmp, ciudadEmp, estadoEmp, 
         paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp))
     conexion.close()
 
@@ -218,9 +225,9 @@ def showSupplier(supplierTable):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()
     operacion.execute( "SELECT * FROM supplier" )
-    for claveProv, nombreProv,rfcProv,empresaProv,ciudadProv,calleProv,coloniaProv,cpProv in operacion.fetchall():
-        supplierTable.insert('', 'end', text = claveProv, values=(nombreProv, rfcProv, empresaProv, 
-        ciudadProv, calleProv, coloniaProv, cpProv))
+    for claveProv, nombreProv,rfcProv,telefonoProv,empresaProv,ciudadProv,calleProv,coloniaProv,cpProv in operacion.fetchall():
+        supplierTable.insert('', 'end', text = claveProv, values=(nombreProv, rfcProv, 
+        telefonoProv, empresaProv,ciudadProv, calleProv, coloniaProv, cpProv))
     conexion.close()
 
 def showProduct(productTable):
@@ -230,9 +237,9 @@ def showProduct(productTable):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()
     operacion.execute( "SELECT * FROM product" )
-    for codigoProd,nombreProd,marcaProd,existProd,costoProd,provedorProd,categProd in operacion.fetchall():
+    for codigoProd,nombreProd,marcaProd,existProd,costoProd,reordenProd,provedorProd,categProd in operacion.fetchall():
         productTable.insert('', 'end', text = codigoProd, values=(nombreProd,marcaProd,existProd,
-        costoProd,provedorProd,categProd))
+        costoProd,reordenProd,provedorProd,categProd))
     conexion.close()
 
 def showSale(saleTable):
@@ -246,13 +253,6 @@ def showSale(saleTable):
         saleTable.insert('', 'end', text = clave, values=(codigoProd,cantidad,precioUni,
         importe,fecha,fPago,claveEmp))
     conexion.close()
-
-def chBoton(tab, texto, variable, x ,y):
-    return tk.Checkbutton(tab, text = texto, variable = variable, borderwidth=0).grid(row = x, 
-    column = y)
-
-def defBoton(tab, text, row, col, comando, px):
-    return ttk.Button(tab, text = text, command = comando).grid(row = row, column = col, padx = px)
 
 def verifica(codigo, cantidad):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
@@ -270,6 +270,19 @@ def elimina(codigo, cantidad):
     real = operacion.fetchone()
     total = int(real[0]) - int(cantidad)
     operacion.execute("UPDATE product SET existencia = %s WHERE codigoProd = %s",(total, codigo))
+    conexion.commit()
+    conexion.close()
+
+def verificaReo(codigo):
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()
+    operacion.execute("SELECT existencia FROM product WHERE codigoProd = %s",(codigo,))
+    exis = operacion.fetchone() 
+    operacion.execute("SELECT reordenProd FROM product WHERE codigoProd = %s",(codigo,))
+    reo = operacion.fetchone()
+    if(int(exis[0]) <= int(reo[0])):
+        nuevo = int(exis[0]) + 50
+        operacion.execute("UPDATE product SET existencia = %s WHERE codigoProd = %s",(nuevo, codigo))
     conexion.commit()
     conexion.close()
 
@@ -391,15 +404,14 @@ ttk.Label(interface_agregar[1], text="Apellido Materno:", font=("Fixedsys", 9), 
 ttk.Label(interface_agregar[1], text="RFC:", font=("Fixedsys", 9),  background='white').grid(row=10, column=1, pady=2)
 ttk.Label(interface_agregar[1], text="Fecha Nacimiento:", font=("Fixedsys", 9),  background='white').grid(row=12, column=1, pady=2)
 ttk.Label(interface_agregar[1], text="Fecha Ingreso:", font=("Fixedsys", 9),  background='white').grid(row=14, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Lugar Nacimiento:", font=("Fixedsys", 9),  background='white').grid(row=16, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Ciudad:", font=("Fixedsys", 9),  background='white').grid(row=18, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Estado:", font=("Fixedsys", 9),  background='white').grid(row=20, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="País:", font=("Fixedsys", 9),  background='white').grid(row=22, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Calle:", font=("Fixedsys", 9),  background='white').grid(row=24, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Colonia:", font=("Fixedsys", 9),  background='white').grid(row=26, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="CP:", font=("Fixedsys", 9),  background='white').grid(row=28, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Teléfono:", font=("Fixedsys", 9),  background='white').grid(row=30, column=1, pady=2)
-ttk.Label(interface_agregar[1], text="Sueldo:", font=("Fixedsys", 9),  background='white').grid(row=32, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Ciudad:", font=("Fixedsys", 9),  background='white').grid(row=16, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Estado:", font=("Fixedsys", 9),  background='white').grid(row=18, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="País:", font=("Fixedsys", 9),  background='white').grid(row=20, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Calle:", font=("Fixedsys", 9),  background='white').grid(row=22, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Colonia:", font=("Fixedsys", 9),  background='white').grid(row=24, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="CP:", font=("Fixedsys", 9),  background='white').grid(row=26, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Teléfono:", font=("Fixedsys", 9),  background='white').grid(row=28, column=1, pady=2)
+ttk.Label(interface_agregar[1], text="Sueldo:", font=("Fixedsys", 9),  background='white').grid(row=30, column=1, pady=2)
 
 
 aidi = ttk.Entry(interface_agregar[1], width=30)
@@ -459,37 +471,34 @@ fechaIngresoEmp = MyDateEntry(interface_agregar[1],
 
 fechaIngresoEmp.grid(row = 14, column = 2, pady=2)
 
-lugNacEmp = ttk.Entry(interface_agregar[1], width = 30)
-lugNacEmp.grid(row = 16, column = 2, pady=2)
-
 ciudadEmp = ttk.Entry(interface_agregar[1], width = 30)
-ciudadEmp.grid(row = 18, column = 2, pady=2)
+ciudadEmp.grid(row = 16, column = 2, pady=2)
 
 estadoEmp = ttk.Entry(interface_agregar[1], width = 30)
-estadoEmp.grid(row = 20, column = 2, pady=2)
+estadoEmp.grid(row = 18, column = 2, pady=2)
 
 paisEmp = ttk.Entry(interface_agregar[1], width = 30)
-paisEmp.grid(row = 22, column = 2, pady=2)
+paisEmp.grid(row = 20, column = 2, pady=2)
 
 calleEmp = ttk.Entry(interface_agregar[1], width = 30)
-calleEmp.grid(row = 24, column = 2, pady=2)
+calleEmp.grid(row = 22, column = 2, pady=2)
 
 coloniaEmp = ttk.Entry(interface_agregar[1], width = 30)
-coloniaEmp.grid(row = 26, column = 2, pady=2)
+coloniaEmp.grid(row = 24, column = 2, pady=2)
 
 cpEmp = ttk.Entry(interface_agregar[1], width = 30)
-cpEmp.grid(row = 28, column = 2, pady=2)
+cpEmp.grid(row = 26, column = 2, pady=2)
 
 telEmp = ttk.Entry(interface_agregar[1], width = 30)
-telEmp.grid(row = 30, column = 2, pady=2)
+telEmp.grid(row = 28, column = 2, pady=2)
 
 sueldoEmp = ttk.Entry(interface_agregar[1], width = 30)
-sueldoEmp.grid(row = 32, column = 2, pady=2)
+sueldoEmp.grid(row = 30, column = 2, pady=2)
 
 submitEmp=tk.Button(interface_agregar[1], text="Ingresar", background='#2ECC71', fg='white',
 relief=tk.FLAT, command = lambda: regEmp(aidi.get(), nombreEmp.get(), apPatEmp.get(), 
-apMatEmp.get(), rfcEmp.get(), fechaNacEmp.get(), fechaIngresoEmp.get(), lugNacEmp.get(),
-ciudadEmp.get(), estadoEmp.get(), paisEmp.get(), calleEmp.get(), coloniaEmp.get(), 
+apMatEmp.get(), rfcEmp.get(), fechaNacEmp.get(), fechaIngresoEmp.get(), ciudadEmp.get(),
+estadoEmp.get(), paisEmp.get(), calleEmp.get(), coloniaEmp.get(), 
 cpEmp.get(), telEmp.get(), sueldoEmp.get()))
 submitEmp.grid(row=34, column=2, pady=2)
 #*****************************************************************************
@@ -507,11 +516,12 @@ font=("Times", 20), background='white').grid(row=2, column=2)
 ttk.Label(interface_agregar[2], text="Clave:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
 ttk.Label(interface_agregar[2], text="Nombre:",font=("Fixedsys", 9), background='white').grid(row=6, column=1,pady=5)
 ttk.Label(interface_agregar[2], text="RFC:",font=("Fixedsys", 9), background='white').grid(row=8, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="Nombre Empresa:",font=("Fixedsys", 9), background='white').grid(row=10, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="Ciudad:",font=("Fixedsys", 9), background='white').grid(row=12, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="Calle:",font=("Fixedsys", 9), background='white').grid(row=14, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="Colonia:",font=("Fixedsys", 9), background='white').grid(row=16, column=1,pady=5)
-ttk.Label(interface_agregar[2], text="CP:",font=("Fixedsys", 9), background='white').grid(row=18, column=1,pady=5)
+ttk.Label(interface_agregar[2], text ="Telefono:", font=("Fixedsys", 9), background = 'white').grid(row=10,column = 1,pady=5)
+ttk.Label(interface_agregar[2], text="Nombre Empresa:",font=("Fixedsys", 9), background='white').grid(row=12, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Ciudad:",font=("Fixedsys", 9), background='white').grid(row=14, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Calle:",font=("Fixedsys", 9), background='white').grid(row=16, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="Colonia:",font=("Fixedsys", 9), background='white').grid(row=18, column=1,pady=5)
+ttk.Label(interface_agregar[2], text="CP:",font=("Fixedsys", 9), background='white').grid(row=20, column=1,pady=5)
 
 claveProv = ttk.Entry(interface_agregar[2], width = 15)
 claveProv.grid(row = 4, column = 2,pady=5)
@@ -522,25 +532,28 @@ nombreProv.grid(row = 6, column = 2,pady=5)
 rfcProv = ttk.Entry(interface_agregar[2], width = 15)
 rfcProv.grid(row = 8, column = 2,pady=5)
 
+telProv = ttk.Entry(interface_agregar[2], width = 15)
+telProv.grid(row = 10, column = 2,pady=5)
+
 empresaProv = ttk.Entry(interface_agregar[2], width = 15)
-empresaProv.grid(row = 10, column = 2,pady=5)
+empresaProv.grid(row = 12, column = 2,pady=5)
 
 ciudadProv = ttk.Entry(interface_agregar[2], width = 15)
-ciudadProv.grid(row = 12, column = 2,pady=5)
+ciudadProv.grid(row = 14, column = 2,pady=5)
 
 calleProv = ttk.Entry(interface_agregar[2], width = 15)
-calleProv.grid(row = 14, column = 2,pady=5)
+calleProv.grid(row = 16, column = 2,pady=5)
 
 coloniaProv = ttk.Entry(interface_agregar[2], width = 15)
-coloniaProv.grid(row = 16, column = 2,pady=5)
+coloniaProv.grid(row = 18, column = 2,pady=5)
 
 cpProv = ttk.Entry(interface_agregar[2], width = 15)
-cpProv.grid(row = 18, column = 2,pady=5)
+cpProv.grid(row = 20, column = 2,pady=5)
 
 submitProv=tk.Button(interface_agregar[2], text="Registrar", background='#0781F4', fg='white',
 relief=tk.FLAT, command = lambda: regProv(claveProv.get(), nombreProv.get(), rfcProv.get(), 
-empresaProv.get(),ciudadProv.get(), calleProv.get(), coloniaProv.get(), cpProv.get()))
-submitProv.grid(row=22, column=2,pady=5)
+telProv.get(),empresaProv.get(),ciudadProv.get(), calleProv.get(), coloniaProv.get(), cpProv.get()))
+submitProv.grid(row=24, column=2,pady=5)
 #************************************************************************
 
 
@@ -559,8 +572,9 @@ ttk.Label(interface_agregar[3], text="Nombre:",font=("Fixedsys", 9), background=
 ttk.Label(interface_agregar[3], text="Marca:",font=("Fixedsys", 9), background='white').grid(row=6, column=1, pady=5)
 ttk.Label(interface_agregar[3], text="Existencia:",font=("Fixedsys", 9), background='white').grid(row=8, column=1, pady=5)
 ttk.Label(interface_agregar[3], text="Costo:",font=("Fixedsys", 9), background='white').grid(row=10, column=1, pady=5)
-ttk.Label(interface_agregar[3], text="Proveedor:",font=("Fixedsys", 9), background='white').grid(row=12, column=1, pady=5)
-ttk.Label(interface_agregar[3], text="Categoria:",font=("Fixedsys", 9), background='white').grid(row=14, column=1, pady=5)
+ttk.Label(interface_agregar[3], text ="Punto de Reorden:",font=("Fixedsys", 9), background='white').grid(row = 12,column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Proveedor:",font=("Fixedsys", 9), background='white').grid(row=14, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Categoria:",font=("Fixedsys", 9), background='white').grid(row=16, column=1, pady=5)
 
 codigoProd = ttk.Entry(interface_agregar[3], width = 30)
 codigoProd.grid(row = 2, column = 2, pady=5)
@@ -577,21 +591,24 @@ existProd.grid(row = 8, column = 2, pady=5)
 costoProd = ttk.Entry(interface_agregar[3], width = 30)
 costoProd.grid(row = 10, column = 2, pady=5)
 
+reordenProd = ttk.Entry(interface_agregar[3], width = 30)
+reordenProd.grid(row = 12, column = 2, pady=5)
+
 provedorProd = ttk.Entry(interface_agregar[3], width = 30)
-provedorProd.grid(row = 12, column = 2, pady = 5)
+provedorProd.grid(row = 14, column = 2, pady = 5)
 
 categProd = tk.StringVar()
 comboTwo = ttk.Combobox(interface_agregar[3], width = 28, textvariable = categProd,
 state = "readonly", justify='center')
 comboTwo['values'] = ("Refrescos", "Cerveza", "Botanas", "Abarrotes")
 comboTwo.current(0)
-comboTwo.grid(row = 14, column = 2, pady = 5)
+comboTwo.grid(row = 16, column = 2, pady = 5)
 
 
 submitProd=tk.Button(interface_agregar[3], text="Ingresar", background='#FF8F00', fg='white',
 relief=tk.FLAT, command = lambda: regProd(codigoProd.get(), nombreProd.get(), marcaProd.get(), 
-existProd.get(), costoProd.get(),provedorProd.get(), categProd.get()))
-submitProd.grid(row=16, column=2, pady=5)
+existProd.get(), costoProd.get(), reordenProd.get(), provedorProd.get(), categProd.get()))
+submitProd.grid(row=18, column=2, pady=5)
 #**************************************************************************
 
 #**************************************** INGRESAR ****************************************
@@ -755,7 +772,7 @@ interface_agregar[9].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[9].configure(bg='white')
 interface_agregar[9].pack_forget()
 
-ttk.Label(interface_agregar[9], text="       \t PRODUCTOS     ", 
+ttk.Label(interface_agregar[9], text="\n CATEGORIAS DE PRODUCTOS \n", 
 font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
 
 agregar_frames[9]=tk.Frame(options, bg = '#080808')
@@ -875,20 +892,29 @@ employeeTable = ttk.Treeview(interface_agregar[4],style="Custom.Treeview")
 employeeTable.grid(row=1, column=1, columnspan=2, padx=15, pady=5)
 employeeTable['columns'] = (
                              'nombre','apellidoP','apellidoM','rfc','fechaNac',
-                             'fechaIng','lugarNac','ciudad','estado','pais','calle',
+                             'fechaIng','ciudad','estado','pais','calle',
                              'colonia','cp','telefono','sueldo'
                             )
 
 
 supplierTable = ttk.Treeview(interface_agregar[5], style="Custom.Treeview")
 supplierTable.grid(row=2, column=1,sticky='NEWS')
-supplierTable['columns'] = ('Nombre', 'RFC', 'Empresa', 'Ciudad', 'Calle', 
+supplierTable['columns'] = ('Nombre', 'RFC', 'Telefono', 'Empresa', 'Ciudad', 'Calle', 
                             'Colonia', 'CP')
 
 productTable = ttk.Treeview(interface_agregar[6], style="Custom.Treeview")
 productTable.grid(row=2, column=1,sticky='NEWS')
-productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Proveedor', 
-                            'Categoria')
+productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Punto de Reorden',
+'Proveedor', 'Categoria')
+
+categoPagoTable = ttk.Treeview(interface_agregar[8], style = "Custom.Treeview")
+categoPagoTable.grid(row = 2, column = 1, sticky = 'NEWS')
+categoPagoTable['columns'] = ("Cheque", "Vale", "Tarjeta de Credito", "Tarjeta de Debito",
+"Pagaré", "Efectivo")
+
+categoProdTable = ttk.Treeview(interface_agregar[9], style = "Custom.Treeview")
+categoProdTable.grid(row = 2, column = 1, sticky = 'NEWS')
+categoProdTable['columns'] = ('Abarrotes', 'Botanas', 'Cervezas', 'Refrescos')
 
 saleTable = ttk.Treeview(interface_agregar[7], style = "Custom.Treeview")
 saleTable.grid(row = 1, column = 1, sticky = 'NEWS')
@@ -930,8 +956,6 @@ def tableEmp():
     employeeTable.column('fechaNac', anchor='center', width=80, stretch=False)
     employeeTable.heading('fechaIng', text='FechaIng')
     employeeTable.column('fechaIng', anchor='center', width=80, stretch=False)
-    employeeTable.heading('lugarNac', text='LugarNac')
-    employeeTable.column('lugarNac', anchor='center', width=80, stretch=False)
     employeeTable.heading('ciudad', text='Ciudad')
     employeeTable.column('ciudad', anchor='center', width=80, stretch=False)
     employeeTable.heading('estado', text='Estado')
@@ -957,6 +981,8 @@ def tableSupplier():
     supplierTable.column("Nombre", anchor="center",width=80)   
     supplierTable.heading("RFC", text='RFC')
     supplierTable.column("RFC", anchor="center",width=80)  
+    supplierTable.heading("Telefono", text='Telefono')
+    supplierTable.column("Telefono", anchor="center",width=80) 
     supplierTable.heading("Empresa", text='Empresa')
     supplierTable.column("Empresa", anchor="center",width=80)   
     supplierTable.heading("Ciudad", text='Ciudad')
@@ -979,10 +1005,40 @@ def tableProduct():
     productTable.column("Existencia", anchor="center",width=80)   
     productTable.heading("Costo", text='Costo')
     productTable.column("Costo", anchor="center",width=80)   
+    productTable.heading("Punto de Reorden", text = "Punto de Reorden")
+    productTable.column("Punto de Reorden", anchor = "center", width = 80)
     productTable.heading("Proveedor", text='Proveedor')
     productTable.column("Proveedor", anchor="center",width=80)   
     productTable.heading("Categoria", text='Categoria')
     productTable.column("Categoria", anchor="center",width=80)   
+
+def tableCatPago():
+    categoPagoTable.heading("#0", text='ID Venta', anchor='center')
+    categoPagoTable.column("#0", anchor="w",width=80)   
+    categoPagoTable.heading("Cheque", text='Cheque')
+    categoPagoTable.column("Cheque", anchor="center",width=80)   
+    categoPagoTable.heading("Vale", text='Vale')
+    categoPagoTable.column("Vale", anchor="center",width=80)  
+    categoPagoTable.heading("Tarjeta de Credito", text='Tarjeta de Credito')
+    categoPagoTable.column("Tarjeta de Credito", anchor="center",width=80)   
+    categoPagoTable.heading("Tarjeta de Debito", text='Tarjeta de Debito')
+    categoPagoTable.column("Tarjeta de Debito", anchor="center",width=80)   
+    categoPagoTable.heading("Pagaré", text='Pagaré')
+    categoPagoTable.column("Pagaré", anchor="center",width=80)   
+    categoPagoTable.heading("Efectivo", text='Efectivo')
+    categoPagoTable.column("Efectivo", anchor="center",width=80) 
+
+def tableCatProd():
+    categoProdTable.heading("#0", text='ID Producto', anchor='center')
+    categoProdTable.column("#0", anchor="w",width=80)   
+    categoProdTable.heading("Abarrotes", text='Abarrotes')
+    categoProdTable.column("Abarrotes", anchor="center",width=80)   
+    categoProdTable.heading("Botanas", text='Botanas')
+    categoProdTable.column("Botanas", anchor="center",width=80)  
+    categoProdTable.heading("Cervezas", text='Cervezas')
+    categoProdTable.column("Cervezas", anchor="center",width=80)   
+    categoProdTable.heading("Refrescos", text='Refrescos')
+    categoProdTable.column("Refrescos", anchor="center",width=80)   
 
 def tableSale():
     saleTable.heading("#0", text='Clave de Venta', anchor='center')
