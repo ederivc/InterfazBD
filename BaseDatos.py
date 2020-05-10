@@ -78,6 +78,7 @@ def OnClick(event):
         display.config(bg='#3EBD5E')          
     return
 
+
 def LabelEnter(event):
     event.widget.config(background='#7f7f7f')
 
@@ -354,12 +355,24 @@ home_page.pack(side='left', fill=BOTH)
 home_page.configure(bg='#18191A')
 home_page.columnconfigure(1,weight=2)
 home_page.columnconfigure(0,weight=1)
-ttk.Label(home_page, text="BIENVENIDO", font=("Times", 50, 'bold'), background='#18191A', foreground='white').grid(row=0, column=0,padx=50,pady=20, columnspan=2)
+ttk.Label(home_page, text="BIENVENIDO", font=("Times", 50, 'bold'), background='#18191A', foreground='white',).grid(row=0, column=0,padx=50,pady=20, columnspan=2)
 ttk.Label(home_page, text="BASE DE \n\tDATOS", font=("Times", 30, 'bold'), background='#18191A', foreground='#3A3939').grid(row=1, column=1)
-ttk.Label(home_page, text="\n\n⮞ Agregar", font=("Arial", 12, 'bold'), background='#18191A', foreground='white').grid(row=2, column=0,padx=10)
-ttk.Label(home_page, text="\n\n⮞ Mostrar", font=("Arial", 12, 'bold'), background='#18191A', foreground='white').grid(row=3, column=0,padx=10)
-ttk.Label(home_page, text="\n\n⮞ Categorías", font=("Arial", 12, 'bold'), background='#18191A', foreground='white').grid(row=4, column=0,padx=10)
-ttk.Label(home_page, text="\n\n⮞ Ventas", font=("Arial", 12, 'bold'), background='#18191A', foreground='white').grid(row=5, column=0,padx=10)
+
+agregarHome=ttk.Label(home_page, text="\n\n⮞ Agregar", font=("Arial", 12, 'bold'), background='#18191A', foreground='white')
+agregarHome.grid(row=2, column=0,padx=10)
+agregarHome.bind("<Button-1>", lambda x: OnClick(1))
+
+mostrarHome=ttk.Label(home_page, text="\n\n⮞ Mostrar", font=("Arial", 12, 'bold'), background='#18191A', foreground='white')
+mostrarHome.grid(row=3, column=0,padx=10)
+mostrarHome.bind("<Button-1>", lambda x: OnClick(4))
+
+categoriasHome=ttk.Label(home_page, text="\n\n⮞ Categorías", font=("Arial", 12, 'bold'), background='#18191A', foreground='white')
+categoriasHome.grid(row=4, column=0,padx=10)
+categoriasHome.bind("<Button-1>", lambda x: OnClick(8))
+
+ventasHome=ttk.Label(home_page, text="\n\n⮞ Ventas", font=("Arial", 12, 'bold'), background='#18191A', foreground='white')
+ventasHome.grid(row=5, column=0,padx=10)
+ventasHome.bind("<Button-1>", lambda x: OnClick(10))
 
 #---------------------------------------->Empleado<-------------------------------------
 interface_agregar[1].pack(side='bottom',fill=tk.BOTH, expand=True)
