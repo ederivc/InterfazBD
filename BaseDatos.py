@@ -81,6 +81,27 @@ def OnClick(event):
     return
 
 
+def fprecioVenta(event):
+    if cantidadVenta.get():
+        try:
+            codigo= int(codigoProdVenta.get())
+            cantidad = int(cantidadVenta.get())
+            connection = mysql.connect(host='localhost',
+                        user='root',
+                        passwd='',
+                        database='registration')         
+            operacion = connection.cursor()
+            operacion.execute("SELECT precioventaProd FROM product WHERE codigoProd = %s",(codigo,)) 
+            valor = operacion.fetchone()
+            valorProd=float(valor[0])
+            precioUnitVenta.config(text=str(valorProd))
+            importe=str(valorProd*cantidad)
+            importeVenta.config(text=importe)
+            operacion.close()
+    
+        except Exception as e:
+            mBox.showerror("ERROR", "Producto no registrado")
+
 def LabelEnter(event):
     event.widget.config(background='#7f7f7f')
 
@@ -150,18 +171,19 @@ ciudadProv, calleProv, coloniaProv, cpProv):
         print("Failed to insert record into Supplier table {}".format(e))
 
 
-def regProd(codigoProd, nombreProd, marcaProd, existProd, costoProd, 
-reordenProd,provedorProd, categProd):
+def regProd(codigoProd, nombreProd, marcaProd, existProd, costoProd,
+precioventaProd, reordenProd,provedorProd, categProd):
     codP = int(codigoProd)
     exProd = int(existProd)
     cosProd = float(costoProd)
+    preciovProd = float(precioventaProd)
     try:
         connection = mysql.connect(host='localhost',
                     user='root',
                     passwd='',
                     database='registration')
         mySql_insert_query  =f"""INSERT INTO product VALUES ({codP}, '{nombreProd}', '{marcaProd}', 
-        '{exProd}', '{cosProd}', '{reordenProd}','{provedorProd}', '{categProd}')"""
+        '{exProd}', '{cosProd}',{preciovProd} ,'{reordenProd}','{provedorProd}', '{categProd}')"""
 
         cursor = connection.cursor()
         cursor.execute(mySql_insert_query)
@@ -237,9 +259,9 @@ def showProduct(productTable):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()
     operacion.execute( "SELECT * FROM product" )
-    for codigoProd,nombreProd,marcaProd,existProd,costoProd,reordenProd,provedorProd,categProd in operacion.fetchall():
+    for codigoProd,nombreProd,marcaProd,existProd,costoProd, precioventaProd,reordenProd,provedorProd,categProd in operacion.fetchall():
         productTable.insert('', 'end', text = codigoProd, values=(nombreProd,marcaProd,existProd,
-        costoProd,reordenProd,provedorProd,categProd))
+        costoProd,precioventaProd,reordenProd,provedorProd,categProd))
     conexion.close()
 
 def showSale(saleTable):
@@ -572,9 +594,10 @@ ttk.Label(interface_agregar[3], text="Nombre:",font=("Fixedsys", 9), background=
 ttk.Label(interface_agregar[3], text="Marca:",font=("Fixedsys", 9), background='white').grid(row=6, column=1, pady=5)
 ttk.Label(interface_agregar[3], text="Existencia:",font=("Fixedsys", 9), background='white').grid(row=8, column=1, pady=5)
 ttk.Label(interface_agregar[3], text="Costo:",font=("Fixedsys", 9), background='white').grid(row=10, column=1, pady=5)
-ttk.Label(interface_agregar[3], text ="Punto de Reorden:",font=("Fixedsys", 9), background='white').grid(row = 12,column=1, pady=5)
-ttk.Label(interface_agregar[3], text="Proveedor:",font=("Fixedsys", 9), background='white').grid(row=14, column=1, pady=5)
-ttk.Label(interface_agregar[3], text="Categoria:",font=("Fixedsys", 9), background='white').grid(row=16, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Precio Venta:",font=("Fixedsys", 9), background='white').grid(row=12, column=1, pady=5)
+ttk.Label(interface_agregar[3], text ="Punto de Reorden:",font=("Fixedsys", 9), background='white').grid(row = 14,column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Proveedor:",font=("Fixedsys", 9), background='white').grid(row=16, column=1, pady=5)
+ttk.Label(interface_agregar[3], text="Categoria:",font=("Fixedsys", 9), background='white').grid(row=18, column=1, pady=5)
 
 codigoProd = ttk.Entry(interface_agregar[3], width = 30)
 codigoProd.grid(row = 2, column = 2, pady=5)
@@ -591,24 +614,27 @@ existProd.grid(row = 8, column = 2, pady=5)
 costoProd = ttk.Entry(interface_agregar[3], width = 30)
 costoProd.grid(row = 10, column = 2, pady=5)
 
+precioventaProd = ttk.Entry(interface_agregar[3], width = 30)
+precioventaProd.grid(row = 12, column = 2, pady=5)
+
 reordenProd = ttk.Entry(interface_agregar[3], width = 30)
-reordenProd.grid(row = 12, column = 2, pady=5)
+reordenProd.grid(row = 14, column = 2, pady=5)
 
 provedorProd = ttk.Entry(interface_agregar[3], width = 30)
-provedorProd.grid(row = 14, column = 2, pady = 5)
+provedorProd.grid(row = 16, column = 2, pady = 5)
 
 categProd = tk.StringVar()
 comboTwo = ttk.Combobox(interface_agregar[3], width = 28, textvariable = categProd,
 state = "readonly", justify='center')
 comboTwo['values'] = ("Refrescos", "Cerveza", "Botanas", "Abarrotes")
 comboTwo.current(0)
-comboTwo.grid(row = 16, column = 2, pady = 5)
+comboTwo.grid(row = 18, column = 2, pady = 5)
 
 
 submitProd=tk.Button(interface_agregar[3], text="Ingresar", background='#FF8F00', fg='white',
 relief=tk.FLAT, command = lambda: regProd(codigoProd.get(), nombreProd.get(), marcaProd.get(), 
-existProd.get(), costoProd.get(), reordenProd.get(), provedorProd.get(), categProd.get()))
-submitProd.grid(row=18, column=2, pady=5)
+existProd.get(), costoProd.get(), precioventaProd.get(), reordenProd.get(), provedorProd.get(), categProd.get()))
+submitProd.grid(row=20, column=2, pady=5)
 #**************************************************************************
 
 #**************************************** INGRESAR ****************************************
@@ -819,17 +845,18 @@ codigoVenta.grid(row = 2, column = 2, pady=5)
 
 codigoProdVenta = ttk.Entry(interface_agregar[10], width = 30)
 codigoProdVenta.grid(row = 4, column = 2, pady=5)
-
+codigoProdVenta.bind('<FocusOut>', fprecioVenta)
 
 cantidadVenta = ttk.Entry(interface_agregar[10], width = 30)
 cantidadVenta.grid(row = 6, column = 2, pady=5)
+cantidadVenta.bind('<FocusOut>', fprecioVenta)
 
 
-precioUnitVenta = ttk.Entry(interface_agregar[10], width = 30)
+precioUnitVenta = ttk.Label(interface_agregar[10], text="0", width=30, anchor='e')
 precioUnitVenta.grid(row = 8, column = 2, pady=5)
 
 
-importeVenta = ttk.Entry(interface_agregar[10], width = 30)
+importeVenta = ttk.Label(interface_agregar[10],  text="0", width=30, anchor='e')
 importeVenta.grid(row = 10, column = 2, pady=5)
 
 
@@ -868,7 +895,7 @@ codigoEmpVenta.grid(row = 16, column = 2, pady = 5)
 
 submitVenta=tk.Button(interface_agregar[10], text="Ingresar", background='#2ECC71', fg='white',
 relief=tk.FLAT, command = lambda: regVenta(codigoVenta.get(), codigoProdVenta.get(), cantidadVenta.get(),
-precioUnitVenta.get(), importeVenta.get(), fechaVenta.get(), pago_var.get(), codigoEmpVenta.get()))
+precioUnitVenta.cget('text'), importeVenta.cget('text'), fechaVenta.get(), pago_var.get(), codigoEmpVenta.get()))
 submitVenta.grid(row=18, column = 2, pady = 5)
 #************************************************************************************
 
@@ -904,7 +931,7 @@ supplierTable['columns'] = ('Nombre', 'RFC', 'Telefono', 'Empresa', 'Ciudad', 'C
 
 productTable = ttk.Treeview(interface_agregar[6], style="Custom.Treeview")
 productTable.grid(row=2, column=1,sticky='NEWS')
-productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Punto de Reorden',
+productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Precio Venta', 'Punto de Reorden',
 'Proveedor', 'Categoria')
 
 categoPagoTable = ttk.Treeview(interface_agregar[8], style = "Custom.Treeview")
@@ -1004,7 +1031,9 @@ def tableProduct():
     productTable.heading("Existencia", text='Existencia')
     productTable.column("Existencia", anchor="center",width=80)   
     productTable.heading("Costo", text='Costo')
-    productTable.column("Costo", anchor="center",width=80)   
+    productTable.column("Costo", anchor="center",width=80)
+    productTable.heading("Precio Venta", text='Precio Venta')
+    productTable.column("Precio Venta", anchor="center",width=80)    
     productTable.heading("Punto de Reorden", text = "Punto de Reorden")
     productTable.column("Punto de Reorden", anchor = "center", width = 80)
     productTable.heading("Proveedor", text='Proveedor')
