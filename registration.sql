@@ -41,3 +41,13 @@ CREATE TABLE supplier(
   cpProv VARCHAR(20)
 );
 
+CREATE TABLE sales(
+  clave INT UNIQUE,
+  codigoProd INT,
+  cantidad INT, 
+  precioUni FLOAT,
+  importe FLOAT,
+  fecha DATE,
+  fPago VARCHAR(20),
+  claveEmp INT
+);
