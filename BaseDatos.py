@@ -21,6 +21,8 @@ def main():
     showSupplier(supplierTable)
     showProduct(productTable)
     showSale(saleTable)
+    showPayment(categoPagoTable)
+    showProducCatego(categoProdTable)
     tableEmp()
     tableSupplier()
     tableProduct()
@@ -67,10 +69,12 @@ def OnClick(event):
         ShowAgregar(7)
         display.config(bg='#3EBD5E')  
     if(event == 8):
+        showPayment(categoPagoTable)
         labelDisplay.pack(side='top')
         ShowAgregar(8)
         display.config(bg='#3EBD5E')    
     if(event == 9):
+        showProducCatego(categoProdTable)
         labelDisplay.pack(side='top')
         ShowAgregar(9)
         display.config(bg='#3EBD5E') 
@@ -143,9 +147,6 @@ ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
         "datos.")
         print("Failed to insert record into Employee table {}".format(e))   
 
-def hola(aidi):
-    aidi.delete(0,END)
-
 def regProv(cveProv, nombreProv, rfcProv, telefonoProv, empresaProv, 
 ciudadProv, calleProv, coloniaProv, cpProv):
     try:
@@ -173,28 +174,31 @@ ciudadProv, calleProv, coloniaProv, cpProv):
 
 def regProd(codigoProd, nombreProd, marcaProd, existProd, costoProd,
 precioventaProd, reordenProd,provedorProd, categProd):
-    codP = int(codigoProd)
-    exProd = int(existProd)
-    cosProd = float(costoProd)
-    preciovProd = float(precioventaProd)
-    try:
-        connection = mysql.connect(host='localhost',
-                    user='root',
-                    passwd='',
-                    database='registration')
-        mySql_insert_query  =f"""INSERT INTO product VALUES ({codP}, '{nombreProd}', '{marcaProd}', 
-        '{exProd}', '{cosProd}',{preciovProd} ,'{reordenProd}','{provedorProd}', '{categProd}')"""
+    while TRUE:
+        codP = int(codigoProd)
+        exProd = int(existProd)
+        cosProd = float(costoProd)
+        preciovProd = float(precioventaProd)
+        try:
+            connection = mysql.connect(host='localhost',
+                        user='root',
+                        passwd='',
+                        database='registration')
+            mySql_insert_query  =f"""INSERT INTO product VALUES ({codP}, '{nombreProd}', '{marcaProd}', 
+            '{exProd}', '{cosProd}',{preciovProd} ,'{reordenProd}','{provedorProd}', '{categProd}')"""
 
-        cursor = connection.cursor()
-        cursor.execute(mySql_insert_query)
-        connection.commit()
-        mBox.showinfo("PRODUCTOS", "El producto: " + str(codP) + " ha sido"+
-        " agregado correctamente")
-        cursor.close()
-    except Exception as e:
-        mBox.showerror("ERROR", "No se pudo registrar el producto, verifique sus "+
-        "datos.")
-        print("Failed to insert record into Product table {}".format(e))
+            cursor = connection.cursor()
+            cursor.execute(mySql_insert_query)
+            connection.commit()
+            mBox.showinfo("PRODUCTOS", "El producto: " + str(codP) + " ha sido"+
+            " agregado correctamente")
+            cursor.close()
+            break
+        except Exception as e:
+            mBox.showerror("ERROR", "No se pudo registrar el producto, verifique sus "+
+            "datos.")
+            print("Failed to insert record into Product table {}".format(e))
+            break
 
 def regVenta(claveVenta, codigoProd, cantidad, precioUnit, importe,
 fechaVent, formaPago, idEmp):
@@ -210,7 +214,12 @@ fechaVent, formaPago, idEmp):
             i = verifica(codigoProd, cantidad)
             if(i == FALSE):
                 mBox.showerror("ERROR", "Excediste el limite de compra, intenta de nuevo.")
-                break
+                break 
+
+            x = verificaEmpleado(idEmp)
+            if(x == FALSE):
+               mBox.showerror("ERROR", "El empleado que ingresaste no existe.")
+               break
 
             cursor = connection.cursor()
             cursor.execute(mySql_insert_query)
@@ -276,6 +285,70 @@ def showSale(saleTable):
         importe,fecha,fPago,claveEmp))
     conexion.close()
 
+def showPayment(categoPagoTable):
+    for i in categoPagoTable.get_children():
+        categoPagoTable.delete(i)
+
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()
+    
+    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Cheque'")
+    for clave, importe in operacion.fetchall():
+        categoPagoTable.insert('','end', text = clave, values = (importe,'-',
+        '-','-','-','-'))
+
+    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Vale'")
+    for clave, importe in operacion.fetchall():
+        categoPagoTable.insert('','end', text = clave, values = ("-",importe,
+        '-','-','-','-'))
+
+    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Tarjeta de Credito'")
+    for clave, importe in operacion.fetchall():
+        categoPagoTable.insert('','end', text = clave, values = ("-","-",
+        importe,'-','-','-'))
+
+    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Tarjeta de Debito'")
+    for clave, importe in operacion.fetchall():
+        categoPagoTable.insert('','end', text = clave, values = ("-","-",
+        '-',importe,'-','-'))
+
+    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Pagaré'")
+    for clave, importe in operacion.fetchall():
+        categoPagoTable.insert('','end', text = clave, values = ("-","-",
+        '-','-',importe,'-'))
+
+    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Efectivo'")
+    for clave, importe in operacion.fetchall():
+        categoPagoTable.insert('','end', text = clave, values = ("-","-",
+        '-','-','-',importe))
+
+    conexion.close()
+
+def showProducCatego(categoProdTable):
+    for i in categoProdTable.get_children():
+        categoProdTable.delete(i)
+
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()
+
+    operacion.execute("SELECT codigoProd, nombre FROM product WHERE categoria = 'Abarrotes'")
+    for codigoProd, nombre in operacion.fetchall():
+        categoProdTable.insert('','end', text = codigoProd, values = (nombre,'-','-','-'))
+
+    operacion.execute("SELECT codigoProd, nombre FROM product WHERE categoria = 'Botanas'")
+    for codigoProd, nombre in operacion.fetchall():
+        categoProdTable.insert('','end', text = codigoProd, values = ("-",nombre,'-','-'))
+
+    operacion.execute("SELECT codigoProd, nombre FROM product WHERE categoria = 'Cerveza'")
+    for codigoProd, nombre in operacion.fetchall():
+        categoProdTable.insert('','end', text = codigoProd, values = ("-","-",nombre,'-'))
+
+    operacion.execute("SELECT codigoProd, nombre FROM product WHERE categoria = 'Refrescos'")
+    for codigoProd, nombre in operacion.fetchall():
+        categoProdTable.insert('','end', text = codigoProd, values = ("-","-",'-',nombre))
+
+    conexion.close()
+
 def verifica(codigo, cantidad):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()
@@ -306,6 +379,15 @@ def verificaReo(codigo):
         nuevo = int(exis[0]) + 50
         operacion.execute("UPDATE product SET existencia = %s WHERE codigoProd = %s",(nuevo, codigo))
     conexion.commit()
+    conexion.close()
+
+def verificaEmpleado(idEmp):
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()
+    operacion.execute("SELECT id FROM employee WHERE  id = %s",(idEmp,))
+    x = operacion.fetchone()
+    if x == None:
+        return FALSE
     conexion.close()
 
 window = tk.Tk()
