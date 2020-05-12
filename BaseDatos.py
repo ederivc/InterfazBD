@@ -68,20 +68,22 @@ def OnClick(event):
         labelDisplay.pack(side='top')
         ShowAgregar(7)
         display.config(bg='#3EBD5E')  
-    if(event == 8):
+    if(event == 8): 
+        return
+    if(event == 9):
         showPayment(categoPagoTable)
         labelDisplay.pack(side='top')
-        ShowAgregar(8)
+        ShowAgregar(9)
         display.config(bg='#3EBD5E')    
-    if(event == 9):
+    if(event == 10):
         showProducCatego(categoProdTable)
         labelDisplay.pack(side='top')
-        ShowAgregar(9)
-        display.config(bg='#3EBD5E') 
-    if(event == 10):
-        labelDisplay.pack(side='top')
         ShowAgregar(10)
-        display.config(bg='#3EBD5E')          
+        display.config(bg='#3EBD5E') 
+    if(event == 11):
+        labelDisplay.pack(side='top')
+        ShowAgregar(11)
+        display.config(bg='#3EBD5E')         
     return
 
 
@@ -451,7 +453,7 @@ soundImg = PhotoImage(file = "sound-wave.png")
 #*************************************** LABELS ****************************************
 interface_agregar= []
 
-for x in range(11):
+for x in range(12):
     interface_agregar.append(tk.Frame(display))
 
 
@@ -485,11 +487,11 @@ mostrarHome.bind("<Button-1>", lambda x: OnClick(4))
 
 categoriasHome=ttk.Label(home_page, text="\n\n⮞ Categorías", font=("Arial", 12, 'bold'), background='#18191A', foreground='white')
 categoriasHome.grid(row=4, column=0,padx=10)
-categoriasHome.bind("<Button-1>", lambda x: OnClick(8))
+categoriasHome.bind("<Button-1>", lambda x: OnClick(9))
 
 ventasHome=ttk.Label(home_page, text="\n\n⮞ Ventas", font=("Arial", 12, 'bold'), background='#18191A', foreground='white')
 ventasHome.grid(row=5, column=0,padx=10)
-ventasHome.bind("<Button-1>", lambda x: OnClick(10))
+ventasHome.bind("<Button-1>", lambda x: OnClick(11))
 
 #---------------------------------------->Empleado<-------------------------------------
 interface_agregar[1].pack(side='bottom',fill=tk.BOTH, expand=True)
@@ -723,7 +725,7 @@ submitProd.grid(row=20, column=2, pady=5)
 #Option -> Agregar
 agregar_frames= []
 
-for x in range(11):
+for x in range(12):
     agregar_frames.append(tk.Frame(options))
 
 
@@ -859,90 +861,90 @@ supplierShow.bind("<Leave>", LabelLeave)
 
 #*************************************CATEGORIAS*************************************
 categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
-categ.grid(row=10, column=0, sticky='NWSE', pady=5)
+categ.grid(row=11, column=0, sticky='NWSE', pady=5)
 #**************************************************************************
-interface_agregar[8].pack(side='bottom',fill=tk.BOTH, expand=True)
-interface_agregar[8].configure(bg='white')
-interface_agregar[8].pack_forget()
-
-ttk.Label(interface_agregar[8], text="       \t FORMAS DE PAGO     ", 
-font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
-
-agregar_frames[8]=tk.Frame(options, bg = '#080808')
-agregar_frames[8].grid(row=11,column=0,sticky='NWSE', pady=2, padx=10)
-prodCatShow=ttk.Label(agregar_frames[8], text="FORMAS DE PAGO", anchor=tk.CENTER, background='#E0E0E0')
-prodCatShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
-prodCatShow.bind("<Button-1>", lambda x: OnClick(8))
-prodCatShow.bind("<Enter>", LabelEnter)
-prodCatShow.bind("<Leave>", LabelLeave)
-#********************************************************************************
 interface_agregar[9].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[9].configure(bg='white')
 interface_agregar[9].pack_forget()
 
-ttk.Label(interface_agregar[9], text="\n CATEGORIAS DE PRODUCTOS \n", 
+ttk.Label(interface_agregar[9], text="       \t FORMAS DE PAGO     ", 
 font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
 
 agregar_frames[9]=tk.Frame(options, bg = '#080808')
 agregar_frames[9].grid(row=12,column=0,sticky='NWSE', pady=2, padx=10)
-prodCatShow=ttk.Label(agregar_frames[9], text="PRODUCTOS", anchor=tk.CENTER, background='#E0E0E0')
+prodCatShow=ttk.Label(agregar_frames[9], text="FORMAS DE PAGO", anchor=tk.CENTER, background='#E0E0E0')
 prodCatShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
 prodCatShow.bind("<Button-1>", lambda x: OnClick(9))
 prodCatShow.bind("<Enter>", LabelEnter)
 prodCatShow.bind("<Leave>", LabelLeave)
-#**************************************** VENTAS ************************************
+#********************************************************************************
 interface_agregar[10].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[10].configure(bg='white')
 interface_agregar[10].pack_forget()
 
-sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
-sales.grid(row=13, column=0, sticky='NWSE', pady=5)
+ttk.Label(interface_agregar[10], text="\n CATEGORIAS DE PRODUCTOS \n", 
+font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
 
 agregar_frames[10]=tk.Frame(options, bg = '#080808')
-agregar_frames[10].grid(row=14,column=0,sticky='NWSE', pady=2, padx=10)
-salesShow=ttk.Label(agregar_frames[10], text="REGISTRAR VENTAS", anchor=tk.CENTER, background='#E0E0E0')
+agregar_frames[10].grid(row=13,column=0,sticky='NWSE', pady=2, padx=10)
+prodCatShow=ttk.Label(agregar_frames[10], text="PRODUCTOS", anchor=tk.CENTER, background='#E0E0E0')
+prodCatShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
+prodCatShow.bind("<Button-1>", lambda x: OnClick(10))
+prodCatShow.bind("<Enter>", LabelEnter)
+prodCatShow.bind("<Leave>", LabelLeave)
+#**************************************** VENTAS ************************************
+interface_agregar[11].pack(side='bottom',fill=tk.BOTH, expand=True)
+interface_agregar[11].configure(bg='white')
+interface_agregar[11].pack_forget()
+
+sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+sales.grid(row=14, column=0, sticky='NWSE', pady=5)
+
+agregar_frames[11]=tk.Frame(options, bg = '#080808')
+agregar_frames[11].grid(row=15,column=0,sticky='NWSE', pady=2, padx=10)
+salesShow=ttk.Label(agregar_frames[11], text="REGISTRAR VENTAS", anchor=tk.CENTER, background='#E0E0E0')
 salesShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
-salesShow.bind("<Button-1>", lambda x: OnClick(10))
+salesShow.bind("<Button-1>", lambda x: OnClick(11))
 salesShow.bind("<Enter>", LabelEnter)
 salesShow.bind("<Leave>", LabelLeave)
 
-labelSale = tk.Label(interface_agregar[10], background = 'white', image = saleImg)
+labelSale = tk.Label(interface_agregar[11], background = 'white', image = saleImg)
 labelSale.grid(row = 4, column = 4, columnspan = 2, rowspan = 12)
 
-ttk.Label(interface_agregar[10], text="\tREGISTRO DE VENTAS \n   ", 
+ttk.Label(interface_agregar[11], text="\tREGISTRO DE VENTAS \n   ", 
 font=("Times", 20), background='white').grid(row=0, column=2)
-ttk.Label(interface_agregar[10], text="Clave venta:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
-ttk.Label(interface_agregar[10], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
-ttk.Label(interface_agregar[10], text="Cantidad:",font=("Fixedsys", 9), background='white').grid(row=6, column=1, pady=5)
-ttk.Label(interface_agregar[10], text="Precio unitario:",font=("Fixedsys", 9), background='white').grid(row=8, column=1, pady=5)
-ttk.Label(interface_agregar[10], text="Importe",font=("Fixedsys", 9), background='white').grid(row=10, column=1, pady=5)
-ttk.Label(interface_agregar[10], text="Fecha venta:",font=("Fixedsys", 9), background='white').grid(row=12, column=1, pady=5)
-ttk.Label(interface_agregar[10], text="Forma pago:",font=("Fixedsys", 9), background='white').grid(row=14, column=1, pady=5)
-ttk.Label(interface_agregar[10], text="Clave empleado:",font=("Fixedsys", 9), background='white').grid(row=16, column=1, pady=5)
+ttk.Label(interface_agregar[11], text="Clave venta:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
+ttk.Label(interface_agregar[11], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
+ttk.Label(interface_agregar[11], text="Cantidad:",font=("Fixedsys", 9), background='white').grid(row=6, column=1, pady=5)
+ttk.Label(interface_agregar[11], text="Precio unitario:",font=("Fixedsys", 9), background='white').grid(row=8, column=1, pady=5)
+ttk.Label(interface_agregar[11], text="Importe",font=("Fixedsys", 9), background='white').grid(row=10, column=1, pady=5)
+ttk.Label(interface_agregar[11], text="Fecha venta:",font=("Fixedsys", 9), background='white').grid(row=12, column=1, pady=5)
+ttk.Label(interface_agregar[11], text="Forma pago:",font=("Fixedsys", 9), background='white').grid(row=14, column=1, pady=5)
+ttk.Label(interface_agregar[11], text="Clave empleado:",font=("Fixedsys", 9), background='white').grid(row=16, column=1, pady=5)
 
 
 
-codigoVenta = ttk.Entry(interface_agregar[10], width = 30)
+codigoVenta = ttk.Entry(interface_agregar[11], width = 30)
 codigoVenta.grid(row = 2, column = 2, pady=5)
 
-codigoProdVenta = ttk.Entry(interface_agregar[10], width = 30)
+codigoProdVenta = ttk.Entry(interface_agregar[11], width = 30)
 codigoProdVenta.grid(row = 4, column = 2, pady=5)
 codigoProdVenta.bind('<FocusOut>', fprecioVenta)
 
-cantidadVenta = ttk.Entry(interface_agregar[10], width = 30)
+cantidadVenta = ttk.Entry(interface_agregar[11], width = 30)
 cantidadVenta.grid(row = 6, column = 2, pady=5)
 cantidadVenta.bind('<FocusOut>', fprecioVenta)
 
 
-precioUnitVenta = ttk.Label(interface_agregar[10], text="0", width=30, anchor='e')
+precioUnitVenta = ttk.Label(interface_agregar[11], text="0", width=30, anchor='e')
 precioUnitVenta.grid(row = 8, column = 2, pady=5)
 
 
-importeVenta = ttk.Label(interface_agregar[10],  text="0", width=30, anchor='e')
+importeVenta = ttk.Label(interface_agregar[11],  text="0", width=30, anchor='e')
 importeVenta.grid(row = 10, column = 2, pady=5)
 
 
-fechaVenta = MyDateEntry(interface_agregar[10],
+fechaVenta = MyDateEntry(interface_agregar[11],
                  width=28,
                  justify='center',
                  selectbackground='gray80',
@@ -964,7 +966,7 @@ fechaVenta = MyDateEntry(interface_agregar[10],
 fechaVenta.grid(row = 12, column = 2, pady = 5)
 
 pago_var = tk.StringVar()
-comboOne = ttk.Combobox(interface_agregar[10], width = 28, textvariable = pago_var,
+comboOne = ttk.Combobox(interface_agregar[11], width = 28, textvariable = pago_var,
 state = "readonly", justify='center')
 comboOne['values'] = ("Cheque", "Vale", "Tarjeta de Credito", "Tarjeta de Debito",
 "Pagaré", "Efectivo")
@@ -972,10 +974,10 @@ comboOne.current(0)
 comboOne.grid(row = 14, column = 2,)
 
 
-codigoEmpVenta = ttk.Entry(interface_agregar[10], width = 30)
+codigoEmpVenta = ttk.Entry(interface_agregar[11], width = 30)
 codigoEmpVenta.grid(row = 16, column = 2, pady = 5)
 
-submitVenta=tk.Button(interface_agregar[10], text="Ingresar", background='#2ECC71', fg='white',
+submitVenta=tk.Button(interface_agregar[11], text="Ingresar", background='#2ECC71', fg='white',
 relief=tk.FLAT, command = lambda: regVenta(codigoVenta.get(), codigoProdVenta.get(), cantidadVenta.get(),
 precioUnitVenta.cget('text'), importeVenta.cget('text'), fechaVenta.get(), pago_var.get(), codigoEmpVenta.get()))
 submitVenta.grid(row=18, column = 2, pady = 5)
@@ -1016,12 +1018,12 @@ productTable.grid(row=2, column=1,sticky='NEWS')
 productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Precio Venta', 'Punto de Reorden',
 'Proveedor', 'Categoria')
 
-categoPagoTable = ttk.Treeview(interface_agregar[8], style = "Custom.Treeview")
+categoPagoTable = ttk.Treeview(interface_agregar[9], style = "Custom.Treeview")
 categoPagoTable.grid(row = 2, column = 1, sticky = 'NEWS')
 categoPagoTable['columns'] = ("Cheque", "Vale", "Tarjeta de Credito", "Tarjeta de Debito",
 "Pagaré", "Efectivo")
 
-categoProdTable = ttk.Treeview(interface_agregar[9], style = "Custom.Treeview")
+categoProdTable = ttk.Treeview(interface_agregar[10], style = "Custom.Treeview")
 categoProdTable.grid(row = 2, column = 1, sticky = 'NEWS')
 categoProdTable['columns'] = ('Abarrotes', 'Botanas', 'Cervezas', 'Refrescos')
 
