@@ -194,6 +194,11 @@ precioventaProd, reordenProd,provedorProd, categProd):
             mySql_insert_query  =f"""INSERT INTO product VALUES ({codP}, '{nombreProd}', '{marcaProd}', 
             '{exProd}', '{cosProd}',{preciovProd} ,'{reordenProd}','{provedorProd}', '{categProd}')"""
 
+            x = verificaProv(provedorProd)
+            if(x == FALSE):
+               mBox.showerror("ERROR", "El proveedor que ingresaste no existe.")
+               break
+
             cursor = connection.cursor()
             cursor.execute(mySql_insert_query)
             connection.commit()
@@ -296,6 +301,15 @@ def showTransaction(transactionTable):
     for i in transactionTable.get_children():
         transactionTable.delete(i)
 
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()    
+
+    operacion.execute("SELECT clave, codigoProd, cantidad, precioUni, importe FROM sales")
+    for clave, codigoProd, cantidad, precioUni, importe in operacion.fetchall():
+        transactionTable.insert('','end', text = clave, values = (codigoProd, cantidad,
+        precioUni, importe))
+    conexion.close()
+    
 def showPayment(categoPagoTable):
     for i in categoPagoTable.get_children():
         categoPagoTable.delete(i)
@@ -396,6 +410,15 @@ def verificaEmpleado(idEmp):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()
     operacion.execute("SELECT id FROM employee WHERE  id = %s",(idEmp,))
+    x = operacion.fetchone()
+    if x == None:
+        return FALSE
+    conexion.close()
+
+def verificaProv(idP):
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()
+    operacion.execute("SELECT claveProv FROM supplier WHERE claveProv = %s",(idP,))
     x = operacion.fetchone()
     if x == None:
         return FALSE
