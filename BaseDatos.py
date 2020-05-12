@@ -23,12 +23,14 @@ def main():
     showSale(saleTable)
     showPayment(categoPagoTable)
     showProducCatego(categoProdTable)
+    showTransaction(transactionTable)
     tableEmp()
     tableSupplier()
     tableProduct()
     tableCatPago()
     tableCatProd()
     tableSale()
+    tableTransaction()
     window.mainloop()
 
 def OnClick(event):
@@ -69,7 +71,10 @@ def OnClick(event):
         ShowAgregar(7)
         display.config(bg='#3EBD5E')  
     if(event == 8): 
-        return
+        showTransaction(transactionTable)
+        labelDisplay.pack(side='top')
+        ShowAgregar(8)
+        display.config(bg='#3EBD5E') 
     if(event == 9):
         showPayment(categoPagoTable)
         labelDisplay.pack(side='top')
@@ -286,6 +291,10 @@ def showSale(saleTable):
         saleTable.insert('', 'end', text = clave, values=(codigoProd,cantidad,precioUni,
         importe,fecha,fPago,claveEmp))
     conexion.close()
+
+def showTransaction(transactionTable):
+    for i in transactionTable.get_children():
+        transactionTable.delete(i)
 
 def showPayment(categoPagoTable):
     for i in categoPagoTable.get_children():
@@ -858,6 +867,29 @@ supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
 supplierShow.bind("<Button-1>", lambda x: OnClick(7))
 supplierShow.bind("<Enter>", LabelEnter)
 supplierShow.bind("<Leave>", LabelLeave)
+#*******************************************************************
+interface_agregar[8].pack(side='bottom',fill=tk.BOTH, expand=True)
+interface_agregar[8].configure(bg='white')
+interface_agregar[8].rowconfigure(0, weight=1)
+interface_agregar[8].rowconfigure(2, weight=1)
+interface_agregar[8].rowconfigure(3, weight=1)
+interface_agregar[8].columnconfigure(0, weight=1)
+interface_agregar[8].columnconfigure(1, weight=2)
+interface_agregar[8].columnconfigure(2, weight=2)
+interface_agregar[8].columnconfigure(3, weight=2)
+interface_agregar[8].pack_forget()
+
+ttk.Label(interface_agregar[8], text="      \tLISTA DE CONCEPTOS DE VENTA   ", 
+font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+
+agregar_frames[8]=tk.Frame(options, bg = '#080808')
+agregar_frames[8].grid(row=10,column=0,sticky='NWSE', pady=2, padx=10)
+supplierShow=ttk.Label(agregar_frames[8], text="CONCEPTO", anchor=tk.CENTER, background='#E0E0E0')
+supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
+supplierShow.bind("<Button-1>", lambda x: OnClick(8))
+supplierShow.bind("<Enter>", LabelEnter)
+supplierShow.bind("<Leave>", LabelLeave)
+
 
 #*************************************CATEGORIAS*************************************
 categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
@@ -1018,6 +1050,16 @@ productTable.grid(row=2, column=1,sticky='NEWS')
 productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Precio Venta', 'Punto de Reorden',
 'Proveedor', 'Categoria')
 
+saleTable = ttk.Treeview(interface_agregar[7], style = "Custom.Treeview")
+saleTable.grid(row = 1, column = 1, sticky = 'NEWS')
+saleTable['columns'] = ('Codigo Producto', 'Cantidad', 'Precio Unitario',
+'Importe', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+
+transactionTable = ttk.Treeview(interface_agregar[8], style = "Custom.Treeview")
+transactionTable.grid(row = 2, column = 1, sticky = 'NEWS')
+transactionTable['columns'] = ('Codigo Producto' , 'Cantidad', 'Precio Unitario',
+'Importe')
+
 categoPagoTable = ttk.Treeview(interface_agregar[9], style = "Custom.Treeview")
 categoPagoTable.grid(row = 2, column = 1, sticky = 'NEWS')
 categoPagoTable['columns'] = ("Cheque", "Vale", "Tarjeta de Credito", "Tarjeta de Debito",
@@ -1027,10 +1069,8 @@ categoProdTable = ttk.Treeview(interface_agregar[10], style = "Custom.Treeview")
 categoProdTable.grid(row = 2, column = 1, sticky = 'NEWS')
 categoProdTable['columns'] = ('Abarrotes', 'Botanas', 'Cervezas', 'Refrescos')
 
-saleTable = ttk.Treeview(interface_agregar[7], style = "Custom.Treeview")
-saleTable.grid(row = 1, column = 1, sticky = 'NEWS')
-saleTable['columns'] = ('Codigo Producto', 'Cantidad', 'Precio Unitario',
-'Importe', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+
+
 #--------------------scrollbar----------------
 employee_xscrollb= ttk.Scrollbar(interface_agregar[4], orient="horizontal", command=employeeTable.xview)
 employee_xscrollb.grid(row=3, column=1, columnspan=2, sticky='WE')
@@ -1051,6 +1091,10 @@ productTable.configure(yscrollcommand=product_yscrollb.set)
 sale_yscrollb = ttk.Scrollbar(interface_agregar[7], orient = "vertical", command = saleTable.yview)
 sale_yscrollb.grid(row = 1, column = 2, sticky = 'NS')
 saleTable.configure(yscrollcommand = sale_yscrollb.set)
+
+transaction_yscrollb= ttk.Scrollbar(interface_agregar[8], orient="vertical", command=transactionTable.yview)
+transaction_yscrollb.grid(row=2, column=2, sticky='NS')
+transactionTable.configure(yscrollcommand=transaction_yscrollb.set)
 
 def tableEmp():
     employeeTable.heading("#0", text='ID', anchor='center')
@@ -1170,5 +1214,17 @@ def tableSale():
     saleTable.column("Forma de Pago", anchor="center",width=80)
     saleTable.heading("Clave Empleado", text = "Clave Empleado")
     saleTable.column("Clave Empleado", anchor = "center", width = 80)
+
+def tableTransaction():
+    transactionTable.heading("#0", text='Clave Venta', anchor='center')
+    transactionTable.column("#0", anchor="w",width=80)   
+    transactionTable.heading("Codigo Producto", text='Codigo Producto')
+    transactionTable.column("Codigo Producto", anchor="center",width=80)   
+    transactionTable.heading("Cantidad", text='Cantidad')
+    transactionTable.column("Cantidad", anchor="center",width=80)  
+    transactionTable.heading("Precio Unitario", text='Precio Unitario')
+    transactionTable.column("Precio Unitario", anchor="center",width=80)   
+    transactionTable.heading("Importe", text='Importe')
+    transactionTable.column("Importe", anchor="center",width=80)   
 
 main()
