@@ -248,6 +248,69 @@ fechaVent, formaPago, idEmp):
             print("Failed to insert record into Sales table {}".format(e))
             break
 
+def regVenta_2(claveVenta, codigoProd, cantidad, precioUnit, importe,
+fechaVent, formaPago, idEmp):
+    while TRUE:
+        try:
+            if len(carrito)==0:
+                mBox.showerror("ERROR", "El carrito esta vacío")
+                break
+            connection = mysql.connect(host='localhost',
+                        user='root',
+                        passwd='',
+                        database='registration')
+            mySql_insert_query  =f"""INSERT INTO sales VALUES ('{claveVenta}', '0', '0', '0', '0', '{fechaVent}', '{formaPago}', '{idEmp}')"""
+            x = verificaEmpleado(idEmp)
+            if(x == FALSE):
+               mBox.showerror("ERROR", "El empleado que ingresaste no existe.")
+               break
+            cursor = connection.cursor()
+            cursor.execute(mySql_insert_query)
+            for index in range(len(carrito)):
+                mySql_insert_query_2  =f"""INSERT INTO transaction VALUES ('{claveVenta}', '{carrito[index].get('codigoProd')}', 
+                '{carrito[index].get('cantidad')}', '{carrito[index].get('precioUnit')}', '{carrito[index].get('importe')}')"""
+                cursor.execute(mySql_insert_query_2)
+                elimina(carrito[index].get('codigoProd'), carrito[index].get('cantidad'))
+                verificaReo(carrito[index].get('codigoProd')) 
+
+            connection.commit()
+            mBox.showinfo("VENTAS", "La venta: " + str(claveVenta) + " ha sido"+
+            " relizada")
+
+            for x in range(len(carrito)):
+                carrito.pop() 
+
+            cursor.close()
+            break
+        except Exception as e:
+            mBox.showerror("ERROR", "No se pudo realizar la venta, verifique sus "+
+            "datos.")
+            print("Failed to insert record into Sales table {}".format(e))
+            break
+
+def regConcepto(codigoProd, cantidad, precioUnit, importe):
+    while TRUE:
+        try:
+            i = verifica(codigoProd, cantidad)
+            if(i == FALSE):
+                mBox.showerror("ERROR", "Excediste el limite de compra, intenta de nuevo.")
+                break 
+            venta={
+                'codigoProd':int(codigoProd), 
+                'cantidad': int(cantidad),
+                'precioUnit': float(precioUnit),
+                'importe': float(importe)
+                }
+            carrito.append(venta.copy())
+            print(carrito) 
+
+            mBox.showinfo("CARRITO", "El producto " + str(codigoProd) + " ha sido "+
+            "agregago al carrito")
+            break
+        except Exception as e:
+            print("Failed to insert record into transaction table {}".format(e))
+            break
+
 def showEmployee(employeeTable):
     for i in employeeTable.get_children():
         employeeTable.delete(i)
@@ -304,7 +367,7 @@ def showTransaction(transactionTable):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()    
 
-    operacion.execute("SELECT clave, codigoProd, cantidad, precioUni, importe FROM sales")
+    operacion.execute("SELECT clave, codigoProd, cantidad, precioUni, importe FROM transaction")
     for clave, codigoProd, cantidad, precioUni, importe in operacion.fetchall():
         transactionTable.insert('','end', text = clave, values = (codigoProd, cantidad,
         precioUni, importe))
@@ -1028,14 +1091,22 @@ comboOne['values'] = ("Cheque", "Vale", "Tarjeta de Credito", "Tarjeta de Debito
 comboOne.current(0)
 comboOne.grid(row = 14, column = 2,)
 
-
 codigoEmpVenta = ttk.Entry(interface_agregar[11], width = 30)
 codigoEmpVenta.grid(row = 16, column = 2, pady = 5)
 
+global carrito
+carrito=[]
+
+submitConcepto=tk.Button(interface_agregar[11], text='Agregar al carrito', background='#2ECC71', fg='white',
+relief=tk.FLAT, command = lambda: regConcepto(codigoProdVenta.get(),cantidadVenta.get(),
+precioUnitVenta.cget('text'), importeVenta.cget('text')))
+submitConcepto.grid(row=18, column = 2, pady = 5)
+
 submitVenta=tk.Button(interface_agregar[11], text="Ingresar", background='#2ECC71', fg='white',
-relief=tk.FLAT, command = lambda: regVenta(codigoVenta.get(), codigoProdVenta.get(), cantidadVenta.get(),
+relief=tk.FLAT, command = lambda: regVenta_2(codigoVenta.get(), codigoProdVenta.get(), cantidadVenta.get(),
 precioUnitVenta.cget('text'), importeVenta.cget('text'), fechaVenta.get(), pago_var.get(), codigoEmpVenta.get()))
-submitVenta.grid(row=18, column = 2, pady = 5)
+submitVenta.grid(row=20, column = 2, pady = 5)
+
 #************************************************************************************
 
 #*****************************************************************************************
