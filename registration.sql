@@ -51,3 +51,12 @@ CREATE TABLE sales(
   fPago VARCHAR(20),
   claveEmp INT
 );
+
+
+CREATE TABLE transaction(
+  clave INT,
+  codigoProd INT,
+  cantidad INT, 
+  precioUni FLOAT(20,4),
+  importe FLOAT(20,4)
+);
