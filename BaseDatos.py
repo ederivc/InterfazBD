@@ -7,6 +7,7 @@ from tkcalendar import DateEntry
 from datetime import date
 import mysql.connector as mysql
 
+
 class MyDateEntry(DateEntry):
     def __init__(self, master, **kw):
         DateEntry.__init__(self, master, **kw)
@@ -132,22 +133,27 @@ def ShowAgregar(index):
 def regEmp(aidi, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp,
 ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
     try:
-        ide = int(aidi)
-        sueldo = float(sueldoEmp)
         connection = mysql.connect(host='localhost',
                     user='root',
                     passwd='',
                     database='registration')         
-        mySql_insert_query  =f"""INSERT INTO employee VALUES ({ide}, '{nombreEmp}', '{apPatEmp}',
-        '{apMatEmp}', '{rfcEmp}', '{fechaNacEmp}', '{fechaIngresoEmp}', '{ciudadEmp}', 
-        '{estadoEmp}', '{paisEmp}', '{calleEmp}', '{coloniaEmp}', '{cpEmp}', '{telEmp}','{sueldo}')"""
+        mySql_insert_query  =f"""INSERT INTO employee VALUES ({aidi.get()}, '{nombreEmp.get()}', 
+        '{apPatEmp.get()}','{apMatEmp.get()}', '{rfcEmp.get()}', '{fechaNacEmp.get()}', 
+        '{fechaIngresoEmp.get()}', '{ciudadEmp.get()}', '{estadoEmp.get()}', '{paisEmp.get()}', 
+        '{calleEmp.get()}', '{coloniaEmp.get()}', '{cpEmp.get()}', '{telEmp.get()}','{sueldoEmp.get()}')"""
         
         cursor = connection.cursor()
         cursor.execute(mySql_insert_query)
         connection.commit()
-        mBox.showinfo("EMPLEADOS", "El usuario: " + str(aidi) + " ha sido"+
+        mBox.showinfo("EMPLEADOS", "El usuario: " + str(aidi.get()) + " ha sido"+
         " agregado correctamente")
         cursor.close()
+
+        aidi.delete(0, END), nombreEmp.delete(0, END), apPatEmp.delete(0, END), 
+        apMatEmp.delete(0, END), rfcEmp.delete(0, END), fechaNacEmp.delete(0, END),
+        fechaIngresoEmp.delete(0, END),ciudadEmp.delete(0, END), estadoEmp.delete(0, END), 
+        paisEmp.delete(0, END),calleEmp.delete(0, END), coloniaEmp.delete(0, END), 
+        cpEmp.delete(0, END), telEmp.delete(0, END), sueldoEmp.delete(0, END)
 
     except Exception as e:
         mBox.showerror("ERROR", "No se pudo registrar al empleado, verifique sus "+
@@ -161,17 +167,21 @@ ciudadProv, calleProv, coloniaProv, cpProv):
                     user='root',
                     passwd='',
                     database='registration')
-        mySql_insert_query  =f"""INSERT INTO supplier VALUES ({cveProv}, '{nombreProv}', '{rfcProv}', 
-        '{telefonoProv}','{empresaProv}', '{ciudadProv}', '{calleProv}', 
-        '{coloniaProv}', '{cpProv}')"""
+        mySql_insert_query  =f"""INSERT INTO supplier VALUES ({cveProv.get()}, 
+        '{nombreProv.get()}', '{rfcProv.get()}', '{telefonoProv.get()}',
+        '{empresaProv.get()}', '{ciudadProv.get()}', '{calleProv.get()}', 
+        '{coloniaProv.get()}', '{cpProv.get()}')"""
 
         cursor = connection.cursor()
         cursor.execute(mySql_insert_query)
         connection.commit()
-        mBox.showinfo("PROVEEDORES", "El proveedor: " + str(cveProv) + " ha sido"+
+        mBox.showinfo("PROVEEDORES", "El proveedor: " + str(cveProv.get()) + " ha sido"+
         " agregado correctamente")
         cursor.close()
-        showSupplier(supplierTable)
+        
+        cveProv.delete(0, END), nombreProv.delete(0, END), rfcProv.delete(0, END),
+        telefonoProv.delete(0, END), empresaProv.delete(0, END), ciudadProv.delete(0, END),
+        calleProv.delete(0, END), coloniaProv.delete(0, END), cpProv.delete(0, END)
 
     except Exception as e:
         mBox.showerror("ERROR", "No se pudo registrar al proveedor, verifique sus "+
@@ -180,21 +190,19 @@ ciudadProv, calleProv, coloniaProv, cpProv):
 
 
 def regProd(codigoProd, nombreProd, marcaProd, existProd, costoProd,
-precioventaProd, reordenProd,provedorProd, categProd):
+precioVProd, reordenProd, provedorProd, categProd):
     while TRUE:
-        codP = int(codigoProd)
-        exProd = int(existProd)
-        cosProd = float(costoProd)
-        preciovProd = float(precioventaProd)
         try:
             connection = mysql.connect(host='localhost',
                         user='root',
                         passwd='',
                         database='registration')
-            mySql_insert_query  =f"""INSERT INTO product VALUES ({codP}, '{nombreProd}', '{marcaProd}', 
-            '{exProd}', '{cosProd}',{preciovProd} ,'{reordenProd}','{provedorProd}', '{categProd}')"""
+            mySql_insert_query  =f"""INSERT INTO product VALUES ({codigoProd.get()}, 
+            '{nombreProd.get()}', '{marcaProd.get()}', '{existProd.get()}',
+            '{costoProd.get()}',{precioVProd.get()} ,'{reordenProd.get()}',
+            '{provedorProd.get()}', '{categProd}')"""
 
-            x = verificaProv(provedorProd)
+            x = verificaProv(provedorProd.get())
             if(x == FALSE):
                mBox.showerror("ERROR", "El proveedor que ingresaste no existe.")
                break
@@ -202,10 +210,15 @@ precioventaProd, reordenProd,provedorProd, categProd):
             cursor = connection.cursor()
             cursor.execute(mySql_insert_query)
             connection.commit()
-            mBox.showinfo("PRODUCTOS", "El producto: " + str(codP) + " ha sido"+
+            mBox.showinfo("PRODUCTOS", "El producto: " + str(codigoProd.get()) + " ha sido"+
             " agregado correctamente")
             cursor.close()
+
+            codigoProd.delete(0, END), nombreProd.delete(0, END), marcaProd.delete(0, END),
+            existProd.delete(0, END), costoProd.delete(0, END), precioVProd.delete(0, END),
+            reordenProd.delete(0, END), provedorProd.delete(0, END)
             break
+
         except Exception as e:
             mBox.showerror("ERROR", "No se pudo registrar el producto, verifique sus "+
             "datos.")
@@ -308,6 +321,7 @@ def regConcepto(codigoProd, cantidad, precioUnit, importe):
             "agregago al carrito")
             break
         except Exception as e:
+            mBox.showerror("ERROR", "Datos incorrectos.")
             print("Failed to insert record into transaction table {}".format(e))
             break
 
@@ -684,7 +698,7 @@ paisEmp.grid(row = 20, column = 2, pady=2)
 calleEmp = ttk.Entry(interface_agregar[1], width = 30)
 calleEmp.grid(row = 22, column = 2, pady=2)
 
-coloniaEmp = ttk.Entry(interface_agregar[1], width = 30)
+coloniaEmp = ttk.Entry(interface_agregar[1], width = 30)    
 coloniaEmp.grid(row = 24, column = 2, pady=2)
 
 cpEmp = ttk.Entry(interface_agregar[1], width = 30)
@@ -697,10 +711,9 @@ sueldoEmp = ttk.Entry(interface_agregar[1], width = 30)
 sueldoEmp.grid(row = 30, column = 2, pady=2)
 
 submitEmp=tk.Button(interface_agregar[1], text="Ingresar", background='#2ECC71', fg='white',
-relief=tk.FLAT, command = lambda: regEmp(aidi.get(), nombreEmp.get(), apPatEmp.get(), 
-apMatEmp.get(), rfcEmp.get(), fechaNacEmp.get(), fechaIngresoEmp.get(), ciudadEmp.get(),
-estadoEmp.get(), paisEmp.get(), calleEmp.get(), coloniaEmp.get(), 
-cpEmp.get(), telEmp.get(), sueldoEmp.get()))
+relief=tk.FLAT, command = lambda: regEmp(aidi, nombreEmp, apPatEmp, 
+apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp, ciudadEmp, estadoEmp, 
+paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp))
 submitEmp.grid(row=34, column=2, pady=2)
 #*****************************************************************************
 
@@ -752,8 +765,8 @@ cpProv = ttk.Entry(interface_agregar[2], width = 15)
 cpProv.grid(row = 20, column = 2,pady=5)
 
 submitProv=tk.Button(interface_agregar[2], text="Registrar", background='#0781F4', fg='white',
-relief=tk.FLAT, command = lambda: regProv(claveProv.get(), nombreProv.get(), rfcProv.get(), 
-telProv.get(),empresaProv.get(),ciudadProv.get(), calleProv.get(), coloniaProv.get(), cpProv.get()))
+relief=tk.FLAT, command = lambda: regProv(claveProv, nombreProv, rfcProv, 
+telProv,empresaProv,ciudadProv, calleProv, coloniaProv, cpProv))
 submitProv.grid(row=24, column=2,pady=5)
 #************************************************************************
 
@@ -811,8 +824,8 @@ comboTwo.grid(row = 18, column = 2, pady = 5)
 
 
 submitProd=tk.Button(interface_agregar[3], text="Ingresar", background='#FF8F00', fg='white',
-relief=tk.FLAT, command = lambda: regProd(codigoProd.get(), nombreProd.get(), marcaProd.get(), 
-existProd.get(), costoProd.get(), precioventaProd.get(), reordenProd.get(), provedorProd.get(), categProd.get()))
+relief=tk.FLAT, command = lambda: regProd(codigoProd, nombreProd, marcaProd, 
+existProd, costoProd, precioventaProd, reordenProd, provedorProd, categProd.get()))
 submitProd.grid(row=20, column=2, pady=5)
 #**************************************************************************
 
@@ -1032,7 +1045,7 @@ labelSale.grid(row = 4, column = 4, columnspan = 2, rowspan = 12)
 ttk.Label(interface_agregar[11], text="\tREGISTRO DE VENTAS \n   ", 
 font=("Times", 20), background='white').grid(row=0, column=2)
 ttk.Label(interface_agregar[11], text="Clave venta:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
-ttk.Label(interface_agregar[11], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
+ttk.Label(interface_agregar[11], text="Código de barras producto:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
 ttk.Label(interface_agregar[11], text="Cantidad:",font=("Fixedsys", 9), background='white').grid(row=6, column=1, pady=5)
 ttk.Label(interface_agregar[11], text="Precio unitario:",font=("Fixedsys", 9), background='white').grid(row=8, column=1, pady=5)
 ttk.Label(interface_agregar[11], text="Importe",font=("Fixedsys", 9), background='white').grid(row=10, column=1, pady=5)
