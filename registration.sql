@@ -43,10 +43,7 @@ CREATE TABLE supplier(
 
 CREATE TABLE sales(
   clave INT UNIQUE,
-  codigoProd INT,
-  cantidad INT, 
-  precioUni FLOAT,
-  importe FLOAT,
+  importeT FLOAT(20,4),
   fecha DATE,
   fPago VARCHAR(20),
   claveEmp INT

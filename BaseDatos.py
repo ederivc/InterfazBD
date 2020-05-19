@@ -5,6 +5,7 @@ from tkinter import messagebox as mBox
 from tkinter import *
 from tkcalendar import DateEntry
 from datetime import date
+from datetime import datetime
 import mysql.connector as mysql
 
 
@@ -133,13 +134,15 @@ def ShowAgregar(index):
 def regEmp(aidi, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp,
 ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
     try:
+        fechaNacEmpStr = fechaNacEmp.get_date().strftime('%Y-%m-%d')
+        fechaIngresoEmpStr = fechaIngresoEmp.get_date().strftime('%Y-%m-%d')
         connection = mysql.connect(host='localhost',
                     user='root',
                     passwd='',
                     database='registration')         
         mySql_insert_query  =f"""INSERT INTO employee VALUES ({aidi.get()}, '{nombreEmp.get()}', 
-        '{apPatEmp.get()}','{apMatEmp.get()}', '{rfcEmp.get()}', '{fechaNacEmp.get()}', 
-        '{fechaIngresoEmp.get()}', '{ciudadEmp.get()}', '{estadoEmp.get()}', '{paisEmp.get()}', 
+        '{apPatEmp.get()}','{apMatEmp.get()}', '{rfcEmp.get()}', '{fechaNacEmpStr}', 
+        '{fechaIngresoEmpStr}', '{ciudadEmp.get()}', '{estadoEmp.get()}', '{paisEmp.get()}', 
         '{calleEmp.get()}', '{coloniaEmp.get()}', '{cpEmp.get()}', '{telEmp.get()}','{sueldoEmp.get()}')"""
         
         cursor = connection.cursor()
@@ -265,6 +268,7 @@ def regVenta_2(claveVenta, codigoProd, cantidad, precioUnit, importe,
 fechaVent, formaPago, idEmp):
     while TRUE:
         try:
+            fecheVentStr = fechaVent.get_date().strftime('%Y-%m-%d')
             if len(carrito)==0:
                 mBox.showerror("ERROR", "El carrito esta vacío")
                 break
@@ -272,7 +276,7 @@ fechaVent, formaPago, idEmp):
                         user='root',
                         passwd='',
                         database='registration')
-            mySql_insert_query  =f"""INSERT INTO sales VALUES ('{claveVenta}', '0', '0', '0', '0', '{fechaVent}', '{formaPago}', '{idEmp}')"""
+            mySql_insert_query  =f"""INSERT INTO sales VALUES ('{claveVenta}', '0', '{fecheVentStr}', '{formaPago}', '{idEmp}')"""
             x = verificaEmpleado(idEmp)
             if(x == FALSE):
                mBox.showerror("ERROR", "El empleado que ingresaste no existe.")
@@ -287,6 +291,10 @@ fechaVent, formaPago, idEmp):
                 verificaReo(carrito[index].get('codigoProd')) 
 
             connection.commit()
+
+            codigoVenta.delete(0, END)
+            codigoEmpVenta.delete(0,END) 
+            
             mBox.showinfo("VENTAS", "La venta: " + str(claveVenta) + " ha sido"+
             " relizada")
 
@@ -304,18 +312,41 @@ fechaVent, formaPago, idEmp):
 def regConcepto(codigoProd, cantidad, precioUnit, importe):
     while TRUE:
         try:
-            i = verifica(codigoProd, cantidad)
-            if(i == FALSE):
-                mBox.showerror("ERROR", "Excediste el limite de compra, intenta de nuevo.")
-                break 
-            venta={
-                'codigoProd':int(codigoProd), 
-                'cantidad': int(cantidad),
-                'precioUnit': float(precioUnit),
-                'importe': float(importe)
-                }
-            carrito.append(venta.copy())
+            codigoProd=int(codigoProd)
+            cantidad =int(cantidad)
+            precioUnit = float(precioUnit)
+            importe = float (importe)
+                    
+            check, index = verificaCarrito(codigoProd)
+            if check:
+                cantidad += carrito[index].get('cantidad')
+                importe += carrito[index].get('importe')
+                i = verifica(codigoProd, cantidad)
+                if(i == FALSE):
+                    mBox.showerror("ERROR", "Excediste el limite de compra, intenta de nuevo.")
+                    break 
+                carrito[index].update({'cantidad': cantidad})
+                carrito[index].update({'importe': importe})
+            else:    
+                i = verifica(codigoProd, cantidad)
+                if(i == FALSE):
+                    mBox.showerror("ERROR", "Excediste el limite de compra, intenta de nuevo.")
+                    break 
+
+                venta={
+                    'codigoProd':codigoProd, 
+                    'cantidad': cantidad,
+                    'precioUnit': precioUnit,
+                    'importe': importe
+                    }
+                carrito.append(venta.copy())
             print(carrito) 
+            
+            
+            codigoProdVenta.delete(0, END)
+            cantidadVenta.delete(0,END)
+            importeVenta.config(text='0')
+            precioUnitVenta.config(text='0')
 
             mBox.showinfo("CARRITO", "El producto " + str(codigoProd) + " ha sido "+
             "agregago al carrito")
@@ -369,9 +400,8 @@ def showSale(saleTable):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()
     operacion.execute( "SELECT * FROM sales" )
-    for clave,codigoProd,cantidad,precioUni,importe,fecha,fPago, claveEmp in operacion.fetchall():
-        saleTable.insert('', 'end', text = clave, values=(codigoProd,cantidad,precioUni,
-        importe,fecha,fPago,claveEmp))
+    for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+        saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
     conexion.close()
 
 def showTransaction(transactionTable):
@@ -394,35 +424,35 @@ def showPayment(categoPagoTable):
     conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
     operacion = conexion.cursor()
     
-    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Cheque'")
-    for clave, importe in operacion.fetchall():
-        categoPagoTable.insert('','end', text = clave, values = (importe,'-',
+    operacion.execute("SELECT clave, importeT FROM sales WHERE fPago = 'Cheque'")
+    for clave, importeT in operacion.fetchall():
+        categoPagoTable.insert('','end', text = clave, values = (importeT,'-',
         '-','-','-','-'))
 
-    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Vale'")
-    for clave, importe in operacion.fetchall():
-        categoPagoTable.insert('','end', text = clave, values = ("-",importe,
+    operacion.execute("SELECT clave, importeT FROM sales WHERE fPago = 'Vale'")
+    for clave, importeT in operacion.fetchall():
+        categoPagoTable.insert('','end', text = clave, values = ("-",importeT,
         '-','-','-','-'))
 
-    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Tarjeta de Credito'")
-    for clave, importe in operacion.fetchall():
+    operacion.execute("SELECT clave, importeT FROM sales WHERE fPago = 'Tarjeta de Credito'")
+    for clave, importeT in operacion.fetchall():
         categoPagoTable.insert('','end', text = clave, values = ("-","-",
-        importe,'-','-','-'))
+        importeT,'-','-','-'))
 
-    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Tarjeta de Debito'")
-    for clave, importe in operacion.fetchall():
+    operacion.execute("SELECT clave, importeT FROM sales WHERE fPago = 'Tarjeta de Debito'")
+    for clave, importeT in operacion.fetchall():
         categoPagoTable.insert('','end', text = clave, values = ("-","-",
-        '-',importe,'-','-'))
+        '-',importeT,'-','-'))
 
-    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Pagaré'")
-    for clave, importe in operacion.fetchall():
+    operacion.execute("SELECT clave, importeT FROM sales WHERE fPago = 'Pagaré'")
+    for clave, importeT in operacion.fetchall():
         categoPagoTable.insert('','end', text = clave, values = ("-","-",
-        '-','-',importe,'-'))
+        '-','-',importeT,'-'))
 
-    operacion.execute("SELECT clave, importe FROM sales WHERE fPago = 'Efectivo'")
-    for clave, importe in operacion.fetchall():
+    operacion.execute("SELECT clave, importeT FROM sales WHERE fPago = 'Efectivo'")
+    for clave, importeT in operacion.fetchall():
         categoPagoTable.insert('','end', text = clave, values = ("-","-",
-        '-','-','-',importe))
+        '-','-','-',importeT))
 
     conexion.close()
 
@@ -500,6 +530,14 @@ def verificaProv(idP):
     if x == None:
         return FALSE
     conexion.close()
+
+def verificaCarrito(codigoProd):
+    for x in range(len(carrito)):
+        if carrito[x].get('codigoProd') == codigoProd:
+            return (True, x)
+    return (False, 0)             
+
+
 
 window = tk.Tk()
 window.title('Base de datos')
@@ -585,22 +623,6 @@ home_page.columnconfigure(1,weight=2)
 home_page.columnconfigure(0,weight=1)
 ttk.Label(home_page, text="BIENVENIDO", font=("Times", 50, 'bold'), background='#18191A', foreground='white',).grid(row=0, column=0,padx=50,pady=20, columnspan=2)
 ttk.Label(home_page, text="BASE DE \n\tDATOS", font=("Times", 30, 'bold'), background='#18191A', foreground='#3A3939').grid(row=1, column=1)
-
-agregarHome=ttk.Label(home_page, text="\n\n⮞ Agregar", font=("Arial", 12, 'bold'), background='#18191A', foreground='white')
-agregarHome.grid(row=2, column=0,padx=10)
-agregarHome.bind("<Button-1>", lambda x: OnClick(1))
-
-mostrarHome=ttk.Label(home_page, text="\n\n⮞ Mostrar", font=("Arial", 12, 'bold'), background='#18191A', foreground='white')
-mostrarHome.grid(row=3, column=0,padx=10)
-mostrarHome.bind("<Button-1>", lambda x: OnClick(4))
-
-categoriasHome=ttk.Label(home_page, text="\n\n⮞ Categorías", font=("Arial", 12, 'bold'), background='#18191A', foreground='white')
-categoriasHome.grid(row=4, column=0,padx=10)
-categoriasHome.bind("<Button-1>", lambda x: OnClick(9))
-
-ventasHome=ttk.Label(home_page, text="\n\n⮞ Ventas", font=("Arial", 12, 'bold'), background='#18191A', foreground='white')
-ventasHome.grid(row=5, column=0,padx=10)
-ventasHome.bind("<Button-1>", lambda x: OnClick(11))
 
 #---------------------------------------->Empleado<-------------------------------------
 interface_agregar[1].pack(side='bottom',fill=tk.BOTH, expand=True)
@@ -1117,7 +1139,7 @@ submitConcepto.grid(row=18, column = 2, pady = 5)
 
 submitVenta=tk.Button(interface_agregar[11], text="Ingresar", background='#2ECC71', fg='white',
 relief=tk.FLAT, command = lambda: regVenta_2(codigoVenta.get(), codigoProdVenta.get(), cantidadVenta.get(),
-precioUnitVenta.cget('text'), importeVenta.cget('text'), fechaVenta.get(), pago_var.get(), codigoEmpVenta.get()))
+precioUnitVenta.cget('text'), importeVenta.cget('text'), fechaVenta, pago_var.get(), codigoEmpVenta.get()))
 submitVenta.grid(row=20, column = 2, pady = 5)
 
 #************************************************************************************
@@ -1159,8 +1181,7 @@ productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Precio Ven
 
 saleTable = ttk.Treeview(interface_agregar[7], style = "Custom.Treeview")
 saleTable.grid(row = 1, column = 1, sticky = 'NEWS')
-saleTable['columns'] = ('Codigo Producto', 'Cantidad', 'Precio Unitario',
-'Importe', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+saleTable['columns'] = ('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
 
 transactionTable = ttk.Treeview(interface_agregar[8], style = "Custom.Treeview")
 transactionTable.grid(row = 2, column = 1, sticky = 'NEWS')
@@ -1306,15 +1327,9 @@ def tableCatProd():
 
 def tableSale():
     saleTable.heading("#0", text='Clave de Venta', anchor='center')
-    saleTable.column("#0", anchor="w",width=80)   
-    saleTable.heading("Codigo Producto", text='Codigo Producto')
-    saleTable.column("Codigo Producto", anchor="center",width=80)   
-    saleTable.heading("Cantidad", text='Cantidad')
-    saleTable.column("Cantidad", anchor="center",width=80)  
-    saleTable.heading("Precio Unitario", text='Precio Unitario')
-    saleTable.column("Precio Unitario", anchor="center",width=80)   
-    saleTable.heading("Importe", text='Importe')
-    saleTable.column("Importe", anchor="center",width=80)   
+    saleTable.column("#0", anchor="w",width=80)     
+    saleTable.heading("Importe Total", text='Importe Total')
+    saleTable.column("Importe Total", anchor="center",width=80)   
     saleTable.heading("Fecha de Venta", text='Fecha de Venta')
     saleTable.column("Fecha de Venta", anchor="center",width=80)   
     saleTable.heading("Forma de Pago", text='Forma de Pago')
