@@ -114,6 +114,119 @@ def OnClick(event):
     return
 
 
+def llenarDatosEmp(event):
+    try:
+        idEmp = int(aidiEmpMod.get())
+        connection = mysql.connect(host='localhost',
+                    user='root',
+                    passwd='',
+                    database='registration')
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM employee WHERE id = %s",(idEmp,))
+        empleado = cursor.fetchone()
+        cursor.close()
+
+        nombreEmpMod.delete(0, END)
+        apPatEmpMod.delete(0, END)
+        apMatEmpMod.delete(0, END)
+        rfcEmpMod.delete(0, END)
+        ciudadEmpMod.delete(0, END)
+        estadoEmpMod.delete(0, END)
+        paisEmpMod.delete(0, END)
+        calleEmpMod.delete(0, END)
+        coloniaEmpMod.delete(0, END)
+        cpEmpMod.delete(0, END)
+        telEmpMod.delete(0, END)
+        sueldoEmpMod.delete(0, END)
+
+        nombreEmpMod.insert(0, empleado[1])
+        apPatEmpMod.insert(0, empleado[2])
+        apMatEmpMod.insert(0, empleado[3])
+        rfcEmpMod.insert(0, empleado[4])
+        fechaNacEmpMod.set_date(empleado[5])
+        fechaIngresoEmpMod.set_date(empleado[6])
+        ciudadEmpMod.insert(0, empleado[7])
+        estadoEmpMod.insert(0, empleado[8])
+        paisEmpMod.insert(0, empleado[9])
+        calleEmpMod.insert(0, empleado[10])
+        coloniaEmpMod.insert(0, empleado[11])
+        cpEmpMod.insert(0, empleado[12])
+        telEmpMod.insert(0, empleado[13])
+        sueldoEmpMod.insert(0, empleado[14])
+
+    except Exception as e:
+        mBox.showerror("ERROR", "Empleado no encontrado")
+
+def llenarDatosProv(event):
+    try:
+        idProv = int(claveProvMod.get())
+        connection = mysql.connect(host='localhost',
+                    user='root',
+                    passwd='',
+                    database='registration')
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM supplier WHERE claveProv = %s",(idProv,))
+        proveedor = cursor.fetchone()
+        cursor.close()
+
+        nombreProvMod.delete(0, END)
+        apPatProvMod.delete(0, END)
+        apMatProvMod.delete(0, END)
+        rfcProvMod.delete(0, END)
+        ciudadProvMod.delete(0, END)
+        calleProvMod.delete(0, END)
+        coloniaProvMod.delete(0, END)
+        cpProvMod.delete(0, END)
+        telProvMod.delete(0, END)
+        empresaProvMod.delete(0, END)
+
+        nombreProvMod.insert(0, proveedor[1])
+        apPatProvMod.insert(0, proveedor[2])
+        apMatProvMod.insert(0, proveedor[3])
+        rfcProvMod.insert(0, proveedor[4])
+        telProvMod.insert(0, proveedor[5])
+        empresaProvMod.insert(0,proveedor[6])
+        ciudadProvMod.insert(0, proveedor[7])
+        calleProvMod.insert(0,proveedor[8])
+        coloniaProvMod.insert(0, proveedor[9])
+        cpProvMod.insert(0, proveedor[10])
+
+    except Exception as e:
+        mBox.showerror("ERROR", "Proveedor no encontrado")
+
+def llenarDatosProd(event):
+    try:
+        idProd = int(codigoProdMod.get())
+        connection = mysql.connect(host='localhost',
+                    user='root',
+                    passwd='',
+                    database='registration')
+        cursor = connection.cursor()
+        cursor.execute("SELECT * FROM product WHERE codigoProd = %s",(idProd,))
+        producto = cursor.fetchone()
+        cursor.close()
+
+        nombreProdMod.delete(0, END)
+        marcaProdMod.delete(0, END)
+        existProdMod.delete(0, END)
+        costoProdMod.delete(0, END)
+        precioventaProdMod.delete(0, END)
+        reordenProdMod.delete(0, END)
+        provedorProdMod.delete(0, END)
+
+
+        nombreProdMod.insert(0, producto[1])
+        marcaProdMod.insert(0, producto[2])
+        existProdMod.insert(0, producto[3])
+        costoProdMod.insert(0, producto[4])
+        precioventaProdMod.insert(0, producto[5])
+        reordenProdMod.insert(0,producto[6])
+        provedorProdMod.insert(0, producto[7])
+
+
+    except Exception as e:
+        mBox.showerror("ERROR", "Proveedor no encontrado")
+
 def fprecioVenta(event):
     if cantidadVenta.get():
         try:
@@ -1120,6 +1233,8 @@ ttk.Label(interface_agregar[10], text="Sueldo:", font=("Fixedsys", 9),  backgrou
 
 aidiEmpMod = ttk.Entry(interface_agregar[10], width=30)
 aidiEmpMod.grid(row=2, column=2, pady=2)
+#aidiEmpMod.bind('<FocusOut>',  llenarDatosEmp)
+aidiEmpMod.bind('<Return>',  llenarDatosEmp)
 
 nombreEmpMod = ttk.Entry(interface_agregar[10], width = 30)
 nombreEmpMod.grid(row = 4, column = 2, pady=2)
@@ -1238,6 +1353,7 @@ ttk.Label(interface_agregar[11], text="CP:",font=("Fixedsys", 9), background='wh
 
 claveProvMod = ttk.Entry(interface_agregar[11], width = 15)
 claveProvMod.grid(row = 4, column = 2,pady=5)
+claveProvMod.bind('<Return>',  llenarDatosProv)
 
 nombreProvMod = ttk.Entry(interface_agregar[11], width = 15)
 nombreProvMod.grid(row = 6, column = 2,pady=5)
@@ -1266,8 +1382,8 @@ calleProvMod.grid(row = 20, column = 2,pady=5)
 coloniaProvMod = ttk.Entry(interface_agregar[11], width = 15)
 coloniaProvMod.grid(row = 22, column = 2,pady=5)
 
-cpProv = ttk.Entry(interface_agregar[11], width = 15)
-cpProv.grid(row = 24, column = 2,pady=5)
+cpProvMod = ttk.Entry(interface_agregar[11], width = 15)
+cpProvMod.grid(row = 24, column = 2,pady=5)
 
 submitProvMod=tk.Button(interface_agregar[11], text="Ingresar", background='#2ECC71', fg='white',
 relief=tk.FLAT)
@@ -1303,6 +1419,7 @@ ttk.Label(interface_agregar[12], text="Categoria:",font=("Fixedsys", 9), backgro
 
 codigoProdMod = ttk.Entry(interface_agregar[12], width = 30)
 codigoProdMod.grid(row = 2, column = 2, pady=5)
+codigoProdMod.bind('<Return>', llenarDatosProd)
 
 nombreProdMod = ttk.Entry(interface_agregar[12], width = 30)
 nombreProdMod.grid(row = 4, column = 2, pady=5)
