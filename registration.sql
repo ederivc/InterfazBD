@@ -32,6 +32,8 @@ CREATE TABLE product(
 CREATE TABLE supplier(
   claveProv INT UNIQUE,
   nombreProv VARCHAR(45),
+  apPatProv VARCHAR(45),
+  apMatProv VARCHAR(45),
   rfcProv VARCHAR(13),
   telefonoProv VARCHAR(20),
   empresaProv VARCHAR(45),
