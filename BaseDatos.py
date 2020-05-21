@@ -213,6 +213,7 @@ def llenarDatosProd(event):
         precioventaProdMod.delete(0, END)
         reordenProdMod.delete(0, END)
         proveedorProdMod.delete(0, END)
+        comboTwoMod.current(0)
 
 
         nombreProdMod.insert(0, producto[1])
@@ -222,6 +223,7 @@ def llenarDatosProd(event):
         precioventaProdMod.insert(0, producto[5])
         reordenProdMod.insert(0,producto[6])
         proveedorProdMod.insert(0, producto[7])
+        comboTwoMod.set(producto[8])
 
 
 
@@ -412,20 +414,24 @@ fechaVent, formaPago, idEmp):
                         user='root',
                         passwd='',
                         database='registration')
-            mySql_insert_query  =f"""INSERT INTO sales VALUES ('{claveVenta}', '0', '{fecheVentStr}', '{formaPago}', '{idEmp}')"""
+
             x = verificaEmpleado(idEmp)
             if(x == FALSE):
                mBox.showerror("ERROR", "El empleado que ingresaste no existe.")
                break
             cursor = connection.cursor()
-            cursor.execute(mySql_insert_query)
+
+            importeTotal=0
             for index in range(len(carrito)):
                 mySql_insert_query_2  =f"""INSERT INTO transaction VALUES ('{claveVenta}', '{carrito[index].get('codigoProd')}', 
                 '{carrito[index].get('cantidad')}', '{carrito[index].get('precioUnit')}', '{carrito[index].get('importe')}')"""
                 cursor.execute(mySql_insert_query_2)
                 elimina(carrito[index].get('codigoProd'), carrito[index].get('cantidad'))
+                importeTotal += carrito[index].get('importe')
                 #verificaReo(carrito[index].get('codigoProd')) 
 
+            mySql_insert_query  =f"""INSERT INTO sales VALUES ('{claveVenta}', '{importeTotal}', '{fecheVentStr}', '{formaPago}', '{idEmp}')"""
+            cursor.execute(mySql_insert_query)
             connection.commit()
 
             codigoVenta.delete(0, END)
@@ -692,7 +698,8 @@ def verificaCarrito(codigoProd):
     for x in range(len(carrito)):
         if carrito[x].get('codigoProd') == codigoProd:
             return (True, x)
-    return (False, 0)      
+    return (False, 0) 
+
 
 def modEmp(aidiEmpMod, nombreEmpMod, apPatEmpMod, apMatEmpMod, rfcEmpMod, fechaNacEmpMod, 
 fechaIngresoEmpMod, ciudadEmpMod, estadoEmpMod, paisEmpMod, calleEmpMod, coloniaEmpMod,
@@ -816,6 +823,75 @@ costoProdMod, precioventaProdMod, reordenProdMod, proveedorProdMod, categProdMod
             print(e)
             break
 
+def eliEmp(aidiEmpMod):
+    try:
+        idEmp = int(aidiEmpMod.get())
+        connection = mysql.connect(host='localhost',
+                    user='root',
+                    passwd='',
+                    database='registration')  
+        operacion = connection.cursor() 
+        operacion.execute("DELETE FROM employee WHERE id = %s",(idEmp,)) 
+
+        connection.commit()
+        mBox.showinfo("ELIMINACION", "El empleado " + str(idEmp) + " ha"+
+        " sido eliminado satisfactoriamente." )
+        connection.close()
+
+        aidiEmpMod.delete(0, END), nombreEmpMod.delete(0, END), apPatEmpMod.delete(0, END), 
+        apMatEmpMod.delete(0, END), rfcEmpMod.delete(0, END), fechaNacEmpMod.delete(0, END), 
+        fechaIngresoEmpMod.delete(0, END), ciudadEmpMod.delete(0, END), estadoEmpMod.delete(0, END),
+        paisEmpMod.delete(0, END), calleEmpMod.delete(0, END), coloniaEmpMod.delete(0, END),
+        cpEmpMod.delete(0, END), telEmpMod.delete(0, END), sueldoEmpMod.delete(0, END)
+
+    except Exception as e:
+        mBox.showerror("ERROR", "Empleado no eliminado, verifica tus datos")
+   
+def eliProv(claveProv):
+    try:
+        idProv = int(claveProv.get())
+        connection = mysql.connect(host='localhost',
+                    user='root',
+                    passwd='',
+                    database='registration')  
+        operacion = connection.cursor() 
+        operacion.execute("DELETE FROM supplier WHERE claveProv = %s",(idProv,)) 
+
+        connection.commit()
+        mBox.showinfo("ELIMINACION", "El proveedor " + str(idProv) + " ha"+
+        " sido eliminado satisfactoriamente." )
+        connection.close()
+
+        claveProvMod.delete(0, END), nombreProvMod.delete(0, END), apPatProvMod.delete(0, END),
+        apMatProvMod.delete(0, END), rfcProvMod.delete(0, END), telProvMod.delete(0, END),
+        empresaProvMod.delete(0, END), ciudadProvMod.delete(0, END), calleProvMod.delete(0, END),
+        coloniaProvMod.delete(0, END), cpProvMod.delete(0, END)
+
+    except Exception as e:
+        mBox.showerror("ERROR", "Proveedor no eliminado, verifica tus datos")
+
+
+def eliProd(codigoProdMod):
+    try:
+        idProd = int(codigoProdMod.get())
+        connection = mysql.connect(host='localhost',
+                    user='root',
+                    passwd='',
+                    database='registration')  
+        operacion = connection.cursor() 
+        operacion.execute("DELETE FROM product WHERE codigoProd = %s",(idProd,)) 
+
+        connection.commit()
+        mBox.showinfo("ELIMINACION", "El producto " + str(idProd) + " ha"+
+        " sido eliminado satisfactoriamente." )
+        connection.close()
+
+        codigoProdMod.delete(0, END), nombreProdMod.delete(0, END), marcaProdMod.delete(0, END), 
+        existProdMod.delete(0, END), costoProdMod.delete(0, END), precioventaProdMod.delete(0, END), 
+        reordenProdMod.delete(0, END), proveedorProdMod.delete(0, END), comboTwoMod.current(0)
+
+    except Exception as e:
+        mBox.showerror("ERROR", "Producto no eliminado, verifica tus datos")
 
 window = tk.Tk()
 window.title('Base de datos')
@@ -1208,8 +1284,8 @@ interface_agregar[4].columnconfigure(2, weight=2)
 interface_agregar[4].columnconfigure(3, weight=2)
 interface_agregar[4].pack_forget()
 
-ttk.Label(interface_agregar[4], text="       \t LISTA DE EMPLEADOS     ", 
-font=("Times", 20), background='white').grid(row=0, column=2, sticky='NEWS')
+ttk.Label(interface_agregar[4], text="LISTA DE EMPLEADOS", 
+font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=4, sticky='NEWS')
 
 agregar_frames[4]=tk.Frame(options, bg = '#080808')
 agregar_frames[4].grid(row=6,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1231,8 +1307,8 @@ interface_agregar[5].columnconfigure(2, weight=2)
 interface_agregar[5].columnconfigure(3, weight=2)
 interface_agregar[5].pack_forget()
 
-ttk.Label(interface_agregar[5], text="       \t LISTA DE PROVEEDORES     ", 
-font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+ttk.Label(interface_agregar[5], text="LISTA DE PROVEEDORES", 
+font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=4, sticky='NEWS')
 
 agregar_frames[5]=tk.Frame(options, bg = '#080808')
 agregar_frames[5].grid(row=7,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1253,8 +1329,8 @@ interface_agregar[6].columnconfigure(2, weight=2)
 interface_agregar[6].columnconfigure(3, weight=2)
 interface_agregar[6].pack_forget()
 
-ttk.Label(interface_agregar[6], text="       \t LISTA DE PRODUCTOS     ", 
-font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+ttk.Label(interface_agregar[6], text=" LISTA DE PRODUCTOS", 
+font=("Times", 20), background='white', anchor='center').grid(row=0, column=1, columnspan= 4,sticky='NEWS')
 
 agregar_frames[6]=tk.Frame(options, bg = '#080808')
 agregar_frames[6].grid(row=8,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1267,16 +1343,17 @@ supplierShow.bind("<Leave>", LabelLeave)
 interface_agregar[7].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[7].configure(bg='white')
 interface_agregar[7].rowconfigure(0, weight=1)
+interface_agregar[7].rowconfigure(1, weight=1)
 interface_agregar[7].rowconfigure(2, weight=1)
 interface_agregar[7].rowconfigure(3, weight=1)
 interface_agregar[7].columnconfigure(0, weight=1)
-interface_agregar[7].columnconfigure(1, weight=2)
-interface_agregar[7].columnconfigure(2, weight=2)
-interface_agregar[7].columnconfigure(3, weight=2)
+interface_agregar[7].columnconfigure(1, weight=0)
+interface_agregar[7].columnconfigure(2, weight=1)
+interface_agregar[7].columnconfigure(3, weight=1)
 interface_agregar[7].pack_forget()
 
-ttk.Label(interface_agregar[7], text="       \t\tLISTA DE VENTAS     ", 
-font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+ttk.Label(interface_agregar[7], text="LISTA DE VENTAS", 
+font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=5,sticky='NESW')
 
 agregar_frames[7]=tk.Frame(options, bg = '#080808')
 agregar_frames[7].grid(row=9,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1285,6 +1362,29 @@ supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
 supplierShow.bind("<Button-1>", lambda x: OnClick(7))
 supplierShow.bind("<Enter>", LabelEnter)
 supplierShow.bind("<Leave>", LabelLeave)
+
+ttk.Label(interface_agregar[7], text="Fecha:", font=("Fixedsys", 9), background='white').grid(row=2, column=0, pady=2, padx=10, sticky='w')
+
+saleDate = MyDateEntry(interface_agregar[7],
+                 width=10,
+                 justify='center',
+                 selectbackground='gray80',
+                 selectforeground='black',
+                 normalbackground='white',
+                 normalforeground='black',
+                 background='gray90',
+                 foreground='black',
+                 bordercolor='gray90',
+                 othermonthforeground='gray50',
+                 othermonthbackground='white',
+                 othermonthweforeground='gray50',
+                 othermonthwebackground='white',
+                 weekendbackground='white',
+                 weekendforeground='black',
+                 headersbackground='white',
+                 headersforeground='gray70')
+                 
+saleDate.grid(row = 2, column = 1, pady=2, sticky='w') 
 #*******************************************************************
 interface_agregar[8].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[8].configure(bg='white')
@@ -1452,6 +1552,9 @@ fechaNacEmpMod, fechaIngresoEmpMod, ciudadEmpMod, estadoEmpMod, paisEmpMod, call
 cpEmpMod, telEmpMod, sueldoEmpMod))
 submitEmpMod.grid(row=34, column=2, pady=2)
 
+submitEmpEli=tk.Button(interface_agregar[10], text="Eliminar", background='#2ECC71', fg='white',
+relief=tk.FLAT, command = lambda: eliEmp(aidiEmpMod))
+submitEmpEli.grid(row=35, column=2, pady=2)
 
 #***************************************************************************************
 
@@ -1485,44 +1588,48 @@ ttk.Label(interface_agregar[11], text="Calle:",font=("Fixedsys", 9), background=
 ttk.Label(interface_agregar[11], text="Colonia:",font=("Fixedsys", 9), background='white').grid(row=22, column=1,pady=5)
 ttk.Label(interface_agregar[11], text="CP:",font=("Fixedsys", 9), background='white').grid(row=24, column=1,pady=5)
 
-claveProvMod = ttk.Entry(interface_agregar[11], width = 15)
-claveProvMod.grid(row = 4, column = 2,pady=5)
+claveProvMod = ttk.Entry(interface_agregar[11], width = 30)
+claveProvMod.grid(row = 4, column = 2, columnspan=2, pady=5)
 claveProvMod.bind('<Return>',  llenarDatosProv)
 
-nombreProvMod = ttk.Entry(interface_agregar[11], width = 15)
-nombreProvMod.grid(row = 6, column = 2,pady=5)
+nombreProvMod = ttk.Entry(interface_agregar[11], width = 30)
+nombreProvMod.grid(row = 6, column = 2,columnspan=2, pady=5)
 
-apPatProvMod = ttk.Entry(interface_agregar[11], width = 15)
-apPatProvMod.grid(row = 8, column = 2, pady = 5)
+apPatProvMod = ttk.Entry(interface_agregar[11], width = 30)
+apPatProvMod.grid(row = 8, column = 2,columnspan=2,  pady = 5)
 
-apMatProvMod = ttk.Entry(interface_agregar[11], width = 15)
-apMatProvMod.grid(row = 10, column = 2, pady = 5)
+apMatProvMod = ttk.Entry(interface_agregar[11], width = 30)
+apMatProvMod.grid(row = 10, column = 2,columnspan=2,  pady = 5)
 
-rfcProvMod = ttk.Entry(interface_agregar[11], width = 15)
-rfcProvMod.grid(row = 12, column = 2,pady=5)
+rfcProvMod = ttk.Entry(interface_agregar[11], width = 30)
+rfcProvMod.grid(row = 12, column = 2,columnspan=2, pady=5)
 
-telProvMod = ttk.Entry(interface_agregar[11], width = 15)
-telProvMod.grid(row = 14, column = 2,pady=5)
+telProvMod = ttk.Entry(interface_agregar[11], width = 30)
+telProvMod.grid(row = 14, column = 2,columnspan=2, pady=5)
 
-empresaProvMod = ttk.Entry(interface_agregar[11], width = 15)
-empresaProvMod.grid(row = 16, column = 2,pady=5)
+empresaProvMod = ttk.Entry(interface_agregar[11], width = 30)
+empresaProvMod.grid(row = 16, column = 2,columnspan=2, pady=5)
 
-ciudadProvMod = ttk.Entry(interface_agregar[11], width = 15)
-ciudadProvMod.grid(row = 18, column = 2,pady=5)
+ciudadProvMod = ttk.Entry(interface_agregar[11], width = 30)
+ciudadProvMod.grid(row = 18, column = 2,columnspan=2, pady=5)
 
-calleProvMod = ttk.Entry(interface_agregar[11], width = 15)
-calleProvMod.grid(row = 20, column = 2,pady=5)
+calleProvMod = ttk.Entry(interface_agregar[11], width = 30)
+calleProvMod.grid(row = 20, column = 2,columnspan=2, pady=5)
 
-coloniaProvMod = ttk.Entry(interface_agregar[11], width = 15)
-coloniaProvMod.grid(row = 22, column = 2,pady=5)
+coloniaProvMod = ttk.Entry(interface_agregar[11], width = 30)
+coloniaProvMod.grid(row = 22, column = 2,columnspan=2, pady=5)
 
-cpProvMod = ttk.Entry(interface_agregar[11], width = 15)
-cpProvMod.grid(row = 24, column = 2,pady=5)
+cpProvMod = ttk.Entry(interface_agregar[11], width = 30)
+cpProvMod.grid(row = 24, column = 2, columnspan=2, pady=5)
 
-submitProvMod=tk.Button(interface_agregar[11], text="Ingresar", background='#2ECC71', fg='white',
+submitProvMod=tk.Button(interface_agregar[11], text="Modificar", background='#2ECC71', fg='white',
 relief=tk.FLAT, command = lambda: modProv(claveProvMod, nombreProdMod, apPatProvMod, apMatProvMod,
 rfcProvMod, telProvMod, empresaProvMod, ciudadProvMod, calleProvMod, coloniaProvMod, cpProvMod))
 submitProvMod.grid(row=26, column=2, pady=2)
+
+submitProvEli=tk.Button(interface_agregar[11], text="Eliminar", background='#2ECC71', fg='white',
+relief=tk.FLAT, command = lambda: eliProv(claveProvMod))
+submitProvEli.grid(row=27, column=2, pady=2)
 #**************************************************************************
 
 interface_agregar[12].pack(side='bottom',fill=tk.BOTH, expand=True)
@@ -1585,11 +1692,15 @@ comboTwoMod.current(0)
 comboTwoMod.grid(row = 18, column = 2, pady = 5)
 
 
-submitProdMod=tk.Button(interface_agregar[12], text="Ingresar", background='#2ECC71', fg='white',
+submitProdMod=tk.Button(interface_agregar[12], text="Modificar", background='#2ECC71', fg='white',
 relief=tk.FLAT, command = lambda: modProd(codigoProdMod, nombreProdMod, marcaProdMod, existProdMod,
 costoProdMod, precioventaProdMod, reordenProdMod, proveedorProdMod, categProdMod.get()))
 submitProdMod.grid(row=26, column=2, pady=2)
 
+
+submitProdEli=tk.Button(interface_agregar[12], text="Eliminar", background='#2ECC71', fg='white',
+relief=tk.FLAT, command = lambda: eliProd(codigoProdMod))
+submitProdEli.grid(row=27, column=2, pady=2)
 
 #*************************************CATEGORIAS*************************************
 categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
@@ -1759,7 +1870,7 @@ productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Precio Ven
 'Proveedor', 'Categoria')
 
 saleTable = ttk.Treeview(interface_agregar[7], style = "Custom.Treeview")
-saleTable.grid(row = 1, column = 1, sticky = 'NEWS')
+saleTable.grid(row = 1, column = 0, columnspan=4, sticky = 'NEWS', padx=10)
 saleTable['columns'] = ('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
 
 transactionTable = ttk.Treeview(interface_agregar[8], style = "Custom.Treeview")
@@ -1801,7 +1912,7 @@ product_yscrollb.grid(row=2, column=2, sticky='NS')
 productTable.configure(yscrollcommand=product_yscrollb.set)
 
 sale_yscrollb = ttk.Scrollbar(interface_agregar[7], orient = "vertical", command = saleTable.yview)
-sale_yscrollb.grid(row = 1, column = 2, sticky = 'NS')
+sale_yscrollb.grid(row = 1, column = 4, sticky = 'NS', padx=10)
 saleTable.configure(yscrollcommand = sale_yscrollb.set)
 
 transaction_yscrollb= ttk.Scrollbar(interface_agregar[8], orient="vertical", command=transactionTable.yview)
@@ -1934,8 +2045,8 @@ def tableCatProd():
     categoProdTable.column("Refrescos", anchor="center",width=80)   
 
 def tableSale():
-    saleTable.heading("#0", text='Clave de Venta', anchor='center')
-    saleTable.column("#0", anchor="w",width=80)     
+    saleTable.heading("#0", text='Clave de Venta')
+    saleTable.column("#0", anchor='w',width=80)     
     saleTable.heading("Importe Total", text='Importe Total')
     saleTable.column("Importe Total", anchor="center",width=80)   
     saleTable.heading("Fecha de Venta", text='Fecha de Venta')
