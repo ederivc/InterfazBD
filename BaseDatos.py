@@ -1347,13 +1347,15 @@ interface_agregar[7].rowconfigure(1, weight=1)
 interface_agregar[7].rowconfigure(2, weight=1)
 interface_agregar[7].rowconfigure(3, weight=1)
 interface_agregar[7].columnconfigure(0, weight=1)
-interface_agregar[7].columnconfigure(1, weight=0)
+interface_agregar[7].columnconfigure(1, weight=1)
 interface_agregar[7].columnconfigure(2, weight=1)
 interface_agregar[7].columnconfigure(3, weight=1)
+interface_agregar[7].columnconfigure(4, weight=1)
+
 interface_agregar[7].pack_forget()
 
 ttk.Label(interface_agregar[7], text="LISTA DE VENTAS", 
-font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=5,sticky='NESW')
+font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=6,sticky='NESW')
 
 agregar_frames[7]=tk.Frame(options, bg = '#080808')
 agregar_frames[7].grid(row=9,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1363,7 +1365,7 @@ supplierShow.bind("<Button-1>", lambda x: OnClick(7))
 supplierShow.bind("<Enter>", LabelEnter)
 supplierShow.bind("<Leave>", LabelLeave)
 
-ttk.Label(interface_agregar[7], text="Fecha:", font=("Fixedsys", 9), background='white').grid(row=2, column=0, pady=2, padx=10, sticky='w')
+ttk.Label(interface_agregar[7], text="Fecha:", font=("Fixedsys", 9), background='white').grid(row=2, column=0, pady=2, padx=10, sticky='e')
 
 saleDate = MyDateEntry(interface_agregar[7],
                  width=10,
@@ -1870,7 +1872,7 @@ productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Precio Ven
 'Proveedor', 'Categoria')
 
 saleTable = ttk.Treeview(interface_agregar[7], style = "Custom.Treeview")
-saleTable.grid(row = 1, column = 0, columnspan=4, sticky = 'NEWS', padx=10)
+saleTable.grid(row = 1, column = 0, columnspan=5, sticky = 'NEWS', padx=10)
 saleTable['columns'] = ('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
 
 transactionTable = ttk.Treeview(interface_agregar[8], style = "Custom.Treeview")
@@ -1912,7 +1914,7 @@ product_yscrollb.grid(row=2, column=2, sticky='NS')
 productTable.configure(yscrollcommand=product_yscrollb.set)
 
 sale_yscrollb = ttk.Scrollbar(interface_agregar[7], orient = "vertical", command = saleTable.yview)
-sale_yscrollb.grid(row = 1, column = 4, sticky = 'NS', padx=10)
+sale_yscrollb.grid(row = 1, column = 5, sticky = 'NS', padx=10)
 saleTable.configure(yscrollcommand = sale_yscrollb.set)
 
 transaction_yscrollb= ttk.Scrollbar(interface_agregar[8], orient="vertical", command=transactionTable.yview)
