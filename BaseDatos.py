@@ -212,7 +212,7 @@ def llenarDatosProd(event):
         costoProdMod.delete(0, END)
         precioventaProdMod.delete(0, END)
         reordenProdMod.delete(0, END)
-        provedorProdMod.delete(0, END)
+        proveedorProdMod.delete(0, END)
 
 
         nombreProdMod.insert(0, producto[1])
@@ -221,11 +221,12 @@ def llenarDatosProd(event):
         costoProdMod.insert(0, producto[4])
         precioventaProdMod.insert(0, producto[5])
         reordenProdMod.insert(0,producto[6])
-        provedorProdMod.insert(0, producto[7])
+        proveedorProdMod.insert(0, producto[7])
+
 
 
     except Exception as e:
-        mBox.showerror("ERROR", "Proveedor no encontrado")
+        mBox.showerror("ERROR", "Producto no encontrado")
 
 def fprecioVenta(event):
     if cantidadVenta.get():
@@ -678,11 +679,143 @@ def verificaProv(idP):
         return FALSE
     conexion.close()
 
+def verificaProd(codigo):
+    conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+    operacion = conexion.cursor()
+    operacion.execute("SELECT codigoProd FROM product WHERE codigoProd = %s",(codigo,))
+    x = operacion.fetchone()
+    if x == None:
+        return FALSE
+    conexion.close()
+
 def verificaCarrito(codigoProd):
     for x in range(len(carrito)):
         if carrito[x].get('codigoProd') == codigoProd:
             return (True, x)
-    return (False, 0)             
+    return (False, 0)      
+
+def modEmp(aidiEmpMod, nombreEmpMod, apPatEmpMod, apMatEmpMod, rfcEmpMod, fechaNacEmpMod, 
+fechaIngresoEmpMod, ciudadEmpMod, estadoEmpMod, paisEmpMod, calleEmpMod, coloniaEmpMod,
+cpEmpMod, telEmpMod, sueldoEmpMod):
+    while TRUE:
+        try:
+            fechaNacEmpStr = fechaNacEmpMod.get_date().strftime('%Y-%m-%d')
+            fechaIngresoEmpStr = fechaIngresoEmp.get_date().strftime('%Y-%m-%d')
+            connection = mysql.connect(host='localhost',
+                    user='root',
+                    passwd='',
+                    database='registration')  
+            operacion = connection.cursor()
+            operacion.execute("UPDATE employee SET nombreEmp = %s, apPatEmp = %s, apMatEmp = %s,"+
+            "rfcEmp = %s, fechaNacEmp = %s,fechaIngEmp = %s, ciudadEMp = %s, estadoEmp = %s,"+
+            "paisEmp = %s, calleEmp = %s, coloniaEmp = %s, cpEmp = %s, telEmp = %s,"+
+            "sueldoEmp = %s WHERE id = %s", (nombreEmpMod.get(), apPatEmpMod.get(), apMatEmpMod.get(), 
+            rfcEmpMod.get(), fechaNacEmpStr, fechaIngresoEmpStr, ciudadEmpMod.get(), 
+            estadoEmpMod.get(),paisEmpMod.get(),calleEmpMod.get(), coloniaEmpMod.get(),cpEmpMod.get(), 
+            telEmpMod.get(),sueldoEmpMod.get(), aidiEmpMod.get()))
+
+            x = verificaEmpleado(aidiEmpMod.get())
+            if(x == FALSE):
+                mBox.showerror("ERROR", "El empleado que ingresaste no existe.")
+                break
+
+            connection.commit()
+            mBox.showinfo("MODIFICACION","El empleado " + str(aidiEmpMod.get()) + " ha sido modificado satisfactoriamente.")
+            connection.close()
+            aidiEmpMod.delete(0, END), nombreEmpMod.delete(0, END), apPatEmpMod.delete(0, END), 
+            apMatEmpMod.delete(0, END), rfcEmpMod.delete(0, END), fechaNacEmpMod.delete(0, END), 
+            fechaIngresoEmpMod.delete(0, END), ciudadEmpMod.delete(0, END), estadoEmpMod.delete(0, END),
+            paisEmpMod.delete(0, END), calleEmpMod.delete(0, END), coloniaEmpMod.delete(0, END),
+            cpEmpMod.delete(0, END), telEmpMod.delete(0, END), sueldoEmpMod.delete(0, END)
+            break
+            
+        except Exception as e:
+            mBox.showerror("ERROR", "Empleado no modificado, verifica tus datos.")
+            print(e)
+            break
+
+
+def modProv(claveProvMod, nombreProdMod, apPatProvMod, apMatProvMod,
+rfcProvMod, telProvMod, empresaProvMod, ciudadProvMod, calleProvMod, coloniaProvMod, cpProvMod):
+    while TRUE:
+        try:
+            connection = mysql.connect(host='localhost',
+                        user='root',
+                        passwd='',
+                        database='registration')  
+            operacion = connection.cursor()  
+            operacion.execute("UPDATE supplier SET nombreProv = %s, apPatProv = %s, apMatProv = %s," + 
+            "rfcProv = %s, telefonoProv = %s, empresaProv = %s, ciudadProv = %s,"+
+            "calleProv = %s, coloniaProv = %s, cpProv = %s WHERE claveProv = %s",(nombreProvMod.get(), 
+            apPatProvMod.get(), apMatProvMod.get(), rfcProvMod.get(), telProvMod.get(), empresaProvMod.get(), 
+            ciudadProvMod.get(), calleProvMod.get(), coloniaProvMod.get(), cpProvMod.get(), claveProvMod.get()))
+
+            x = verificaProv(claveProvMod.get())
+            if(x == FALSE):
+                mBox.showerror("ERROR", "El proveedor que ingresaste no existe.")
+                break
+
+            connection.commit()
+            mBox.showinfo("MODIFICACION", "El proveedor " + str(claveProvMod.get()) + " ha sido "+
+            "modificado satisfactoriamente.")
+            connection.close()
+
+            claveProvMod.delete(0, END), nombreProvMod.delete(0, END), apPatProvMod.delete(0, END),
+            apMatProvMod.delete(0, END), rfcProvMod.delete(0, END), telProvMod.delete(0, END),
+            empresaProvMod.delete(0, END), ciudadProvMod.delete(0, END), calleProvMod.delete(0, END),
+            coloniaProvMod.delete(0, END), cpProvMod.delete(0, END)
+            break
+
+        except Exception as e:
+            mBox.showerror("ERROR", "Proveedor no modificado, verifica tus datos.")
+            print(e)
+            break
+
+def modProd(codigoProdMod, nombreProdMod, marcaProdMod, existProdMod,
+costoProdMod, precioventaProdMod, reordenProdMod, proveedorProdMod, categProdMod):
+    while TRUE:
+        try:
+            connection = mysql.connect(host='localhost',
+                        user='root',
+                        passwd='',
+                        database='registration')  
+            operacion = connection.cursor() 
+            operacion.execute("UPDATE product SET nombre = %s, marca = %s, existencia = %s," + 
+            "costo = %s, precioventaProd = %s, reordenProd = %s, proveedor = %s," + 
+            "categoria = %s WHERE codigoProd = %s", (nombreProdMod.get(), marcaProdMod.get(), 
+            existProdMod.get(), costoProdMod.get(), precioventaProdMod.get(), reordenProdMod.get(),
+            proveedorProdMod.get(), categProdMod, codigoProdMod.get())) 
+
+            x = verificaProd(codigoProdMod.get())
+            if(x == FALSE):
+                mBox.showerror("ERROR", "El producto que ingresaste no existe.")
+                break
+
+            y = verificaProv(proveedorProdMod.get())
+            if(y == FALSE):
+                mBox.showerror("ERROR", "El proveedor que ingresaste no existe.")
+                break
+
+            connection.commit()
+            mBox.showinfo("MODIFICACION", "El producto " + str(codigoProdMod.get()) + " ha"+
+            " sido modificado satisfactoriamente." )
+            connection.close()
+
+            codigoProdMod.delete(0, END), nombreProdMod.delete(0, END), marcaProdMod.delete(0, END), 
+            existProdMod.delete(0, END), costoProdMod.delete(0, END), precioventaProdMod.delete(0, END), 
+            reordenProdMod.delete(0, END), proveedorProdMod.delete(0, END)
+            break
+
+            """fINSERT INTO product VALUES ({codigoProd.get()}, 
+            '{nombreProd.get()}', '{marcaProd.get()}', '{existProd.get()}',
+            '{costoProd.get()}',{precioVProd.get()} ,'{reordenProd.get()}',
+            '{provedorProd.get()}', '{categProd}')"""
+
+        except Exception as e:
+            mBox.showerror("ERROR", "Producto no modificado, verifica sus datos.")
+            print(e)
+            break
+
 
 window = tk.Tk()
 window.title('Base de datos')
@@ -707,11 +840,11 @@ window.rowconfigure(0, weight=1)
 window.columnconfigure(1, weight=4)
 window.config(bg='#282828')
 
-options= tk.Frame(window, bg="#8c95f1")
+options= tk.Frame(window, bg="#7a6756")
 options.grid(row=0,column=0, sticky='NSWE')
 options.columnconfigure(0, weight=1)
 
-display = tk.Frame(window, bg="#18191A")
+display = tk.Frame(window, bg="blue")
 display.grid(row=0,column=1, sticky='NSWE', padx=7, pady=7)
 
 marketImg = PhotoImage(file = "market.png")
@@ -1025,14 +1158,14 @@ for x in range(16):
 
 title = tk.Frame(options, bg = '#005ea5')
 title.grid(row=0, column=0, sticky='NWSE', pady=8)
-labelTitle = ttk.Label(title, text = '      TIENDA DE \n    CONVENIENCIA', width = 20, background = '#90d2d8')
+labelTitle = ttk.Label(title, text = '      TIENDA DE \n    CONVENIENCIA', width = 20, background = '#e9d5c4')
 labelTitle.pack(side = tk.TOP, anchor = 'center')
 labelTitle.config(font=("Courier", 20))
 labelTitle.bind("<Button-1>", lambda x: OnClick(0))
 
 agregar_frames[0]=tk.Frame(options)
 agregar_frames[0].grid(row=1,column=0,sticky='NWSE', pady=2)
-agregar=ttk.Label(agregar_frames[0], text="AGREGAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+agregar=ttk.Label(agregar_frames[0], text="AGREGAR", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
 agregar.pack(side='right', fill='both', expand=1)
 
 agregar_frames[1]=tk.Frame(options, bg = '#080808')
@@ -1062,7 +1195,7 @@ producto.bind("<Leave>", LabelLeave)
 
 #**************************************** MOSTRAR ************************************
 
-show = ttk.Label(options, text="MOSTRAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+show = ttk.Label(options, text="MOSTRAR", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
 show.grid(row=5, column=0, sticky='NWSE', pady=5)
 #************************************************************************************
 interface_agregar[4].pack(side='bottom',fill=tk.BOTH, expand=True)
@@ -1192,7 +1325,7 @@ prodOrdShow.bind("<Leave>", LabelLeave)
 
 
 #************************************ ELIMINAR/MODIFICAR *****************************
-modif = ttk.Label(options, text="MODIFICAR Ó ELIMINAR", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+modif = ttk.Label(options, text="MODIFICAR Ó ELIMINAR", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
 modif.grid(row=12, column=0, sticky='NWSE', pady=5)
 
 #***************************************************************************************
@@ -1233,7 +1366,6 @@ ttk.Label(interface_agregar[10], text="Sueldo:", font=("Fixedsys", 9),  backgrou
 
 aidiEmpMod = ttk.Entry(interface_agregar[10], width=30)
 aidiEmpMod.grid(row=2, column=2, pady=2)
-#aidiEmpMod.bind('<FocusOut>',  llenarDatosEmp)
 aidiEmpMod.bind('<Return>',  llenarDatosEmp)
 
 nombreEmpMod = ttk.Entry(interface_agregar[10], width = 30)
@@ -1314,8 +1446,10 @@ telEmpMod.grid(row = 28, column = 2, pady=2)
 sueldoEmpMod = ttk.Entry(interface_agregar[10], width = 30)
 sueldoEmpMod.grid(row = 30, column = 2, pady=2)
 
-submitEmpMod=tk.Button(interface_agregar[10], text="Ingresar", background='#2ECC71', fg='white',
-relief=tk.FLAT)
+submitEmpMod=tk.Button(interface_agregar[10], text="Modificar", background='#2ECC71', fg='white',
+relief=tk.FLAT, command = lambda: modEmp(aidiEmpMod, nombreEmpMod, apPatEmpMod, apMatEmpMod, rfcEmpMod,
+fechaNacEmpMod, fechaIngresoEmpMod, ciudadEmpMod, estadoEmpMod, paisEmpMod, calleEmpMod, coloniaEmpMod,
+cpEmpMod, telEmpMod, sueldoEmpMod))
 submitEmpMod.grid(row=34, column=2, pady=2)
 
 
@@ -1386,7 +1520,8 @@ cpProvMod = ttk.Entry(interface_agregar[11], width = 15)
 cpProvMod.grid(row = 24, column = 2,pady=5)
 
 submitProvMod=tk.Button(interface_agregar[11], text="Ingresar", background='#2ECC71', fg='white',
-relief=tk.FLAT)
+relief=tk.FLAT, command = lambda: modProv(claveProvMod, nombreProdMod, apPatProvMod, apMatProvMod,
+rfcProvMod, telProvMod, empresaProvMod, ciudadProvMod, calleProvMod, coloniaProvMod, cpProvMod))
 submitProvMod.grid(row=26, column=2, pady=2)
 #**************************************************************************
 
@@ -1439,24 +1574,25 @@ precioventaProdMod.grid(row = 12, column = 2, pady=5)
 reordenProdMod = ttk.Entry(interface_agregar[12], width = 30)
 reordenProdMod.grid(row = 14, column = 2, pady=5)
 
-provedorProdMod = ttk.Entry(interface_agregar[12], width = 30)
-provedorProdMod.grid(row = 16, column = 2, pady = 5)
+proveedorProdMod = ttk.Entry(interface_agregar[12], width = 30)
+proveedorProdMod.grid(row = 16, column = 2, pady = 5)
 
 categProdMod = tk.StringVar()
-comboTwo = ttk.Combobox(interface_agregar[12], width = 28, textvariable = categProd,
+comboTwoMod = ttk.Combobox(interface_agregar[12], width = 28, textvariable = categProdMod,
 state = "readonly", justify='center')
-comboTwo['values'] = ("Refrescos", "Cerveza", "Botanas", "Abarrotes")
-comboTwo.current(0)
-comboTwo.grid(row = 18, column = 2, pady = 5)
+comboTwoMod['values'] = ("Refrescos", "Cerveza", "Botanas", "Abarrotes")
+comboTwoMod.current(0)
+comboTwoMod.grid(row = 18, column = 2, pady = 5)
 
 
 submitProdMod=tk.Button(interface_agregar[12], text="Ingresar", background='#2ECC71', fg='white',
-relief=tk.FLAT)
+relief=tk.FLAT, command = lambda: modProd(codigoProdMod, nombreProdMod, marcaProdMod, existProdMod,
+costoProdMod, precioventaProdMod, reordenProdMod, proveedorProdMod, categProdMod.get()))
 submitProdMod.grid(row=26, column=2, pady=2)
 
 
 #*************************************CATEGORIAS*************************************
-categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
 categ.grid(row=16, column=0, sticky='NWSE', pady=5)
 #**************************************************************************
 interface_agregar[13].pack(side='bottom',fill=tk.BOTH, expand=True)
@@ -1493,7 +1629,7 @@ interface_agregar[15].pack(side='bottom',fill=tk.BOTH, expand=True)
 interface_agregar[15].configure(bg='white')
 interface_agregar[15].pack_forget()
 
-sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#0C73A2', foreground='#FFFFFF')
+sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
 sales.grid(row=19, column=0, sticky='NWSE', pady=5)
 
 agregar_frames[15]=tk.Frame(options, bg = '#080808')
