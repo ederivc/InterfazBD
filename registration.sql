@@ -11,8 +11,8 @@ CREATE TABLE employee(
   paisEmp VARCHAR(25),
   calleEmp VARCHAR(25),
   coloniaEmp VARCHAR(25),
-  cpEmp VARCHAR(20),
-  telEmp VARCHAR(20),
+  cpEmp INT,
+  telEmp INT,
   sueldoEmp FLOAT(20,4)
 );
 
@@ -35,12 +35,12 @@ CREATE TABLE supplier(
   apPatProv VARCHAR(45),
   apMatProv VARCHAR(45),
   rfcProv VARCHAR(13),
-  telefonoProv VARCHAR(20),
+  telefonoProv INT,
   empresaProv VARCHAR(45),
   ciudadProv VARCHAR(25),
   calleProv VARCHAR(25),
   coloniaProv VARCHAR(25),
-  cpProv VARCHAR(20)
+  cpProv INT
 );
 
 CREATE TABLE sales(
