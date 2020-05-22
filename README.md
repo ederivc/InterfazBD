@@ -44,6 +44,7 @@ En la seccion de agregar encontramos tres apartados: *Empleado*, *Proveedor* *y*
     - CP: Código postal de su domicilio
     - Telefono: Telefono del empleado
     - Sueldo: Sueldo que tendra el empleado
+    
 ***En caso de introducir datos incorrecto o un empleado ya existente, el programa marcará error y no dejará registrar al empleado.***
 
 - **Proveedor**
@@ -59,6 +60,7 @@ En la seccion de agregar encontramos tres apartados: *Empleado*, *Proveedor* *y*
     - Calle: Calle de su domicilio
     - Colonia: Colonia donde recide
     - CP: Código postal de su colonia
+    
 ***En caso de introducir datos incorrectos o un proveedor ya existente, el programa marcará error y no dejará registrar al proveedor.***
 
 - **Productos**
@@ -71,6 +73,7 @@ En la seccion de agregar encontramos tres apartados: *Empleado*, *Proveedor* *y*
     - Punto de Reorden: Cantidad en la que se tiene que ordenar nuevamente el producto
     - Proveedor: Proveedor de este producto 
     - Categoria: Categoria a la que pertenece el producto, *Refrescos, Cerveza, Botana o Abarrotes*
+    
 ***En caso de introducir datos incorrectos o un producto ya existente, el programa marcará error y no dejará registrar al producto.***
 
 ___
