@@ -1324,16 +1324,24 @@ def start():
     #************************************************************************************
     interface_agregar[4].pack(side='bottom',fill=tk.BOTH, expand=True)
     interface_agregar[4].configure(bg='white')
+    
     interface_agregar[4].rowconfigure(0, weight=1)
-    interface_agregar[4].rowconfigure(4, weight=1)
+    interface_agregar[4].rowconfigure(1, weight=1)
+    interface_agregar[4].rowconfigure(3, weight=1)
+    
     interface_agregar[4].columnconfigure(0, weight=1)
-    interface_agregar[4].columnconfigure(1, weight=2)
-    interface_agregar[4].columnconfigure(2, weight=2)
-    interface_agregar[4].columnconfigure(3, weight=2)
+    interface_agregar[4].columnconfigure(1, weight=1)
+    interface_agregar[4].columnconfigure(2, weight=1)
+    interface_agregar[4].columnconfigure(3, weight=1)
+    interface_agregar[4].columnconfigure(4, weight=1)
+    interface_agregar[4].columnconfigure(5, weight=1)
+    interface_agregar[4].columnconfigure(6, weight=1)
+    interface_agregar[4].columnconfigure(7, weight=1)
+
     interface_agregar[4].pack_forget()
 
     ttk.Label(interface_agregar[4], text="LISTA DE EMPLEADOS", 
-    font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=4, sticky='NEWS')
+    font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=9, sticky='NEWS')
 
     agregar_frames[4]=tk.Frame(options, bg = '#080808')
     agregar_frames[4].grid(row=6,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1347,16 +1355,24 @@ def start():
     interface_agregar[5].configure(bg='white')
 
     interface_agregar[5].rowconfigure(0, weight=1)
+    interface_agregar[5].rowconfigure(1, weight=1)
     interface_agregar[5].rowconfigure(2, weight=1)
     interface_agregar[5].rowconfigure(3, weight=1)
     interface_agregar[5].columnconfigure(0, weight=1)
     interface_agregar[5].columnconfigure(1, weight=2)
     interface_agregar[5].columnconfigure(2, weight=2)
     interface_agregar[5].columnconfigure(3, weight=2)
+    interface_agregar[5].columnconfigure(4, weight=1)
+    interface_agregar[5].columnconfigure(5, weight=1)
+    interface_agregar[5].columnconfigure(6, weight=1)
+    interface_agregar[5].columnconfigure(7, weight=1)
+    interface_agregar[5].columnconfigure(8, weight=1)
+    interface_agregar[5].columnconfigure(9, weight=1)
+    interface_agregar[5].columnconfigure(10, weight=1)
     interface_agregar[5].pack_forget()
 
     ttk.Label(interface_agregar[5], text="LISTA DE PROVEEDORES", 
-    font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=4, sticky='NEWS')
+    font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=12, sticky='NEWS')
 
     agregar_frames[5]=tk.Frame(options, bg = '#080808')
     agregar_frames[5].grid(row=7,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1369,16 +1385,21 @@ def start():
     interface_agregar[6].pack(side='bottom',fill=tk.BOTH, expand=True)
     interface_agregar[6].configure(bg='white')
     interface_agregar[6].rowconfigure(0, weight=1)
+    interface_agregar[6].rowconfigure(1, weight=1)
     interface_agregar[6].rowconfigure(2, weight=1)
-    interface_agregar[6].rowconfigure(3, weight=1)
     interface_agregar[6].columnconfigure(0, weight=1)
-    interface_agregar[6].columnconfigure(1, weight=2)
-    interface_agregar[6].columnconfigure(2, weight=2)
-    interface_agregar[6].columnconfigure(3, weight=2)
+    interface_agregar[6].columnconfigure(1, weight=1)
+    interface_agregar[6].columnconfigure(2, weight=1)
+    interface_agregar[6].columnconfigure(3, weight=1)
+    interface_agregar[6].columnconfigure(4, weight=1)
+    interface_agregar[6].columnconfigure(5, weight=1)
+    interface_agregar[6].columnconfigure(6, weight=1)
+    interface_agregar[6].columnconfigure(7, weight=1)
+    interface_agregar[6].columnconfigure(8, weight=1)
     interface_agregar[6].pack_forget()
 
     ttk.Label(interface_agregar[6], text=" LISTA DE PRODUCTOS", 
-    font=("Times", 20), background='white', anchor='center').grid(row=0, column=1, columnspan= 4,sticky='NEWS')
+    font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=10,sticky='NEWS')
 
     agregar_frames[6]=tk.Frame(options, bg = '#080808')
     agregar_frames[6].grid(row=8,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1451,16 +1472,18 @@ def start():
     interface_agregar[8].pack(side='bottom',fill=tk.BOTH, expand=True)
     interface_agregar[8].configure(bg='white')
     interface_agregar[8].rowconfigure(0, weight=1)
+    interface_agregar[8].rowconfigure(1, weight=1)
     interface_agregar[8].rowconfigure(2, weight=1)
-    interface_agregar[8].rowconfigure(3, weight=1)
     interface_agregar[8].columnconfigure(0, weight=1)
-    interface_agregar[8].columnconfigure(1, weight=2)
-    interface_agregar[8].columnconfigure(2, weight=2)
-    interface_agregar[8].columnconfigure(3, weight=2)
+    interface_agregar[8].columnconfigure(1, weight=1)
+    interface_agregar[8].columnconfigure(2, weight=1)
+    interface_agregar[8].columnconfigure(3, weight=1)
+    interface_agregar[8].columnconfigure(4, weight=1)
+
     interface_agregar[8].pack_forget()
 
-    ttk.Label(interface_agregar[8], text="      \tLISTA DE CONCEPTOS DE VENTA   ", 
-    font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+    ttk.Label(interface_agregar[8], text="LISTA DE CONCEPTOS DE VENTA", 
+    font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=6, sticky='NEWS')
 
     agregar_frames[8]=tk.Frame(options, bg = '#080808')
     agregar_frames[8].grid(row=10,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1472,10 +1495,23 @@ def start():
     #************************************************************************
     interface_agregar[9].pack(side='bottom',fill=tk.BOTH, expand=True)
     interface_agregar[9].configure(bg='white')
+
+    interface_agregar[9].rowconfigure(0, weight=1)
+    interface_agregar[9].rowconfigure(1, weight=1)
+    interface_agregar[9].rowconfigure(2, weight=1)
+    interface_agregar[9].columnconfigure(0, weight=1)
+    interface_agregar[9].columnconfigure(1, weight=1)
+    interface_agregar[9].columnconfigure(2, weight=1)
+    interface_agregar[9].columnconfigure(3, weight=1)
+    interface_agregar[9].columnconfigure(4, weight=1)
+    interface_agregar[9].columnconfigure(5, weight=1)
+    interface_agregar[9].columnconfigure(6, weight=1)
+    interface_agregar[9].columnconfigure(7, weight=1)
+    interface_agregar[9].columnconfigure(8, weight=1)
     interface_agregar[9].pack_forget()
 
-    ttk.Label(interface_agregar[9], text="   PRODUCTOS A ORDENAR     ", 
-    font=("Times", 20), background='white').grid(row=0, column=1)
+    ttk.Label(interface_agregar[9], text="PRODUCTOS A ORDENAR", 
+    font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=10, sticky='NEWS')
 
     agregar_frames[9]=tk.Frame(options, bg = '#080808')
     agregar_frames[9].grid(row=11,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1912,8 +1948,8 @@ def start():
     style.configure("Custom.Treeview.Heading",
         background="#212F3C", foreground="white",font=('Calibri',10,'bold') ,relief="flat")
 
-    employeeTable = ttk.Treeview(interface_agregar[4],style="Custom.Treeview")
-    employeeTable.grid(row=1, column=1, columnspan=2, padx=15, pady=5)
+    employeeTable = ttk.Treeview(interface_agregar[4], style="Custom.Treeview")
+    employeeTable.grid(row=1, column=0, columnspan=8, sticky='NEWS' ,padx=10, pady=10)
     employeeTable['columns'] = (
                                 'nombre','apellidoP','apellidoM','rfc','fechaNac',
                                 'fechaIng','ciudad','estado','pais','calle',
@@ -1922,12 +1958,12 @@ def start():
 
 
     supplierTable = ttk.Treeview(interface_agregar[5], style="Custom.Treeview")
-    supplierTable.grid(row=2, column=1,sticky='NEWS')
+    supplierTable.grid(row=1, column=0, columnspan=11, sticky='NEWS', padx=10)
     supplierTable['columns'] = ('Nombre','Apellido Paterno','Apellido Materno','RFC', 'Telefono', 
                                 'Empresa', 'Ciudad', 'Calle', 'Colonia', 'CP')
 
     productTable = ttk.Treeview(interface_agregar[6], style="Custom.Treeview")
-    productTable.grid(row=2, column=1,sticky='NEWS')
+    productTable.grid(row=1, column=0, columnspan=9, sticky='NEWS', padx=10)
     productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Precio Venta', 'Punto de Reorden',
     'Proveedor', 'Categoria')
 
@@ -1936,12 +1972,12 @@ def start():
     saleTable['columns'] = ('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
 
     transactionTable = ttk.Treeview(interface_agregar[8], style = "Custom.Treeview")
-    transactionTable.grid(row = 2, column = 1, sticky = 'NEWS')
+    transactionTable.grid(row = 1, column = 0, columnspan=5, sticky = 'NEWS', padx=10)
     transactionTable['columns'] = ('Codigo Producto' , 'Cantidad', 'Precio Unitario',
     'Importe')
 
     prodOrdTable = ttk.Treeview(interface_agregar[9], style = "Custom.Treeview")
-    prodOrdTable.grid(row=2, column=1,sticky='NEWS')
+    prodOrdTable.grid(row=1, column=0, columnspan=9 ,sticky='NEWS', padx=10)
     prodOrdTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Precio Venta', 'Punto de Reorden',
     'Proveedor', 'Categoria')
 
@@ -1958,19 +1994,19 @@ def start():
 
     #--------------------scrollbar----------------
     employee_xscrollb= ttk.Scrollbar(interface_agregar[4], orient="horizontal", command=employeeTable.xview)
-    employee_xscrollb.grid(row=3, column=1, columnspan=2, sticky='WE')
+    employee_xscrollb.grid(row=2, column=0, columnspan=8, sticky='WE', pady=10, padx=10)
     employeeTable.configure(xscrollcommand=employee_xscrollb.set)
 
     employee_yscrollb= ttk.Scrollbar(interface_agregar[4], orient="vertical", command=employeeTable.yview)
-    employee_yscrollb.grid(row=1, column=4, sticky='NS')
+    employee_yscrollb.grid(row=1, column=8, sticky='NS', padx=10, pady=10)
     employeeTable.configure(yscrollcommand=employee_yscrollb.set)
 
     supplier_yscrollb= ttk.Scrollbar(interface_agregar[5], orient="vertical", command=supplierTable.yview)
-    supplier_yscrollb.grid(row=2, column=2, sticky='NS')
+    supplier_yscrollb.grid(row=1, column=11, sticky='NS', padx=10)
     supplierTable.configure(yscrollcommand=supplier_yscrollb.set)
 
     product_yscrollb= ttk.Scrollbar(interface_agregar[6], orient="vertical", command=productTable.yview)
-    product_yscrollb.grid(row=2, column=2, sticky='NS')
+    product_yscrollb.grid(row=1, column=9, sticky='NS', padx=10)
     productTable.configure(yscrollcommand=product_yscrollb.set)
 
     sale_yscrollb = ttk.Scrollbar(interface_agregar[7], orient = "vertical", command = saleTable.yview)
@@ -1978,40 +2014,40 @@ def start():
     saleTable.configure(yscrollcommand = sale_yscrollb.set)
 
     transaction_yscrollb= ttk.Scrollbar(interface_agregar[8], orient="vertical", command=transactionTable.yview)
-    transaction_yscrollb.grid(row=2, column=2, sticky='NS')
+    transaction_yscrollb.grid(row=1, column=5, sticky='NS', padx=10)
     transactionTable.configure(yscrollcommand=transaction_yscrollb.set)
 
     def tableEmp():
         employeeTable.heading("#0", text='ID', anchor='center')
-        employeeTable.column("#0", anchor="w",width=80, stretch=False)
+        employeeTable.column("#0", anchor="w",minwidth=80, width=80)
         employeeTable.heading('nombre', text='Nombre')
-        employeeTable.column('nombre', anchor='center', width=80, stretch=False)
+        employeeTable.column('nombre', anchor='center', minwidth=80, width=80)
         employeeTable.heading('apellidoP', text='Apellido P')
-        employeeTable.column('apellidoP', anchor='center', width=80, stretch=False)
-        employeeTable.heading('apellidoM', text='Apelldio M')
-        employeeTable.column('apellidoM', anchor='center', width=80, stretch=False)
+        employeeTable.column('apellidoP', anchor='center', minwidth=80, width=80)
+        employeeTable.heading('apellidoM', text='Apellido M')
+        employeeTable.column('apellidoM', anchor='center', minwidth=80, width=80)
         employeeTable.heading('rfc', text='RFC')
-        employeeTable.column('rfc', anchor='center', width=80, stretch=False)
+        employeeTable.column('rfc', anchor='center', minwidth=80, width=80)
         employeeTable.heading('fechaNac', text='FechaNac')
-        employeeTable.column('fechaNac', anchor='center', width=80, stretch=False)
+        employeeTable.column('fechaNac', anchor='center',minwidth=80, width=80)
         employeeTable.heading('fechaIng', text='FechaIng')
-        employeeTable.column('fechaIng', anchor='center', width=80, stretch=False)
+        employeeTable.column('fechaIng', anchor='center', minwidth=80, width=80)
         employeeTable.heading('ciudad', text='Ciudad')
-        employeeTable.column('ciudad', anchor='center', width=80, stretch=False)
+        employeeTable.column('ciudad', anchor='center',minwidth=80, width=80)
         employeeTable.heading('estado', text='Estado')
-        employeeTable.column('estado', anchor='center', width=80, stretch=False)
+        employeeTable.column('estado', anchor='center', minwidth=80, width=80)
         employeeTable.heading('pais', text='Pais')
-        employeeTable.column('pais', anchor='center', width=80, stretch=False)
+        employeeTable.column('pais', anchor='center', minwidth=80, width=80)
         employeeTable.heading('calle', text='Calle')
-        employeeTable.column('calle', anchor='center', width=80, stretch=False)
+        employeeTable.column('calle', anchor='center', minwidth=80, width=80)
         employeeTable.heading('colonia', text='Colonia')
-        employeeTable.column('colonia', anchor='center', width=80, stretch=False)
+        employeeTable.column('colonia', anchor='center', minwidth=80, width=80)
         employeeTable.heading('cp', text='CP')
-        employeeTable.column('cp', anchor='center', width=80, stretch=False)
+        employeeTable.column('cp', anchor='center', minwidth=80, width=80)
         employeeTable.heading('telefono', text='Tel')
-        employeeTable.column('telefono', anchor='center', width=80, stretch=False)
+        employeeTable.column('telefono', anchor='center', minwidth=80, width=80)
         employeeTable.heading('sueldo', text='Sueldo')
-        employeeTable.column('sueldo', anchor='center', width=80, stretch=False)
+        employeeTable.column('sueldo', anchor='center', minwidth=80, width=80)
 
 
     def tableSupplier():
