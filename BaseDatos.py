@@ -962,13 +962,13 @@ def start():
 
     window.rowconfigure(0, weight=1)
     window.columnconfigure(1, weight=4)
-    window.config(bg='#282828')
+    window.config(bg='#5C4742')
 
-    options= tk.Frame(window, bg="#7a6756")
+    options= tk.Frame(window, bg="#8D5B4C")
     options.grid(row=0,column=0, sticky='NSWE')
     options.columnconfigure(0, weight=1)
 
-    display = tk.Frame(window, bg="blue")
+    display = tk.Frame(window, bg="#8D5B4C")
     display.grid(row=0,column=1, sticky='NSWE', padx=7, pady=7)
 
     marketImg = PhotoImage(file = "market.png")
@@ -1019,19 +1019,19 @@ def start():
 
     #*****************************************Inicio*********************************
     interface_agregar[0].pack(fill=tk.BOTH, expand=True)
-    interface_agregar[0].configure(bg='#18191A')
+    interface_agregar[0].configure(bg='#A5978B')
 
-    canvas = Canvas(interface_agregar[0], bg='#9f01fc', width=250, height=h,bd=0, relief='flat',highlightthickness=0)
+    """canvas = Canvas(interface_agregar[0], bg='#9f01fc', width=250, height=h,bd=0, relief='flat',highlightthickness=0)
     canvas.create_image(0,0, anchor='nw', image=stockImg)
     canvas.pack(side='right', fill=BOTH)
 
     canvas2 = Canvas(interface_agregar[0], bg='#9f01fc', width=w, height=100,bd=0, relief='flat',highlightthickness=0)
     canvas2.create_image(0,0, anchor='nw', image=soundImg)
-    canvas2.pack(side='bottom', fill=BOTH)
+    canvas2.pack(side='bottom', fill=BOTH)"""
 
     home_page=tk.Frame(interface_agregar[0])
     home_page.pack(side='left', fill=BOTH)
-    home_page.configure(bg='#18191A')
+    home_page.configure(bg='#A5978B')
     home_page.columnconfigure(1,weight=2)
     home_page.columnconfigure(0,weight=1)
     ttk.Label(home_page, text="BIENVENIDO", font=("Times", 50, 'bold'), background='#18191A', foreground='white',).grid(row=0, column=0,padx=50,pady=20, columnspan=2)
@@ -1282,14 +1282,14 @@ def start():
 
     title = tk.Frame(options, bg = '#005ea5')
     title.grid(row=0, column=0, sticky='NWSE', pady=8)
-    labelTitle = ttk.Label(title, text = '      TIENDA DE \n    CONVENIENCIA', width = 20, background = '#e9d5c4')
+    labelTitle = ttk.Label(title, text = '      TIENDA DE \n    CONVENIENCIA', width = 20, background = '#5C4742', foreground = 'white')
     labelTitle.pack(side = tk.TOP, anchor = 'center')
     labelTitle.config(font=("Courier", 20))
     labelTitle.bind("<Button-1>", lambda x: OnClick(0))
 
     agregar_frames[0]=tk.Frame(options)
     agregar_frames[0].grid(row=1,column=0,sticky='NWSE', pady=2)
-    agregar=ttk.Label(agregar_frames[0], text="AGREGAR", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
+    agregar=ttk.Label(agregar_frames[0], text="AGREGAR", anchor=tk.CENTER, background='#C4BBAF', foreground='black')
     agregar.pack(side='right', fill='both', expand=1)
 
     agregar_frames[1]=tk.Frame(options, bg = '#080808')
@@ -1319,7 +1319,7 @@ def start():
 
     #**************************************** MOSTRAR ************************************
 
-    show = ttk.Label(options, text="MOSTRAR", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
+    show = ttk.Label(options, text="MOSTRAR", anchor=tk.CENTER, background='#C4BBAF', foreground='black')
     show.grid(row=5, column=0, sticky='NWSE', pady=5)
     #************************************************************************************
     interface_agregar[4].pack(side='bottom',fill=tk.BOTH, expand=True)
@@ -1523,7 +1523,7 @@ def start():
 
 
     #************************************ ELIMINAR/MODIFICAR *****************************
-    modif = ttk.Label(options, text="MODIFICAR Ó ELIMINAR", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
+    modif = ttk.Label(options, text="MODIFICAR Ó ELIMINAR", anchor=tk.CENTER, background='#C4BBAF', foreground='black')
     modif.grid(row=12, column=0, sticky='NWSE', pady=5)
 
     #***************************************************************************************
@@ -1801,7 +1801,7 @@ def start():
     submitProdEli.grid(row=27, column=2, pady=2)
 
     #*************************************CATEGORIAS*************************************
-    categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
+    categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#C4BBAF', foreground='black')
     categ.grid(row=16, column=0, sticky='NWSE', pady=5)
     #**************************************************************************
     interface_agregar[13].pack(side='bottom',fill=tk.BOTH, expand=True)
@@ -1857,7 +1857,7 @@ def start():
     interface_agregar[15].configure(bg='white')
     interface_agregar[15].pack_forget()
 
-    sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#a8684c', foreground='#FFFFFF')
+    sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#C4BBAF', foreground='black')
     sales.grid(row=19, column=0, sticky='NWSE', pady=5)
 
     agregar_frames[15]=tk.Frame(options, bg = '#080808')
