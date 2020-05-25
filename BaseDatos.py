@@ -101,16 +101,16 @@ def start():
             showPayment(categoPagoTable)
             labelDisplay.pack(side='top')
             ShowAgregar(13)
-            display.config(bg='#3EBD5E') 
+            display.config(bg='#616d7e') 
         if(event == 14):
             showProducCatego(categoProdTable)
             labelDisplay.pack(side='top')
             ShowAgregar(14)
-            display.config(bg='#3EBD5E') 
+            display.config(bg='#a0522d') 
         if(event == 15):
             labelDisplay.pack(side='top')
             ShowAgregar(15)
-            display.config(bg='#3EBD5E')  
+            display.config(bg='#ff8000')  
         return
 
     
@@ -964,7 +964,7 @@ def start():
     window.columnconfigure(1, weight=4)
     window.config(bg='#5C4742')
 
-    options= tk.Frame(window, bg="#8D5B4C")
+    options= tk.Frame(window, bg="#a0522d")
     options.grid(row=0,column=0, sticky='NSWE')
     options.columnconfigure(0, weight=1)
 
@@ -1944,7 +1944,7 @@ def start():
     precioUnitVenta.cget('text'), importeVenta.cget('text')))
     submitConcepto.grid(row=18, column = 2, pady = 5)
 
-    submitVenta=tk.Button(interface_agregar[15], text="Ingresar", background='#2ECC71', fg='white',
+    submitVenta=tk.Button(interface_agregar[15], text="Realizar compra", background='#2ECC71', fg='white',
     relief=tk.FLAT, command = lambda: regVenta_2(codigoVenta.get(), codigoProdVenta.get(), cantidadVenta.get(),
     precioUnitVenta.cget('text'), importeVenta.cget('text'), fechaVenta, pago_var.get(), codigoEmpVenta.get()))
     submitVenta.grid(row=20, column = 2, pady = 5)
@@ -2020,6 +2020,10 @@ def start():
     employee_yscrollb.grid(row=1, column=8, sticky='NS', padx=10, pady=10)
     employeeTable.configure(yscrollcommand=employee_yscrollb.set)
 
+    supplier_xscrollb = ttk.Scrollbar(interface_agregar[5], orient = "horizontal", command = supplierTable.xview)
+    supplier_xscrollb.grid(row = 2, column = 0, columnspan=11, sticky='WE', pady=0, padx=10)
+    supplierTable.configure(xscrollcommand = supplier_xscrollb.set)
+
     supplier_yscrollb= ttk.Scrollbar(interface_agregar[5], orient="vertical", command=supplierTable.yview)
     supplier_yscrollb.grid(row=1, column=11, sticky='NS', padx=10)
     supplierTable.configure(yscrollcommand=supplier_yscrollb.set)
@@ -2035,6 +2039,18 @@ def start():
     transaction_yscrollb= ttk.Scrollbar(interface_agregar[8], orient="vertical", command=transactionTable.yview)
     transaction_yscrollb.grid(row=1, column=5, sticky='NS', padx=10)
     transactionTable.configure(yscrollcommand=transaction_yscrollb.set)
+
+    prodOrd_yscrollb = ttk.Scrollbar(interface_agregar[9], orient = "vertical", command = prodOrdTable.yview)
+    prodOrd_yscrollb.grid(row = 1, column = 9, sticky = "NS", padx = 10)
+    prodOrdTable.configure(yscrollcommand = prodOrd_yscrollb.set)
+
+    fPago_yscrollb = ttk.Scrollbar(interface_agregar[13], orient = "vertical", command = categoPagoTable.yview)
+    fPago_yscrollb.grid(row = 1, column = 7, sticky = 'NS',padx = 10)
+    categoPagoTable.configure(yscrollcommand = fPago_yscrollb.set)
+
+    catProd_yscrollb = ttk.Scrollbar(interface_agregar[14], orient = "vertical", command = categoProdTable.yview)
+    catProd_yscrollb.grid(row = 1, column = 5, sticky = "NS", padx = 10)
+    categoProdTable.configure(yscrollcommand = catProd_yscrollb.set)
 
     def tableEmp():
         employeeTable.heading("#0", text='ID', anchor='center')
