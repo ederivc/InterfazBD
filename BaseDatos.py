@@ -1806,10 +1806,21 @@ def start():
     #**************************************************************************
     interface_agregar[13].pack(side='bottom',fill=tk.BOTH, expand=True)
     interface_agregar[13].configure(bg='white')
+    interface_agregar[13].rowconfigure(0, weight=1)
+    interface_agregar[13].rowconfigure(1, weight=1)
+    interface_agregar[13].rowconfigure(2, weight=1)
+    interface_agregar[13].columnconfigure(0, weight=1)
+    interface_agregar[13].columnconfigure(1, weight=1)
+    interface_agregar[13].columnconfigure(2, weight=1)
+    interface_agregar[13].columnconfigure(3, weight=1)
+    interface_agregar[13].columnconfigure(4, weight=1)
+    interface_agregar[13].columnconfigure(5, weight=1)
+    interface_agregar[13].columnconfigure(6, weight=1)
+
     interface_agregar[13].pack_forget()
 
-    ttk.Label(interface_agregar[13], text="       \t FORMAS DE PAGO     ", 
-    font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+    ttk.Label(interface_agregar[13], text="FORMAS DE PAGO", 
+    font=("Times", 20), anchor='center', background='white').grid(row=0, column=0, columnspan=8 ,sticky='NEWS')
 
     agregar_frames[13]=tk.Frame(options, bg = '#080808')
     agregar_frames[13].grid(row=17,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1821,10 +1832,18 @@ def start():
     #********************************************************************************
     interface_agregar[14].pack(side='bottom',fill=tk.BOTH, expand=True)
     interface_agregar[14].configure(bg='white')
+    interface_agregar[14].rowconfigure(0, weight=1)
+    interface_agregar[14].rowconfigure(1, weight=1)
+    interface_agregar[14].rowconfigure(2, weight=1)
+    interface_agregar[14].columnconfigure(0, weight=1)
+    interface_agregar[14].columnconfigure(1, weight=1)
+    interface_agregar[14].columnconfigure(2, weight=1)
+    interface_agregar[14].columnconfigure(3, weight=1)
+    interface_agregar[14].columnconfigure(4, weight=1)
     interface_agregar[14].pack_forget()
 
-    ttk.Label(interface_agregar[14], text="\n CATEGORIAS DE PRODUCTOS \n", 
-    font=("Times", 20), background='white').grid(row=0, column=1, sticky='NEWS')
+    ttk.Label(interface_agregar[14], text="CATEGORIAS DE PRODUCTOS", 
+    font=("Times", 20),anchor='center', background='white').grid(row=0, column=0,columnspan=6, sticky='NEWS')
 
     agregar_frames[14]=tk.Frame(options, bg = '#080808')
     agregar_frames[14].grid(row=18,column=0,sticky='NWSE', pady=2, padx=10)
@@ -1982,12 +2001,12 @@ def start():
     'Proveedor', 'Categoria')
 
     categoPagoTable = ttk.Treeview(interface_agregar[13], style = "Custom.Treeview")
-    categoPagoTable.grid(row = 2, column = 1, sticky = 'NEWS')
+    categoPagoTable.grid(row = 1, column = 0, columnspan=7, sticky = 'NEWS', padx=10)
     categoPagoTable['columns'] = ("Cheque", "Vale", "Tarjeta de Credito", "Tarjeta de Debito",
     "Pagaré", "Efectivo")
 
     categoProdTable = ttk.Treeview(interface_agregar[14], style = "Custom.Treeview")
-    categoProdTable.grid(row = 2, column = 1, sticky = 'NEWS')
+    categoProdTable.grid(row = 1, column = 0, columnspan=5, sticky = 'NEWS', padx=10)
     categoProdTable['columns'] = ('Abarrotes', 'Botanas', 'Cervezas', 'Refrescos')
 
 
