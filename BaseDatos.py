@@ -556,7 +556,7 @@ def start():
         operacion = conexion.cursor()
         operacion.execute( "SELECT * FROM sales" )
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, '0'))
         conexion.close()
 
     def showTransaction(transactionTable):
@@ -660,9 +660,9 @@ def start():
             if fecha == 'Dia':
                 showDayCat()
             elif fecha == 'Semana':
-                showWeekEmpCat()
+                showWeekCat()
             elif fecha == 'Mes':
-                showMonthEmpCat()
+                showMonthCat()
             else:
                 return
 
@@ -676,7 +676,8 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE fecha = %s",(fechaVentStr,))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
+        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
         conexion.close()
 
     def showWeek():
@@ -688,7 +689,8 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE YEARWEEK(fecha,1) = YEARWEEK(%s,1) ",(fechaVentStr,))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
+        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
         conexion.close()  
 
     def showMonth():
@@ -700,7 +702,8 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE MONTH(fecha) = MONTH(%s)",(fechaVentStr,))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
+        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
         conexion.close()      
     
     def showDayEmp():
@@ -713,7 +716,8 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE fecha = %s AND claveEmp = %s",(fechaVentStr, empleado))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
+        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
         conexion.close()
     
     def showWeekEmp():
@@ -726,7 +730,8 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE YEARWEEK(fecha,1) = YEARWEEK(%s,1) AND claveEmp = %s",(fechaVentStr,empleado))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
+        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
         conexion.close()  
 
     def showMonthEmp():
@@ -739,47 +744,54 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE MONTH(fecha) = MONTH(%s) AND claveEmp = %s",(fechaVentStr,empleado))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
+        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
         conexion.close() 
 
     def showDayCat():
         fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
-        empleado = VentaEmpMost.get()
+        categ = VentaCatMost.get()
         for i in saleTable.get_children():
             saleTable.delete(i)
 
         conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
         operacion = conexion.cursor()
-        operacion.execute("SELECT * FROM sales WHERE fecha = %s AND claveEmp = %s",(fechaVentStr, empleado))
-        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+        operacion.execute("SELECT s.clave, s.importeT, s.fecha, s.fpago, s.claveEmp, p.codigoProd FROM sales s INNER JOIN transaction t ON s.clave = t.clave INNER JOIN product p ON p.codigoProd = t.codigoProd WHERE s.fecha = %s AND p.categoria = %s",(fechaVentStr, categ))
+        for clave,importeT,fecha,fPago, claveEmp, product in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, product))
+
+        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado', 'Producto')
         conexion.close()
     
     def showWeekCat():
         fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
-        empleado = VentaEmpMost.get()
+        categ = VentaCatMost.get()
         for i in saleTable.get_children():
             saleTable.delete(i)
 
         conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
         operacion = conexion.cursor()
-        operacion.execute("SELECT * FROM sales WHERE YEARWEEK(fecha,1) = YEARWEEK(%s,1) AND claveEmp = %s",(fechaVentStr,empleado))
-        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
-        conexion.close()  
+        operacion.execute("SELECT s.clave, s.importeT, s.fecha, s.fpago, s.claveEmp, p.codigoProd FROM sales s INNER JOIN transaction t ON s.clave = t.clave INNER JOIN product p ON p.codigoProd = t.codigoProd WHERE YEARWEEK(fecha,1) = YEARWEEK(%s,1) AND p.categoria = %s",(fechaVentStr, categ))
+        for clave,importeT,fecha,fPago, claveEmp, product in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, product))
+
+        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado', 'Producto')
+        conexion.close()
 
     def showMonthCat():
         fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
-        empleado = VentaEmpMost.get()
+        categ = VentaCatMost.get()
         for i in saleTable.get_children():
             saleTable.delete(i)
 
         conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
         operacion = conexion.cursor()
-        operacion.execute("SELECT * FROM sales WHERE MONTH(fecha) = MONTH(%s) AND claveEmp = %s",(fechaVentStr,empleado))
-        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
-        conexion.close() 
+        operacion.execute("SELECT s.clave, s.importeT, s.fecha, s.fpago, s.claveEmp, p.codigoProd FROM sales s INNER JOIN transaction t ON s.clave = t.clave INNER JOIN product p ON p.codigoProd = t.codigoProd WHERE MONTH(fecha) = MONTH(%s) AND p.categoria = %s",(fechaVentStr, categ))
+        for clave,importeT,fecha,fPago, claveEmp, product in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, product))
+
+        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado', 'Producto')
+        conexion.close()
 
     def verifica(codigo, cantidad):
         conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
@@ -1522,11 +1534,12 @@ def start():
     interface_agregar[7].columnconfigure(2, weight=1)
     interface_agregar[7].columnconfigure(3, weight=1)
     interface_agregar[7].columnconfigure(4, weight=1)
+    interface_agregar[7].columnconfigure(5, weight=1)
 
     interface_agregar[7].pack_forget()
 
     ttk.Label(interface_agregar[7], text="LISTA DE VENTAS", 
-    font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=6,sticky='NESW')
+    font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=7,sticky='NESW')
 
     agregar_frames[7]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[7].grid(row=9,column=0,sticky='NWSE', pady=2, padx=10)
@@ -2098,8 +2111,9 @@ def start():
     'Proveedor', 'Categoria')
 
     saleTable = ttk.Treeview(interface_agregar[7], style = "Custom.Treeview")
-    saleTable.grid(row = 1, column = 0, columnspan=5, sticky = 'NEWS', padx=10)
-    saleTable['columns'] = ('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+    saleTable.grid(row = 1, column = 0, columnspan=6, sticky = 'NEWS', padx=10)
+    saleTable['columns'] = ('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado', 'Producto')
+    saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
 
     transactionTable = ttk.Treeview(interface_agregar[8], style = "Custom.Treeview")
     transactionTable.grid(row = 1, column = 0, columnspan=5, sticky = 'NEWS', padx=10)
@@ -2148,7 +2162,7 @@ def start():
     productTable.configure(yscrollcommand=product_yscrollb.set)
 
     sale_yscrollb = ttk.Scrollbar(interface_agregar[7], orient = "vertical", command = saleTable.yview)
-    sale_yscrollb.grid(row = 1, column = 5, sticky = 'NS', padx=10)
+    sale_yscrollb.grid(row = 1, column = 6, sticky = 'NS', padx=10)
     saleTable.configure(yscrollcommand = sale_yscrollb.set)
 
     transaction_yscrollb= ttk.Scrollbar(interface_agregar[8], orient="vertical", command=transactionTable.yview)
@@ -2292,6 +2306,7 @@ def start():
         categoProdTable.heading("Refrescos", text='Refrescos')
         categoProdTable.column("Refrescos", anchor="center",width=80)   
 
+
     def tableSale():
         saleTable.heading("#0", text='Clave de Venta')
         saleTable.column("#0", anchor='w',width=80)     
@@ -2303,6 +2318,8 @@ def start():
         saleTable.column("Forma de Pago", anchor="center",width=80)
         saleTable.heading("Clave Empleado", text = "Clave Empleado")
         saleTable.column("Clave Empleado", anchor = "center", width = 80)
+        saleTable.heading("Producto", text = "Producto")
+        saleTable.column("Producto", anchor = "center", width = 80)
 
     def tableTransaction():
         transactionTable.heading("#0", text='Clave Venta', anchor='center')
