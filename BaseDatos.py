@@ -45,72 +45,72 @@ def start():
         if(event==1):
             labelDisplay.pack(side='top')
             ShowAgregar(1)
-            display.config(bg='#2ECC71')
+            display.config(bg='#ffd5ab')
         if(event==2):
             labelDisplay.pack(side='top')
             ShowAgregar(2)
-            display.config(bg='#0781F4')
+            display.config(bg='#f8b195')
         if(event==3):
             labelDisplay.pack(side='top')
             ShowAgregar(3)
-            display.config(bg='#FF8F00')
+            display.config(bg='#ffb2a7')
         if(event==4):
             showEmployee(employeeTable)
             labelDisplay.pack(side='top')
             ShowAgregar(4)
-            display.config(bg='#F50052')
+            display.config(bg='#fed39f')
         if(event==5):
             showSupplier(supplierTable)
             labelDisplay.pack(side='top')
             ShowAgregar(5)
-            display.config(bg='#ffa751')
+            display.config(bg='#cfb495')
         if(event == 6):
             showProduct(productTable)
             labelDisplay.pack(side='top')
             ShowAgregar(6)
-            display.config(bg='#6f3eab')
+            display.config(bg='#f5cdaa')
         if(event == 7):
             showSale(saleTable)
             labelDisplay.pack(side='top')
             ShowAgregar(7)
-            display.config(bg='#3EBD5E')  
+            display.config(bg='#f5dea3')  
         if(event == 8): 
             showTransaction(transactionTable)
             labelDisplay.pack(side='top')
             ShowAgregar(8)
-            display.config(bg='#3EBD5E') 
+            display.config(bg='#fab696') 
         if(event == 9):
             showProdOrd(prodOrdTable)
             labelDisplay.pack(side='top')
             ShowAgregar(9)
-            display.config(bg='#2ECC71')   
+            display.config(bg='#f1d6ab')   
         if(event == 10):
             labelDisplay.pack(side='top')
             ShowAgregar(10)
-            display.config(bg='#2ECC71') 
+            display.config(bg='#f6c89f') 
         if(event == 11):
             showProducCatego(categoProdTable)
             labelDisplay.pack(side='top')
             ShowAgregar(11)
-            display.config(bg='#3EBD5E')       
+            display.config(bg='#deb881')       
         if(event == 12):
             labelDisplay.pack(side='top')
             ShowAgregar(12)
-            display.config(bg='#3EBD5E')   
+            display.config(bg='#f6cd90')   
         if(event == 13):
             showPayment(categoPagoTable)
             labelDisplay.pack(side='top')
             ShowAgregar(13)
-            display.config(bg='#616d7e') 
+            display.config(bg='#f6d198') 
         if(event == 14):
             showProducCatego(categoProdTable)
             labelDisplay.pack(side='top')
             ShowAgregar(14)
-            display.config(bg='#a0522d') 
+            display.config(bg='#fda77f') 
         if(event == 15):
             labelDisplay.pack(side='top')
             ShowAgregar(15)
-            display.config(bg='#ff8000')  
+            display.config(bg='#f6d198')  
         return
 
     
@@ -254,7 +254,7 @@ def start():
 
 
     def LabelEnter(event):
-        event.widget.config(background='#7f7f7f')
+        event.widget.config(background='#df7861')
 
     def LabelLeave(event):
         event.widget.config(background='#E0E0E0')
@@ -264,10 +264,10 @@ def start():
         while(x<len(interface_agregar)):
             if x!=index:
                 interface_agregar[x].pack_forget()
-                agregar_frames[x].config(bg='#080808')
+                agregar_frames[x].config(bg='#ba6b57')
             x+=1
         interface_agregar[index].pack(fill=tk.BOTH, expand=True,  padx=5, pady=5)
-        agregar_frames[index].config(bg='#0781F4')
+        agregar_frames[index].config(bg='#0f4c81')
     
     def regEmp(aidi, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp,
     ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
@@ -962,9 +962,9 @@ def start():
 
     window.rowconfigure(0, weight=1)
     window.columnconfigure(1, weight=4)
-    window.config(bg='#5C4742')
+    window.config(bg='#30475e')
 
-    options= tk.Frame(window, bg="#a0522d")
+    options= tk.Frame(window, bg="#fdcb9e")
     options.grid(row=0,column=0, sticky='NSWE')
     options.columnconfigure(0, weight=1)
 
@@ -1010,6 +1010,10 @@ def start():
     manageProductImg = manageProductImg.zoom(2)
     manageProductImg = manageProductImg.subsample(6)
 
+    #imgSt = PhotoImage(file = "cafe.png")
+    #imgSt = imgSt.zoom(2)
+    #imgSt = imgSt.subsample(6)
+
     #*************************************** LABELS ****************************************
     interface_agregar= []
 
@@ -1019,7 +1023,7 @@ def start():
 
     #*****************************************Inicio*********************************
     interface_agregar[0].pack(fill=tk.BOTH, expand=True)
-    interface_agregar[0].configure(bg='#A5978B')
+    interface_agregar[0].configure(bg='#f1935c')
 
     """canvas = Canvas(interface_agregar[0], bg='#9f01fc', width=250, height=h,bd=0, relief='flat',highlightthickness=0)
     canvas.create_image(0,0, anchor='nw', image=stockImg)
@@ -1031,12 +1035,12 @@ def start():
 
     home_page=tk.Frame(interface_agregar[0])
     home_page.pack(side='left', fill=BOTH)
-    home_page.configure(bg='#A5978B')
+    home_page.configure(bg='#f1935c')
     home_page.columnconfigure(1,weight=2)
     home_page.columnconfigure(0,weight=1)
-    ttk.Label(home_page, text="BIENVENIDO", font=("Times", 50, 'bold'), background='#18191A', foreground='white',).grid(row=0, column=0,padx=50,pady=20, columnspan=2)
-    ttk.Label(home_page, text="BASE DE \n\tDATOS", font=("Times", 30, 'bold'), background='#18191A', foreground='#3A3939').grid(row=1, column=1)
-
+    ttk.Label(home_page, text="       BIENVENIDO       ", font=("Times", 50, 'bold'), background='#30475e', foreground='white').grid(row=0, column=0,padx=50,pady=20, columnspan=2)
+    #ttk.Label(home_page, text="BASE DE \n\tDATOS", font=("Times", 30, 'bold'), background='#18191A', foreground='#3A3939').grid(row=1, column=1)
+   
     #---------------------------------------->Empleado<-------------------------------------
     interface_agregar[1].pack(side='bottom',fill=tk.BOTH, expand=True)
     interface_agregar[1].configure(bg='white')
@@ -1145,7 +1149,7 @@ def start():
     sueldoEmp = ttk.Entry(interface_agregar[1], width = 30)
     sueldoEmp.grid(row = 30, column = 2, pady=2)
 
-    submitEmp=tk.Button(interface_agregar[1], text="Ingresar", background='#2ECC71', fg='white',
+    submitEmp=tk.Button(interface_agregar[1], text="Ingresar", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: regEmp(aidi, nombreEmp, apPatEmp, 
     apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp, ciudadEmp, estadoEmp, 
     paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp))
@@ -1280,38 +1284,40 @@ def start():
         agregar_frames.append(tk.Frame(options))
 
 
-    title = tk.Frame(options, bg = '#005ea5')
+    title = tk.Frame(options, bg = '#f1935c')
     title.grid(row=0, column=0, sticky='NWSE', pady=8)
-    labelTitle = ttk.Label(title, text = '      TIENDA DE \n    CONVENIENCIA', width = 20, background = '#5C4742', foreground = 'white')
+    labelTitle = ttk.Label(title, text = '      TIENDA DE \n    CONVENIENCIA', width = 20, background = '#4d3e3e', foreground = 'white')
     labelTitle.pack(side = tk.TOP, anchor = 'center')
     labelTitle.config(font=("Courier", 20))
     labelTitle.bind("<Button-1>", lambda x: OnClick(0))
+    # café 4d3e3e
+    # azul 30475e
 
     agregar_frames[0]=tk.Frame(options)
     agregar_frames[0].grid(row=1,column=0,sticky='NWSE', pady=2)
-    agregar=ttk.Label(agregar_frames[0], text="AGREGAR", anchor=tk.CENTER, background='#C4BBAF', foreground='black')
+    agregar=ttk.Label(agregar_frames[0], text="AGREGAR", anchor=tk.CENTER, background='#ba6b57', foreground='white')
     agregar.pack(side='right', fill='both', expand=1)
 
-    agregar_frames[1]=tk.Frame(options, bg = '#080808')
+    agregar_frames[1]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[1].grid(row=2,column=0,sticky='NWSE', pady=2, padx=10)
-    empleado=ttk.Label(agregar_frames[1], text="EMPLEADO", anchor=tk.CENTER, background='#E0E0E0')
+    empleado=ttk.Label(agregar_frames[1], text="EMPLEADO", anchor=tk.CENTER, background='#f0f0f0')
     empleado.pack(side='right', fill='both', expand=1, padx=5, pady=1)
     empleado.bind("<Button-1>", lambda x: OnClick(1))
     empleado.bind("<Enter>", LabelEnter)
     empleado.bind("<Leave>", LabelLeave)
 
 
-    agregar_frames[2]=tk.Frame(options, bg = '#080808')
+    agregar_frames[2]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[2].grid(row=3,column=0,sticky='NWSE', pady=2, padx=10)
-    proveedor=ttk.Label(agregar_frames[2], text="PROVEEDOR", anchor=tk.CENTER, background='#E0E0E0')
+    proveedor=ttk.Label(agregar_frames[2], text="PROVEEDOR", anchor=tk.CENTER, background='#f0f0f0')
     proveedor.pack(side='right', fill='both', expand=1, padx=5, pady=1)
     proveedor.bind("<Button-1>", lambda x: OnClick(2))
     proveedor.bind("<Enter>", LabelEnter)
     proveedor.bind("<Leave>", LabelLeave)
 
-    agregar_frames[3]=tk.Frame(options, bg = '#080808')
+    agregar_frames[3]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[3].grid(row=4,column=0,sticky='NWSE', pady=2, padx=10)
-    producto=ttk.Label(agregar_frames[3], text="PRODUCTO", anchor=tk.CENTER, background='#E0E0E0')
+    producto=ttk.Label(agregar_frames[3], text="PRODUCTO", anchor=tk.CENTER, background='#f0f0f0')
     producto.pack(side='right', fill='both', expand=1, padx=5, pady=1)
     producto.bind("<Button-1>", lambda x: OnClick(3))
     producto.bind("<Enter>", LabelEnter)
@@ -1319,7 +1325,7 @@ def start():
 
     #**************************************** MOSTRAR ************************************
 
-    show = ttk.Label(options, text="MOSTRAR", anchor=tk.CENTER, background='#C4BBAF', foreground='black')
+    show = ttk.Label(options, text="MOSTRAR", anchor=tk.CENTER, background='#ba6b57', foreground='white')
     show.grid(row=5, column=0, sticky='NWSE', pady=5)
     #************************************************************************************
     interface_agregar[4].pack(side='bottom',fill=tk.BOTH, expand=True)
@@ -1343,7 +1349,7 @@ def start():
     ttk.Label(interface_agregar[4], text="LISTA DE EMPLEADOS", 
     font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=9, sticky='NEWS')
 
-    agregar_frames[4]=tk.Frame(options, bg = '#080808')
+    agregar_frames[4]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[4].grid(row=6,column=0,sticky='NWSE', pady=2, padx=10)
     employeeShow=ttk.Label(agregar_frames[4], text="EMPLEADO", anchor=tk.CENTER, background='#E0E0E0')
     employeeShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1356,7 +1362,7 @@ def start():
 
     interface_agregar[5].rowconfigure(0, weight=1)
     interface_agregar[5].rowconfigure(1, weight=1)
-    interface_agregar[5].rowconfigure(2, weight=1)
+    #interface_agregar[5].rowconfigure(2, weight=1)
     interface_agregar[5].rowconfigure(3, weight=1)
     interface_agregar[5].columnconfigure(0, weight=1)
     interface_agregar[5].columnconfigure(1, weight=2)
@@ -1374,7 +1380,7 @@ def start():
     ttk.Label(interface_agregar[5], text="LISTA DE PROVEEDORES", 
     font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=12, sticky='NEWS')
 
-    agregar_frames[5]=tk.Frame(options, bg = '#080808')
+    agregar_frames[5]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[5].grid(row=7,column=0,sticky='NWSE', pady=2, padx=10)
     supplierShow=ttk.Label(agregar_frames[5], text="PROVEEDOR", anchor=tk.CENTER, background='#E0E0E0')
     supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1386,7 +1392,7 @@ def start():
     interface_agregar[6].configure(bg='white')
     interface_agregar[6].rowconfigure(0, weight=1)
     interface_agregar[6].rowconfigure(1, weight=1)
-    interface_agregar[6].rowconfigure(2, weight=1)
+    interface_agregar[6].rowconfigure(3, weight=1)
     interface_agregar[6].columnconfigure(0, weight=1)
     interface_agregar[6].columnconfigure(1, weight=1)
     interface_agregar[6].columnconfigure(2, weight=1)
@@ -1401,7 +1407,7 @@ def start():
     ttk.Label(interface_agregar[6], text=" LISTA DE PRODUCTOS", 
     font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=10,sticky='NEWS')
 
-    agregar_frames[6]=tk.Frame(options, bg = '#080808')
+    agregar_frames[6]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[6].grid(row=8,column=0,sticky='NWSE', pady=2, padx=10)
     supplierShow=ttk.Label(agregar_frames[6], text="PRODUCTO", anchor=tk.CENTER, background='#E0E0E0')
     supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1425,7 +1431,7 @@ def start():
     ttk.Label(interface_agregar[7], text="LISTA DE VENTAS", 
     font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=6,sticky='NESW')
 
-    agregar_frames[7]=tk.Frame(options, bg = '#080808')
+    agregar_frames[7]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[7].grid(row=9,column=0,sticky='NWSE', pady=2, padx=10)
     supplierShow=ttk.Label(agregar_frames[7], text="VENTAS", anchor=tk.CENTER, background='#E0E0E0')
     supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1485,7 +1491,7 @@ def start():
     ttk.Label(interface_agregar[8], text="LISTA DE CONCEPTOS DE VENTA", 
     font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=6, sticky='NEWS')
 
-    agregar_frames[8]=tk.Frame(options, bg = '#080808')
+    agregar_frames[8]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[8].grid(row=10,column=0,sticky='NWSE', pady=2, padx=10)
     supplierShow=ttk.Label(agregar_frames[8], text="CONCEPTO", anchor=tk.CENTER, background='#E0E0E0')
     supplierShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1513,7 +1519,7 @@ def start():
     ttk.Label(interface_agregar[9], text="PRODUCTOS A ORDENAR", 
     font=("Times", 20), background='white', anchor='center').grid(row=0, column=0, columnspan=10, sticky='NEWS')
 
-    agregar_frames[9]=tk.Frame(options, bg = '#080808')
+    agregar_frames[9]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[9].grid(row=11,column=0,sticky='NWSE', pady=2, padx=10)
     prodOrdShow=ttk.Label(agregar_frames[9], text="PRODUCTOS A ORDENAR", anchor=tk.CENTER, background='#E0E0E0')
     prodOrdShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1523,7 +1529,7 @@ def start():
 
 
     #************************************ ELIMINAR/MODIFICAR *****************************
-    modif = ttk.Label(options, text="MODIFICAR Ó ELIMINAR", anchor=tk.CENTER, background='#C4BBAF', foreground='black')
+    modif = ttk.Label(options, text="MODIFICAR Ó ELIMINAR", anchor=tk.CENTER, background='#ba6b57', foreground='white')
     modif.grid(row=12, column=0, sticky='NWSE', pady=5)
 
     #***************************************************************************************
@@ -1531,7 +1537,7 @@ def start():
     interface_agregar[10].configure(bg='white')
     interface_agregar[10].pack_forget()
 
-    agregar_frames[10]=tk.Frame(options, bg = '#080808')
+    agregar_frames[10]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[10].grid(row=13,column=0,sticky='NWSE', pady=2, padx=10)
     empModShow=ttk.Label(agregar_frames[10], text="EMPLEADOS", anchor=tk.CENTER, background='#E0E0E0')
     empModShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1663,7 +1669,7 @@ def start():
     ttk.Label(interface_agregar[11], text="      MODIFICAR PROVEEDORES     ",
     font=("Times", 20), background='white').grid(row=0, column=2, sticky='NEWS')
 
-    agregar_frames[11]=tk.Frame(options, bg = '#080808')
+    agregar_frames[11]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[11].grid(row=14,column=0,sticky='NWSE', pady=2, padx=10)
     provModShow=ttk.Label(agregar_frames[11], text="PROVEEDORES", anchor=tk.CENTER, background='#E0E0E0')
     provModShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1734,7 +1740,7 @@ def start():
     interface_agregar[12].configure(bg='white')
     interface_agregar[12].pack_forget()
 
-    agregar_frames[12]=tk.Frame(options, bg = '#080808')
+    agregar_frames[12]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[12].grid(row=15,column=0,sticky='NWSE', pady=2, padx=10)
     prodModShow=ttk.Label(agregar_frames[12], text="PRODUCTOS", anchor=tk.CENTER, background='#E0E0E0')
     prodModShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1801,7 +1807,7 @@ def start():
     submitProdEli.grid(row=27, column=2, pady=2)
 
     #*************************************CATEGORIAS*************************************
-    categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#C4BBAF', foreground='black')
+    categ = ttk.Label(options, text="CATEGORIAS", anchor=tk.CENTER, background='#ba6b57', foreground='white')
     categ.grid(row=16, column=0, sticky='NWSE', pady=5)
     #**************************************************************************
     interface_agregar[13].pack(side='bottom',fill=tk.BOTH, expand=True)
@@ -1822,7 +1828,7 @@ def start():
     ttk.Label(interface_agregar[13], text="FORMAS DE PAGO", 
     font=("Times", 20), anchor='center', background='white').grid(row=0, column=0, columnspan=8 ,sticky='NEWS')
 
-    agregar_frames[13]=tk.Frame(options, bg = '#080808')
+    agregar_frames[13]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[13].grid(row=17,column=0,sticky='NWSE', pady=2, padx=10)
     prodCatShow=ttk.Label(agregar_frames[13], text="FORMAS DE PAGO", anchor=tk.CENTER, background='#E0E0E0')
     prodCatShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1845,7 +1851,7 @@ def start():
     ttk.Label(interface_agregar[14], text="CATEGORIAS DE PRODUCTOS", 
     font=("Times", 20),anchor='center', background='white').grid(row=0, column=0,columnspan=6, sticky='NEWS')
 
-    agregar_frames[14]=tk.Frame(options, bg = '#080808')
+    agregar_frames[14]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[14].grid(row=18,column=0,sticky='NWSE', pady=2, padx=10)
     prodCatShow=ttk.Label(agregar_frames[14], text="PRODUCTOS", anchor=tk.CENTER, background='#E0E0E0')
     prodCatShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1857,10 +1863,10 @@ def start():
     interface_agregar[15].configure(bg='white')
     interface_agregar[15].pack_forget()
 
-    sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#C4BBAF', foreground='black')
+    sales = ttk.Label(options, text="VENTAS", anchor=tk.CENTER, background='#ba6b57', foreground='white')
     sales.grid(row=19, column=0, sticky='NWSE', pady=5)
 
-    agregar_frames[15]=tk.Frame(options, bg = '#080808')
+    agregar_frames[15]=tk.Frame(options, bg = '#ba6b57')
     agregar_frames[15].grid(row=20,column=0,sticky='NWSE', pady=2, padx=10)
     salesShow=ttk.Label(agregar_frames[15], text="REGISTRAR VENTAS", anchor=tk.CENTER, background='#E0E0E0')
     salesShow.pack(side='right', fill='both', expand=1, padx=5, pady=1)
@@ -1968,7 +1974,7 @@ def start():
         background="#212F3C", foreground="white",font=('Calibri',10,'bold') ,relief="flat")
 
     employeeTable = ttk.Treeview(interface_agregar[4], style="Custom.Treeview")
-    employeeTable.grid(row=1, column=0, columnspan=8, sticky='NEWS' ,padx=10, pady=10)
+    employeeTable.grid(row=1, column=0, columnspan=8, sticky='NEWS' ,padx=10, pady=1)
     employeeTable['columns'] = (
                                 'nombre','apellidoP','apellidoM','rfc','fechaNac',
                                 'fechaIng','ciudad','estado','pais','calle',
@@ -1977,12 +1983,12 @@ def start():
 
 
     supplierTable = ttk.Treeview(interface_agregar[5], style="Custom.Treeview")
-    supplierTable.grid(row=1, column=0, columnspan=11, sticky='NEWS', padx=10)
+    supplierTable.grid(row=1, column=0, columnspan=11, sticky='NEWS', padx=10, pady = 1)
     supplierTable['columns'] = ('Nombre','Apellido Paterno','Apellido Materno','RFC', 'Telefono', 
                                 'Empresa', 'Ciudad', 'Calle', 'Colonia', 'CP')
 
     productTable = ttk.Treeview(interface_agregar[6], style="Custom.Treeview")
-    productTable.grid(row=1, column=0, columnspan=9, sticky='NEWS', padx=10)
+    productTable.grid(row=1, column=0, columnspan=9, sticky='NEWS', padx=10, pady = 1)
     productTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Precio Venta', 'Punto de Reorden',
     'Proveedor', 'Categoria')
 
@@ -2013,20 +2019,24 @@ def start():
 
     #--------------------scrollbar----------------
     employee_xscrollb= ttk.Scrollbar(interface_agregar[4], orient="horizontal", command=employeeTable.xview)
-    employee_xscrollb.grid(row=2, column=0, columnspan=8, sticky='WE', pady=10, padx=10)
+    employee_xscrollb.grid(row=2, column=0, columnspan=8, sticky='WE', padx=10, pady=1)
     employeeTable.configure(xscrollcommand=employee_xscrollb.set)
 
     employee_yscrollb= ttk.Scrollbar(interface_agregar[4], orient="vertical", command=employeeTable.yview)
-    employee_yscrollb.grid(row=1, column=8, sticky='NS', padx=10, pady=10)
+    employee_yscrollb.grid(row=1, column=8, sticky='NS', padx=10, pady=1)
     employeeTable.configure(yscrollcommand=employee_yscrollb.set)
 
     supplier_xscrollb = ttk.Scrollbar(interface_agregar[5], orient = "horizontal", command = supplierTable.xview)
-    supplier_xscrollb.grid(row = 2, column = 0, columnspan=11, sticky='WE', pady=0, padx=10)
+    supplier_xscrollb.grid(row = 2, column = 0, columnspan=11, sticky='WE',padx=10, pady = 1)
     supplierTable.configure(xscrollcommand = supplier_xscrollb.set)
 
     supplier_yscrollb= ttk.Scrollbar(interface_agregar[5], orient="vertical", command=supplierTable.yview)
     supplier_yscrollb.grid(row=1, column=11, sticky='NS', padx=10)
     supplierTable.configure(yscrollcommand=supplier_yscrollb.set)
+
+    product_xscrollb = ttk.Scrollbar(interface_agregar[6], orient = "horizontal", command = productTable.xview)
+    product_xscrollb.grid(row = 2, column = 0, columnspan=9, sticky='WE', padx=10, pady = 1)
+    productTable.configure(xscrollcommand = product_xscrollb.set)
 
     product_yscrollb= ttk.Scrollbar(interface_agregar[6], orient="vertical", command=productTable.yview)
     product_yscrollb.grid(row=1, column=9, sticky='NS', padx=10)
@@ -2057,16 +2067,16 @@ def start():
         employeeTable.column("#0", anchor="w",minwidth=80, width=80)
         employeeTable.heading('nombre', text='Nombre')
         employeeTable.column('nombre', anchor='center', minwidth=80, width=80)
-        employeeTable.heading('apellidoP', text='Apellido P')
-        employeeTable.column('apellidoP', anchor='center', minwidth=80, width=80)
-        employeeTable.heading('apellidoM', text='Apellido M')
-        employeeTable.column('apellidoM', anchor='center', minwidth=80, width=80)
+        employeeTable.heading('apellidoP', text='Apellido Paterno')
+        employeeTable.column('apellidoP', anchor='center', minwidth=119, width=119)
+        employeeTable.heading('apellidoM', text='Apellido Materno')
+        employeeTable.column('apellidoM', anchor='center', minwidth=124, width=124)
         employeeTable.heading('rfc', text='RFC')
         employeeTable.column('rfc', anchor='center', minwidth=80, width=80)
-        employeeTable.heading('fechaNac', text='FechaNac')
-        employeeTable.column('fechaNac', anchor='center',minwidth=80, width=80)
-        employeeTable.heading('fechaIng', text='FechaIng')
-        employeeTable.column('fechaIng', anchor='center', minwidth=80, width=80)
+        employeeTable.heading('fechaNac', text='Fecha Nacimiento')
+        employeeTable.column('fechaNac', anchor='center',minwidth=135, width=135)
+        employeeTable.heading('fechaIng', text='Fecha Ingreso')
+        employeeTable.column('fechaIng', anchor='center', minwidth=125, width=125)
         employeeTable.heading('ciudad', text='Ciudad')
         employeeTable.column('ciudad', anchor='center',minwidth=80, width=80)
         employeeTable.heading('estado', text='Estado')
@@ -2079,8 +2089,8 @@ def start():
         employeeTable.column('colonia', anchor='center', minwidth=80, width=80)
         employeeTable.heading('cp', text='CP')
         employeeTable.column('cp', anchor='center', minwidth=80, width=80)
-        employeeTable.heading('telefono', text='Tel')
-        employeeTable.column('telefono', anchor='center', minwidth=80, width=80)
+        employeeTable.heading('telefono', text='Teléfono')
+        employeeTable.column('telefono', anchor='center', minwidth=85, width=85)
         employeeTable.heading('sueldo', text='Sueldo')
         employeeTable.column('sueldo', anchor='center', minwidth=80, width=80)
 
@@ -2091,12 +2101,12 @@ def start():
         supplierTable.heading("Nombre", text='Nombre')
         supplierTable.column("Nombre", anchor="center",width=80) 
         supplierTable.heading("Apellido Paterno", text='Apellido Paterno')
-        supplierTable.column("Apellido Paterno", anchor="center",width=80) 
+        supplierTable.column("Apellido Paterno", anchor="center",minwidth=119, width=119) 
         supplierTable.heading("Apellido Materno", text='Apellido Materno')
-        supplierTable.column("Apellido Materno", anchor="center",width=80)      
+        supplierTable.column("Apellido Materno", anchor="center",minwidth=124, width=124)      
         supplierTable.heading("RFC", text='RFC')
         supplierTable.column("RFC", anchor="center",width=80)  
-        supplierTable.heading("Telefono", text='Telefono')
+        supplierTable.heading("Telefono", text='Teléfono')
         supplierTable.column("Telefono", anchor="center",width=80) 
         supplierTable.heading("Empresa", text='Empresa')
         supplierTable.column("Empresa", anchor="center",width=80)   
@@ -2111,7 +2121,7 @@ def start():
 
     def tableProduct():
         productTable.heading("#0", text='Codigo Barras', anchor='center')
-        productTable.column("#0", anchor="w",width=80)   
+        productTable.column("#0", anchor="w",minwidth = 120, width=120)   
         productTable.heading("Nombre", text='Nombre')
         productTable.column("Nombre", anchor="center",width=80)   
         productTable.heading("Marca", text='Marca')
@@ -2121,9 +2131,9 @@ def start():
         productTable.heading("Costo", text='Costo')
         productTable.column("Costo", anchor="center",width=80)
         productTable.heading("Precio Venta", text='Precio Venta')
-        productTable.column("Precio Venta", anchor="center",width=80)    
+        productTable.column("Precio Venta", anchor="center",minwidth = 100, width = 100)    
         productTable.heading("Punto de Reorden", text = "Punto de Reorden")
-        productTable.column("Punto de Reorden", anchor = "center", width = 80)
+        productTable.column("Punto de Reorden", anchor = "center", minwidth = 125, width = 125)
         productTable.heading("Proveedor", text='Proveedor')
         productTable.column("Proveedor", anchor="center",width=80)   
         productTable.heading("Categoria", text='Categoria')
@@ -2131,7 +2141,7 @@ def start():
 
     def tableProdOrd():
         prodOrdTable.heading("#0", text='Codigo Barras', anchor='center')
-        prodOrdTable.column("#0", anchor="w",width=80)   
+        prodOrdTable.column("#0", anchor="w",minwidth = 120, width=120)   
         prodOrdTable.heading("Nombre", text='Nombre')
         prodOrdTable.column("Nombre", anchor="center",width=80)   
         prodOrdTable.heading("Marca", text='Marca')
@@ -2141,9 +2151,9 @@ def start():
         prodOrdTable.heading("Costo", text='Costo')
         prodOrdTable.column("Costo", anchor="center",width=80)
         prodOrdTable.heading("Precio Venta", text='Precio Venta')
-        prodOrdTable.column("Precio Venta", anchor="center",width=80)    
+        prodOrdTable.column("Precio Venta", anchor="center",minwidth = 100, width = 100)    
         prodOrdTable.heading("Punto de Reorden", text = "Punto de Reorden")
-        prodOrdTable.column("Punto de Reorden", anchor = "center", width = 80)
+        prodOrdTable.column("Punto de Reorden", anchor = "center", minwidth = 125, width = 125)
         prodOrdTable.heading("Proveedor", text='Proveedor')
         prodOrdTable.column("Proveedor", anchor="center",width=80)   
         prodOrdTable.heading("Categoria", text='Categoria')
