@@ -4,6 +4,7 @@ from tkinter import Menu
 from tkinter import messagebox as mBox
 from tkinter import *
 from tkcalendar import DateEntry
+from PIL import Image
 from datetime import date
 from datetime import datetime
 import mysql.connector as mysql
@@ -40,7 +41,7 @@ def start():
     def OnClick(event):
         if(event==0):
             ShowAgregar(0)
-            display.config(bg="#18191A")
+            display.config(bg="#fdcb9e")
             labelDisplay.pack_forget()
         if(event==1):
             labelDisplay.pack(side='top')
@@ -258,7 +259,7 @@ def start():
 
     def LabelLeave(event):
         event.widget.config(background='#E0E0E0')
-    
+   
     def ShowAgregar(index):
         x=0
         while(x<len(interface_agregar)):
@@ -267,7 +268,7 @@ def start():
                 agregar_frames[x].config(bg='#ba6b57')
             x+=1
         interface_agregar[index].pack(fill=tk.BOTH, expand=True,  padx=5, pady=5)
-        agregar_frames[index].config(bg='#0f4c81')
+        agregar_frames[index].config(bg='#4d3e3e')
     
     def regEmp(aidi, nombreEmp, apPatEmp, apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp,
     ciudadEmp, estadoEmp, paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp):
@@ -1053,10 +1054,10 @@ def start():
 
     window = tk.Tk()
     window.title('Base de datos')
-    window.minsize(1140, 700)
+    window.minsize(1140, 737)
 
     w = 1140 # width for the Tk root
-    h = 700 # height for the Tk root
+    h = 737 # height for the Tk root
 
     # get screen width and height
     ws = window.winfo_screenwidth() # width of the screen
@@ -1072,7 +1073,7 @@ def start():
 
     window.rowconfigure(0, weight=1)
     window.columnconfigure(1, weight=4)
-    window.config(bg='#30475e')
+    window.config(bg='#4d3e3e')#30475e
 
     options= tk.Frame(window, bg="#fdcb9e")
     options.grid(row=0,column=0, sticky='NSWE')
@@ -1120,10 +1121,25 @@ def start():
     manageProductImg = manageProductImg.zoom(2)
     manageProductImg = manageProductImg.subsample(6)
 
-    #imgSt = PhotoImage(file = "cafe.png")
-    #imgSt = imgSt.zoom(2)
-    #imgSt = imgSt.subsample(6)
+    imgSt = PhotoImage(file = "cafe.png")
+    imgSt = imgSt.zoom(5)
+    imgSt = imgSt.subsample(7)
 
+    sodaImg = PhotoImage(file = "soda.png")
+    sodaImg = sodaImg.zoom(2)
+    sodaImg = sodaImg.subsample(14)
+
+    chipsImg = PhotoImage(file = "chips.png")
+    chipsImg = chipsImg.zoom(2)
+    chipsImg = chipsImg.subsample(14)
+
+    beerImg = PhotoImage(file = "beer.png")
+    beerImg = beerImg.zoom(2)
+    beerImg = beerImg.subsample(14)
+
+    foodImg = PhotoImage(file = "food.png")
+    foodImg = foodImg.zoom(2)
+    foodImg = foodImg.subsample(14)
     #*************************************** LABELS ****************************************
     interface_agregar= []
 
@@ -1133,23 +1149,38 @@ def start():
 
     #*****************************************Inicio*********************************
     interface_agregar[0].pack(fill=tk.BOTH, expand=True)
-    interface_agregar[0].configure(bg='#f1935c')
+    interface_agregar[0].configure(bg='#fdcb9e')
 
-    """canvas = Canvas(interface_agregar[0], bg='#9f01fc', width=250, height=h,bd=0, relief='flat',highlightthickness=0)
-    canvas.create_image(0,0, anchor='nw', image=stockImg)
-    canvas.pack(side='right', fill=BOTH)
+    imgPpFrame = tk.Frame(interface_agregar[0], bg = "red")
+    imgPpFrame.place(x = 220, y = 300)
+    labelPpImg = tk.Label(imgPpFrame, background = "#fdcb9e", image = imgSt)
+    labelPpImg.grid(row = 0, column = 0)
 
-    canvas2 = Canvas(interface_agregar[0], bg='#9f01fc', width=w, height=100,bd=0, relief='flat',highlightthickness=0)
-    canvas2.create_image(0,0, anchor='nw', image=soundImg)
-    canvas2.pack(side='bottom', fill=BOTH)"""
+    imgSodaFrame = tk.Frame(interface_agregar[0], bg = "red")
+    imgSodaFrame.place(x = 650, y = 200)
+    labelSodaImg = tk.Label(imgSodaFrame, background = "#fdcb9e", image = sodaImg)
+    labelSodaImg.grid(row = 0, column = 0)
 
-    home_page=tk.Frame(interface_agregar[0])
-    home_page.pack(side='left', fill=BOTH)
-    home_page.configure(bg='#f1935c')
-    home_page.columnconfigure(1,weight=2)
-    home_page.columnconfigure(0,weight=1)
-    ttk.Label(home_page, text="       BIENVENIDO       ", font=("Times", 50, 'bold'), background='#30475e', foreground='white').grid(row=0, column=0,padx=50,pady=20, columnspan=2)
-    #ttk.Label(home_page, text="BASE DE \n\tDATOS", font=("Times", 30, 'bold'), background='#18191A', foreground='#3A3939').grid(row=1, column=1)
+    imgChipsFrame = tk.Frame(interface_agregar[0], bg = "red")
+    imgChipsFrame.place(x = 100, y = 200)
+    labelChipsFrame = tk.Label(imgChipsFrame, background = "#fdcb9e", image = beerImg)
+    labelChipsFrame.grid(row = 0, column = 0)
+
+    imgBeerFrame = tk.Frame(interface_agregar[0], bg = "red")
+    imgBeerFrame.place(x = 560, y = 200)
+    labelBeerFrame = tk.Label(imgBeerFrame, background = "#fdcb9e", image = chipsImg)
+    labelBeerFrame.grid(row = 0, column = 0)
+
+    imgFoodFrame = tk.Frame(interface_agregar[0], bg = "red")
+    imgFoodFrame.place(x = 190, y = 200)
+    labelFoodFrame = tk.Label(imgFoodFrame, background = "#fdcb9e", image = foodImg)
+    labelFoodFrame.grid(row = 0, column = 0)
+
+    home_page=tk.Frame(interface_agregar[0])##f1935c
+    home_page.place(x = 17, y = 20)
+    home_page.configure(bg='#4d3e3e')
+    tit = ttk.Label(home_page, text="       BIENVENIDO       ", anchor=tk.CENTER, font=("Times", 50, 'bold'), background='#4d3e3e', foreground='white')
+    tit.grid(row=0, column=0,padx=50,pady=20, columnspan=2)
    
     #---------------------------------------->Empleado<-------------------------------------
     interface_agregar[1].pack(side='bottom',fill=tk.BOTH, expand=True)
@@ -1159,7 +1190,7 @@ def start():
     LabelEmployee = tk.Label(interface_agregar[1], background = 'white', image = employeeImg)
     LabelEmployee.grid(row = 10, column = 4, columnspan = 2, rowspan = 12)
 
-    ttk.Label(interface_agregar[1], text="   REGISTRO DE EMPLEADO     ", 
+    ttk.Label(interface_agregar[1], text="   \tREGISTRO DE EMPLEADO     ", 
     font=("Times", 20), background='white').grid(row=0, column=2)
     ttk.Label(interface_agregar[1], text="ID:", font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=2)
     ttk.Label(interface_agregar[1], text="Nombre:", font=("Fixedsys", 9),  background='white').grid(row=4, column=1, pady=2)
@@ -1179,19 +1210,19 @@ def start():
 
 
     aidi = ttk.Entry(interface_agregar[1], width=30)
-    aidi.grid(row=2, column=2, pady=2)
+    aidi.grid(row=2, column=2, pady=3)
 
     nombreEmp = ttk.Entry(interface_agregar[1], width = 30)
-    nombreEmp.grid(row = 4, column = 2, pady=2)
+    nombreEmp.grid(row = 4, column = 2, pady=3)
 
     apPatEmp = ttk.Entry(interface_agregar[1], width = 30)
-    apPatEmp.grid(row = 6, column = 2)
+    apPatEmp.grid(row = 6, column = 2, pady=3)
 
     apMatEmp = ttk.Entry(interface_agregar[1], width = 30)
-    apMatEmp.grid(row = 8, column = 2)
+    apMatEmp.grid(row = 8, column = 2, pady=3)
 
     rfcEmp = ttk.Entry(interface_agregar[1], width = 30)
-    rfcEmp.grid(row = 10, column = 2, pady=2)
+    rfcEmp.grid(row = 10, column = 2, pady=3)
 
     fechaNacEmp = MyDateEntry(interface_agregar[1],
                     width=28,
@@ -1212,7 +1243,7 @@ def start():
                     headersbackground='white',
                     headersforeground='gray70')
                     
-    fechaNacEmp.grid(row = 12, column = 2, pady=2) 
+    fechaNacEmp.grid(row = 12, column = 2, pady=3) 
 
     fechaIngresoEmp = MyDateEntry(interface_agregar[1],
                     width=28,
@@ -1233,37 +1264,37 @@ def start():
                     headersbackground='white',
                     headersforeground='gray70')
 
-    fechaIngresoEmp.grid(row = 14, column = 2, pady=2)
+    fechaIngresoEmp.grid(row = 14, column = 2, pady=3)
 
     ciudadEmp = ttk.Entry(interface_agregar[1], width = 30)
-    ciudadEmp.grid(row = 16, column = 2, pady=2)
+    ciudadEmp.grid(row = 16, column = 2, pady=3)
 
     estadoEmp = ttk.Entry(interface_agregar[1], width = 30)
-    estadoEmp.grid(row = 18, column = 2, pady=2)
+    estadoEmp.grid(row = 18, column = 2, pady=3)
 
     paisEmp = ttk.Entry(interface_agregar[1], width = 30)
-    paisEmp.grid(row = 20, column = 2, pady=2)
+    paisEmp.grid(row = 20, column = 2, pady=3)
 
     calleEmp = ttk.Entry(interface_agregar[1], width = 30)
-    calleEmp.grid(row = 22, column = 2, pady=2)
+    calleEmp.grid(row = 22, column = 2, pady=3)
 
     coloniaEmp = ttk.Entry(interface_agregar[1], width = 30)    
-    coloniaEmp.grid(row = 24, column = 2, pady=2)
+    coloniaEmp.grid(row = 24, column = 2, pady=3)
 
     cpEmp = ttk.Entry(interface_agregar[1], width = 30)
-    cpEmp.grid(row = 26, column = 2, pady=2)
+    cpEmp.grid(row = 26, column = 2, pady=3)
 
     telEmp = ttk.Entry(interface_agregar[1], width = 30)
-    telEmp.grid(row = 28, column = 2, pady=2)
+    telEmp.grid(row = 28, column = 2, pady=3)
 
     sueldoEmp = ttk.Entry(interface_agregar[1], width = 30)
-    sueldoEmp.grid(row = 30, column = 2, pady=2)
+    sueldoEmp.grid(row = 30, column = 2, pady=3)
 
     submitEmp=tk.Button(interface_agregar[1], text="Ingresar", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: regEmp(aidi, nombreEmp, apPatEmp, 
     apMatEmp, rfcEmp, fechaNacEmp, fechaIngresoEmp, ciudadEmp, estadoEmp, 
     paisEmp, calleEmp, coloniaEmp, cpEmp, telEmp, sueldoEmp))
-    submitEmp.grid(row=34, column=2, pady=2)
+    submitEmp.grid(row=34, column=2, pady=5)
     #*****************************************************************************
 
     #************************************************PROVEEDOR******************************************
@@ -1274,7 +1305,7 @@ def start():
     labelSupplier = tk.Label(interface_agregar[2], background = 'white', image = supplierImg)
     labelSupplier.grid(row = 10, column = 4, columnspan = 2, rowspan = 12)
 
-    ttk.Label(interface_agregar[2], text="      REGISTRO DE PROVEEDOR     ", 
+    ttk.Label(interface_agregar[2], text="      \n\tREGISTRO DE PROVEEDOR\n     ", 
     font=("Times", 20), background='white').grid(row=2, column=2)
     ttk.Label(interface_agregar[2], text="Clave:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
     ttk.Label(interface_agregar[2], text="Nombre:",font=("Fixedsys", 9), background='white').grid(row=6, column=1,pady=5)
@@ -1288,37 +1319,37 @@ def start():
     ttk.Label(interface_agregar[2], text="Colonia:",font=("Fixedsys", 9), background='white').grid(row=22, column=1,pady=5)
     ttk.Label(interface_agregar[2], text="CP:",font=("Fixedsys", 9), background='white').grid(row=24, column=1,pady=5)
 
-    claveProv = ttk.Entry(interface_agregar[2], width = 15)
+    claveProv = ttk.Entry(interface_agregar[2], width = 30)
     claveProv.grid(row = 4, column = 2,pady=5)
 
-    nombreProv = ttk.Entry(interface_agregar[2], width = 15)
+    nombreProv = ttk.Entry(interface_agregar[2], width = 30)
     nombreProv.grid(row = 6, column = 2,pady=5)
 
-    apPatProv = ttk.Entry(interface_agregar[2], width = 15)
+    apPatProv = ttk.Entry(interface_agregar[2], width = 30)
     apPatProv.grid(row = 8, column = 2, pady = 5)
 
-    apMatProv = ttk.Entry(interface_agregar[2], width = 15)
+    apMatProv = ttk.Entry(interface_agregar[2], width = 30)
     apMatProv.grid(row = 10, column = 2, pady = 5)
 
-    rfcProv = ttk.Entry(interface_agregar[2], width = 15)
+    rfcProv = ttk.Entry(interface_agregar[2], width = 30)
     rfcProv.grid(row = 12, column = 2,pady=5)
 
-    telProv = ttk.Entry(interface_agregar[2], width = 15)
+    telProv = ttk.Entry(interface_agregar[2], width = 30)
     telProv.grid(row = 14, column = 2,pady=5)
 
-    empresaProv = ttk.Entry(interface_agregar[2], width = 15)
+    empresaProv = ttk.Entry(interface_agregar[2], width = 30)
     empresaProv.grid(row = 16, column = 2,pady=5)
 
-    ciudadProv = ttk.Entry(interface_agregar[2], width = 15)
+    ciudadProv = ttk.Entry(interface_agregar[2], width = 30)
     ciudadProv.grid(row = 18, column = 2,pady=5)
 
-    calleProv = ttk.Entry(interface_agregar[2], width = 15)
+    calleProv = ttk.Entry(interface_agregar[2], width = 30)
     calleProv.grid(row = 20, column = 2,pady=5)
 
-    coloniaProv = ttk.Entry(interface_agregar[2], width = 15)
+    coloniaProv = ttk.Entry(interface_agregar[2], width = 30 )
     coloniaProv.grid(row = 22, column = 2,pady=5)
 
-    cpProv = ttk.Entry(interface_agregar[2], width = 15)
+    cpProv = ttk.Entry(interface_agregar[2], width = 30)
     cpProv.grid(row = 24, column = 2,pady=5)
 
     submitProv=tk.Button(interface_agregar[2], text="Registrar", background='#0781F4', fg='white',
@@ -1336,7 +1367,7 @@ def start():
     labelBox = tk.Label(interface_agregar[3], background = 'white', image = boxImg)
     labelBox.grid(row = 4, column = 4, columnspan = 2, rowspan = 12)
 
-    ttk.Label(interface_agregar[3], text="   REGISTRO DE PRODUCTOS     ", 
+    ttk.Label(interface_agregar[3], text="   \n\tREGISTRO DE PRODUCTOS\n     ", 
     font=("Times", 20), background='white').grid(row=0, column=2)
     ttk.Label(interface_agregar[3], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
     ttk.Label(interface_agregar[3], text="Nombre:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
@@ -1663,7 +1694,7 @@ def start():
     empModShow.bind("<Enter>", LabelEnter)
     empModShow.bind("<Leave>", LabelLeave)
 
-    ttk.Label(interface_agregar[10], text="MODIFICAR O ELIMINAR EMPLEADO", 
+    ttk.Label(interface_agregar[10], text="        MODIFICAR O ELIMINAR EMPLEADO", 
     font=("Times", 20), background='white').grid(row=0, column=2)
 
     LabelEmployeeMod = tk.Label(interface_agregar[10], background = 'white', image = manageEmployeeImg)
@@ -1784,7 +1815,7 @@ def start():
     interface_agregar[11].configure(bg='white')
     interface_agregar[11].pack_forget()
 
-    ttk.Label(interface_agregar[11], text="      MODIFICAR PROVEEDORES     ",
+    ttk.Label(interface_agregar[11], text="      \tMODIFICAR PROVEEDORES     ",
     font=("Times", 20), background='white').grid(row=0, column=2, sticky='NEWS')
 
     agregar_frames[11]=tk.Frame(options, bg = '#ba6b57')
@@ -1869,7 +1900,7 @@ def start():
     labelBoxMod = tk.Label(interface_agregar[12], background = 'white', image = manageProductImg)
     labelBoxMod.grid(row = 4, column = 4, columnspan = 2, rowspan = 12)
 
-    ttk.Label(interface_agregar[12], text="   MODIFICAR PRODUCTOS     ", 
+    ttk.Label(interface_agregar[12], text="   \tMODIFICAR PRODUCTOS     ", 
     font=("Times", 20), background='white').grid(row=0, column=2)
     ttk.Label(interface_agregar[12], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
     ttk.Label(interface_agregar[12], text="Nombre:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
@@ -1995,7 +2026,7 @@ def start():
     labelSale = tk.Label(interface_agregar[15], background = 'white', image = saleImg)
     labelSale.grid(row = 4, column = 4, columnspan = 2, rowspan = 12)
 
-    ttk.Label(interface_agregar[15], text="\tREGISTRO DE VENTAS \n   ", 
+    ttk.Label(interface_agregar[15], text="\n         REGISTRO DE VENTAS \n   ", 
     font=("Times", 20), background='white').grid(row=0, column=2)
     ttk.Label(interface_agregar[15], text="Clave venta:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
     ttk.Label(interface_agregar[15], text="Código de barras producto:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
