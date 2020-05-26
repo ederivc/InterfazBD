@@ -636,15 +636,36 @@ def start():
 
         conexion.close()
 
-    def showFechaVenta(fecha):
-        if fecha == 'Dia':
-            showDay()
-        elif fecha == 'Semana':
-            showWeek()
-        elif fecha == 'Mes':
-            showMonth()
-        else:
-            showSale(saleTable) 
+    def showFechaVenta(fecha, empleado, categ):
+        if empleado=='' and categ == '':
+            if fecha == 'Dia':
+                showDay()
+            elif fecha == 'Semana':
+                showWeek()
+            elif fecha == 'Mes':
+                showMonth()
+            else:
+                showSale(saleTable) 
+        elif empleado != '' and categ == '':
+            if fecha == 'Dia':
+                showDayEmp()
+            elif fecha == 'Semana':
+                showWeekEmp()
+            elif fecha == 'Mes':
+                showMonthEmp()
+            else:
+                return
+
+        elif empleado == '' and categ != '': 
+            if fecha == 'Dia':
+                showDayCat()
+            elif fecha == 'Semana':
+                showWeekEmpCat()
+            elif fecha == 'Mes':
+                showMonthEmpCat()
+            else:
+                return
+
 
     def showDay():
         fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
@@ -682,6 +703,83 @@ def start():
             saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
         conexion.close()      
     
+    def showDayEmp():
+        fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
+        empleado = VentaEmpMost.get()
+        for i in saleTable.get_children():
+            saleTable.delete(i)
+
+        conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+        operacion = conexion.cursor()
+        operacion.execute("SELECT * FROM sales WHERE fecha = %s AND claveEmp = %s",(fechaVentStr, empleado))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+        conexion.close()
+    
+    def showWeekEmp():
+        fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
+        empleado = VentaEmpMost.get()
+        for i in saleTable.get_children():
+            saleTable.delete(i)
+
+        conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+        operacion = conexion.cursor()
+        operacion.execute("SELECT * FROM sales WHERE YEARWEEK(fecha,1) = YEARWEEK(%s,1) AND claveEmp = %s",(fechaVentStr,empleado))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+        conexion.close()  
+
+    def showMonthEmp():
+        fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
+        empleado = VentaEmpMost.get()
+        for i in saleTable.get_children():
+            saleTable.delete(i)
+
+        conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+        operacion = conexion.cursor()
+        operacion.execute("SELECT * FROM sales WHERE MONTH(fecha) = MONTH(%s) AND claveEmp = %s",(fechaVentStr,empleado))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+        conexion.close() 
+
+    def showDayCat():
+        fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
+        empleado = VentaEmpMost.get()
+        for i in saleTable.get_children():
+            saleTable.delete(i)
+
+        conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+        operacion = conexion.cursor()
+        operacion.execute("SELECT * FROM sales WHERE fecha = %s AND claveEmp = %s",(fechaVentStr, empleado))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+        conexion.close()
+    
+    def showWeekCat():
+        fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
+        empleado = VentaEmpMost.get()
+        for i in saleTable.get_children():
+            saleTable.delete(i)
+
+        conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+        operacion = conexion.cursor()
+        operacion.execute("SELECT * FROM sales WHERE YEARWEEK(fecha,1) = YEARWEEK(%s,1) AND claveEmp = %s",(fechaVentStr,empleado))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+        conexion.close()  
+
+    def showMonthCat():
+        fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
+        empleado = VentaEmpMost.get()
+        for i in saleTable.get_children():
+            saleTable.delete(i)
+
+        conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+        operacion = conexion.cursor()
+        operacion.execute("SELECT * FROM sales WHERE MONTH(fecha) = MONTH(%s) AND claveEmp = %s",(fechaVentStr,empleado))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+        conexion.close() 
 
     def verifica(codigo, cantidad):
         conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
@@ -1419,7 +1517,6 @@ def start():
     interface_agregar[7].configure(bg='white')
     interface_agregar[7].rowconfigure(0, weight=1)
     interface_agregar[7].rowconfigure(1, weight=1)
-    interface_agregar[7].rowconfigure(4, weight=1)
     interface_agregar[7].columnconfigure(0, weight=1)
     interface_agregar[7].columnconfigure(1, weight=1)
     interface_agregar[7].columnconfigure(2, weight=1)
@@ -1441,6 +1538,8 @@ def start():
 
     ttk.Label(interface_agregar[7], text="Fecha:", font=("Fixedsys", 9), background='white').grid(row=2, column=0, pady=5, padx=10, sticky='e')
     ttk.Label(interface_agregar[7], text="Ordenar por:", font=("Fixedsys", 9), background='white').grid(row=3, column=0, pady=5, padx=10, sticky='e')
+    ttk.Label(interface_agregar[7], text="Empleado:", font=("Fixedsys", 9), background='white').grid(row=4, column=0, pady=5, padx=10, sticky='e')
+    ttk.Label(interface_agregar[7], text="Categoría:", font=("Fixedsys", 9), background='white').grid(row=5, column=0, pady=5, padx=10, sticky='e')
 
     saleDate = MyDateEntry(interface_agregar[7],
                     width=10,
@@ -1470,9 +1569,15 @@ def start():
     comboThree.current(0)
     comboThree.grid(row = 3, column = 1, pady=5, sticky='w')
 
+    VentaEmpMost = ttk.Entry(interface_agregar[7], width=20)
+    VentaEmpMost.grid(row=4, column=1, pady=2, sticky='w')
+
+    VentaCatMost = ttk.Entry(interface_agregar[7], width=20)
+    VentaCatMost.grid(row=5, column=1, pady=2, sticky='w')
+
     saleDSubmit=tk.Button(interface_agregar[7], text="⮞",  background='#062D40', fg='white', relief=tk.FLAT,
-    command= lambda: showFechaVenta(VentaDateMost.get()))
-    saleDSubmit.grid(row=3, column=2, sticky= 'w')
+    command= lambda: showFechaVenta(VentaDateMost.get(), VentaEmpMost.get(), VentaCatMost.get()))
+    saleDSubmit.grid(row=5, column=2, sticky= 'w')
 
     #*******************************************************************
     interface_agregar[8].pack(side='bottom',fill=tk.BOTH, expand=True)
