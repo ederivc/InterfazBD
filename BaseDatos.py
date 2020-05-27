@@ -638,7 +638,7 @@ def start():
         conexion.close()
 
     def showFechaVenta(fecha, empleado, categ):
-        if empleado=='' and categ == '':
+        if empleado=='' and categ == 'Ninguno':
             if fecha == 'Dia':
                 showDay()
             elif fecha == 'Semana':
@@ -647,7 +647,7 @@ def start():
                 showMonth()
             else:
                 showSale(saleTable) 
-        elif empleado != '' and categ == '':
+        elif empleado != '' and categ == 'Ninguno':
             if fecha == 'Dia':
                 showDayEmp()
             elif fecha == 'Semana':
@@ -655,9 +655,9 @@ def start():
             elif fecha == 'Mes':
                 showMonthEmp()
             else:
-                return
+                showAllEMp()
 
-        elif empleado == '' and categ != '': 
+        elif empleado == '' and categ != 'Ninguno': 
             if fecha == 'Dia':
                 showDayCat()
             elif fecha == 'Semana':
@@ -665,7 +665,7 @@ def start():
             elif fecha == 'Mes':
                 showMonthCat()
             else:
-                return
+                showAllCat()
 
 
     def showDay():
@@ -743,6 +743,18 @@ def start():
             saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
         conexion.close() 
 
+    def showAllEMp():
+        empleado = VentaEmpMost.get()
+        for i in saleTable.get_children():
+            saleTable.delete(i)
+
+        conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+        operacion = conexion.cursor()
+        operacion.execute( "SELECT * FROM sales WHERE claveEmp = %s",(empleado,))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
+        conexion.close()
+
     def showDayCat():
         fechaVentStr = saleDate.get_date().strftime('%Y-%m-%d')
         categ = VentaCatMost.get()
@@ -751,9 +763,9 @@ def start():
 
         conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
         operacion = conexion.cursor()
-        operacion.execute("SELECT s.clave, s.importeT, s.fecha, s.fpago, s.claveEmp, p.codigoProd FROM sales s INNER JOIN transaction t ON s.clave = t.clave INNER JOIN product p ON p.codigoProd = t.codigoProd WHERE s.fecha = %s AND p.categoria = %s",(fechaVentStr, categ))
-        for clave,importeT,fecha,fPago, claveEmp, product in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, product))
+        operacion.execute("SELECT s.clave, s.importeT, s.fecha, s.fpago, s.claveEmp FROM sales s INNER JOIN transaction t ON s.clave = t.clave INNER JOIN product p ON p.codigoProd = t.codigoProd WHERE s.fecha = %s AND p.categoria = %s",(fechaVentStr, categ))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
 
         conexion.close()
     
@@ -765,9 +777,9 @@ def start():
 
         conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
         operacion = conexion.cursor()
-        operacion.execute("SELECT s.clave, s.importeT, s.fecha, s.fpago, s.claveEmp, p.codigoProd FROM sales s INNER JOIN transaction t ON s.clave = t.clave INNER JOIN product p ON p.codigoProd = t.codigoProd WHERE YEARWEEK(fecha,1) = YEARWEEK(%s,1) AND p.categoria = %s",(fechaVentStr, categ))
-        for clave,importeT,fecha,fPago, claveEmp, product in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, product))
+        operacion.execute("SELECT s.clave, s.importeT, s.fecha, s.fpago, s.claveEmp FROM sales s INNER JOIN transaction t ON s.clave = t.clave INNER JOIN product p ON p.codigoProd = t.codigoProd WHERE YEARWEEK(fecha,1) = YEARWEEK(%s,1) AND p.categoria = %s",(fechaVentStr, categ))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
 
         conexion.close()
 
@@ -779,10 +791,22 @@ def start():
 
         conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
         operacion = conexion.cursor()
-        operacion.execute("SELECT s.clave, s.importeT, s.fecha, s.fpago, s.claveEmp, p.codigoProd FROM sales s INNER JOIN transaction t ON s.clave = t.clave INNER JOIN product p ON p.codigoProd = t.codigoProd WHERE MONTH(fecha) = MONTH(%s) AND p.categoria = %s",(fechaVentStr, categ))
-        for clave,importeT,fecha,fPago, claveEmp, product in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, product))
+        operacion.execute("SELECT s.clave, s.importeT, s.fecha, s.fpago, s.claveEmp FROM sales s INNER JOIN transaction t ON s.clave = t.clave INNER JOIN product p ON p.codigoProd = t.codigoProd WHERE MONTH(fecha) = MONTH(%s) AND p.categoria = %s",(fechaVentStr, categ))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
 
+        conexion.close()
+
+    def showAllCat():
+        categ = VentaCatMost.get()
+        for i in saleTable.get_children():
+            saleTable.delete(i)
+
+        conexion = mysql.connect( host='localhost', user= 'root', passwd='', db='registration' )
+        operacion = conexion.cursor()
+        operacion.execute("SELECT s.clave, s.importeT, s.fecha, s.fpago, s.claveEmp FROM sales s INNER JOIN transaction t ON s.clave = t.clave INNER JOIN product p ON p.codigoProd = t.codigoProd WHERE p.categoria = %s",(categ,))
+        for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
         conexion.close()
 
     def verifica(codigo, cantidad):
@@ -1610,7 +1634,7 @@ def start():
     VentaCatMost =  tk.StringVar()
     comboFouth = ttk.Combobox(interface_agregar[7], width = 20, textvariable = VentaCatMost,
     state = "readonly", justify='center')
-    comboFouth['values'] = ("Refrescos", "Cerveza", "Botanas", "Abarrotes")
+    comboFouth['values'] = ("Ninguno","Refrescos", "Cerveza", "Botanas", "Abarrotes")
     comboFouth.current(0)
     comboFouth.grid(row=5, column=1, pady=2, sticky='w')
 
