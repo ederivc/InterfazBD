@@ -557,7 +557,7 @@ def start():
         operacion = conexion.cursor()
         operacion.execute( "SELECT * FROM sales" )
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, '0'))
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
         conexion.close()
 
     def showTransaction(transactionTable):
@@ -677,8 +677,7 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE fecha = %s",(fechaVentStr,))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
-        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
         conexion.close()
 
     def showWeek():
@@ -690,8 +689,7 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE YEARWEEK(fecha,1) = YEARWEEK(%s,1) ",(fechaVentStr,))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
-        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
         conexion.close()  
 
     def showMonth():
@@ -703,8 +701,7 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE MONTH(fecha) = MONTH(%s)",(fechaVentStr,))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
-        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
         conexion.close()      
     
     def showDayEmp():
@@ -717,8 +714,7 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE fecha = %s AND claveEmp = %s",(fechaVentStr, empleado))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
-        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
         conexion.close()
     
     def showWeekEmp():
@@ -731,8 +727,7 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE YEARWEEK(fecha,1) = YEARWEEK(%s,1) AND claveEmp = %s",(fechaVentStr,empleado))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
-        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
         conexion.close()  
 
     def showMonthEmp():
@@ -745,8 +740,7 @@ def start():
         operacion = conexion.cursor()
         operacion.execute("SELECT * FROM sales WHERE MONTH(fecha) = MONTH(%s) AND claveEmp = %s",(fechaVentStr,empleado))
         for clave,importeT,fecha,fPago, claveEmp in operacion.fetchall():
-            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp,'0'))
-        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+            saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp))
         conexion.close() 
 
     def showDayCat():
@@ -761,7 +755,6 @@ def start():
         for clave,importeT,fecha,fPago, claveEmp, product in operacion.fetchall():
             saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, product))
 
-        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado', 'Producto')
         conexion.close()
     
     def showWeekCat():
@@ -776,7 +769,6 @@ def start():
         for clave,importeT,fecha,fPago, claveEmp, product in operacion.fetchall():
             saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, product))
 
-        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado', 'Producto')
         conexion.close()
 
     def showMonthCat():
@@ -791,7 +783,6 @@ def start():
         for clave,importeT,fecha,fPago, claveEmp, product in operacion.fetchall():
             saleTable.insert('', 'end', text = clave, values=(importeT, fecha,fPago,claveEmp, product))
 
-        saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado', 'Producto')
         conexion.close()
 
     def verifica(codigo, cantidad):
@@ -1586,7 +1577,7 @@ def start():
     ttk.Label(interface_agregar[7], text="Categoría:", font=("Fixedsys", 9), background='white').grid(row=5, column=0, pady=5, padx=10, sticky='e')
 
     saleDate = MyDateEntry(interface_agregar[7],
-                    width=10,
+                    width=20,
                     justify='center',
                     selectbackground='gray80',
                     selectforeground='black',
@@ -1613,11 +1604,15 @@ def start():
     comboThree.current(0)
     comboThree.grid(row = 3, column = 1, pady=5, sticky='w')
 
-    VentaEmpMost = ttk.Entry(interface_agregar[7], width=20)
+    VentaEmpMost = ttk.Entry(interface_agregar[7], width=22)
     VentaEmpMost.grid(row=4, column=1, pady=2, sticky='w')
 
-    VentaCatMost = ttk.Entry(interface_agregar[7], width=20)
-    VentaCatMost.grid(row=5, column=1, pady=2, sticky='w')
+    VentaCatMost =  tk.StringVar()
+    comboFouth = ttk.Combobox(interface_agregar[7], width = 20, textvariable = VentaCatMost,
+    state = "readonly", justify='center')
+    comboFouth['values'] = ("Refrescos", "Cerveza", "Botanas", "Abarrotes")
+    comboFouth.current(0)
+    comboFouth.grid(row=5, column=1, pady=2, sticky='w')
 
     saleDSubmit=tk.Button(interface_agregar[7], text="⮞",  background='#062D40', fg='white', relief=tk.FLAT,
     command= lambda: showFechaVenta(VentaDateMost.get(), VentaEmpMost.get(), VentaCatMost.get()))
@@ -2143,8 +2138,7 @@ def start():
 
     saleTable = ttk.Treeview(interface_agregar[7], style = "Custom.Treeview")
     saleTable.grid(row = 1, column = 0, columnspan=6, sticky = 'NEWS', padx=10)
-    saleTable['columns'] = ('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado', 'Producto')
-    saleTable["displaycolumns"]=('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
+    saleTable['columns'] = ('Importe Total', 'Fecha de Venta', 'Forma de Pago', 'Clave Empleado')
 
     transactionTable = ttk.Treeview(interface_agregar[8], style = "Custom.Treeview")
     transactionTable.grid(row = 1, column = 0, columnspan=5, sticky = 'NEWS', padx=10)
@@ -2349,8 +2343,7 @@ def start():
         saleTable.column("Forma de Pago", anchor="center",width=80)
         saleTable.heading("Clave Empleado", text = "Clave Empleado")
         saleTable.column("Clave Empleado", anchor = "center", width = 80)
-        saleTable.heading("Producto", text = "Producto")
-        saleTable.column("Producto", anchor = "center", width = 80)
+
 
     def tableTransaction():
         transactionTable.heading("#0", text='Clave Venta', anchor='center')
