@@ -64,7 +64,7 @@ def start():
             showSupplier(supplierTable)
             labelDisplay.pack(side='top')
             ShowAgregar(5)
-            display.config(bg='#cfb495')
+            display.config(bg='#feceab')
         if(event == 6):
             showProduct(productTable)
             labelDisplay.pack(side='top')
@@ -74,7 +74,7 @@ def start():
             showSale(saleTable)
             labelDisplay.pack(side='top')
             ShowAgregar(7)
-            display.config(bg='#f5dea3')  
+            display.config(bg='#f7c5a8')  
         if(event == 8): 
             showTransaction(transactionTable)
             labelDisplay.pack(side='top')
@@ -84,7 +84,7 @@ def start():
             showProdOrd(prodOrdTable)
             labelDisplay.pack(side='top')
             ShowAgregar(9)
-            display.config(bg='#f1d6ab')   
+            display.config(bg='#fbc99d')   
         if(event == 10):
             labelDisplay.pack(side='top')
             ShowAgregar(10)
@@ -93,7 +93,7 @@ def start():
             showProducCatego(categoProdTable)
             labelDisplay.pack(side='top')
             ShowAgregar(11)
-            display.config(bg='#deb881')       
+            display.config(bg='#ffc5a1')       
         if(event == 12):
             labelDisplay.pack(side='top')
             ShowAgregar(12)
@@ -111,7 +111,7 @@ def start():
         if(event == 15):
             labelDisplay.pack(side='top')
             ShowAgregar(15)
-            display.config(bg='#f6d198')  
+            display.config(bg='#ffbea3')  
         return
 
     
@@ -1069,10 +1069,11 @@ def start():
 
     window = tk.Tk()
     window.title('Base de datos')
-    window.minsize(1140, 737)
+    window.minsize(1180, 745)
+    window.maxsize(1180, 745)
 
-    w = 1140 # width for the Tk root
-    h = 737 # height for the Tk root
+    w = 1180 # width for the Tk root
+    h = 745 # height for the Tk root
 
     # get screen width and height
     ws = window.winfo_screenwidth() # width of the screen
@@ -1138,7 +1139,7 @@ def start():
 
     imgSt = PhotoImage(file = "cafe.png")
     imgSt = imgSt.zoom(5)
-    imgSt = imgSt.subsample(7)
+    imgSt = imgSt.subsample(8)
 
     sodaImg = PhotoImage(file = "soda.png")
     sodaImg = sodaImg.zoom(2)
@@ -1167,7 +1168,7 @@ def start():
     interface_agregar[0].configure(bg='#fdcb9e')
 
     imgPpFrame = tk.Frame(interface_agregar[0], bg = "red")
-    imgPpFrame.place(x = 220, y = 300)
+    imgPpFrame.place(x = 256, y = 310)#240
     labelPpImg = tk.Label(imgPpFrame, background = "#fdcb9e", image = imgSt)
     labelPpImg.grid(row = 0, column = 0)
 
@@ -1176,15 +1177,15 @@ def start():
     labelSodaImg = tk.Label(imgSodaFrame, background = "#fdcb9e", image = sodaImg)
     labelSodaImg.grid(row = 0, column = 0)
 
-    imgChipsFrame = tk.Frame(interface_agregar[0], bg = "red")
-    imgChipsFrame.place(x = 100, y = 200)
-    labelChipsFrame = tk.Label(imgChipsFrame, background = "#fdcb9e", image = beerImg)
-    labelChipsFrame.grid(row = 0, column = 0)
-
     imgBeerFrame = tk.Frame(interface_agregar[0], bg = "red")
-    imgBeerFrame.place(x = 560, y = 200)
-    labelBeerFrame = tk.Label(imgBeerFrame, background = "#fdcb9e", image = chipsImg)
+    imgBeerFrame.place(x = 100, y = 200)
+    labelBeerFrame = tk.Label(imgBeerFrame, background = "#fdcb9e", image = beerImg)
     labelBeerFrame.grid(row = 0, column = 0)
+
+    imgChipsFrame = tk.Frame(interface_agregar[0], bg = "red")
+    imgChipsFrame.place(x = 560, y = 200)
+    labelChipsFrame = tk.Label(imgChipsFrame, background = "#fdcb9e", image = chipsImg)
+    labelChipsFrame.grid(row = 0, column = 0)
 
     imgFoodFrame = tk.Frame(interface_agregar[0], bg = "red")
     imgFoodFrame.place(x = 190, y = 200)
@@ -1242,6 +1243,7 @@ def start():
     fechaNacEmp = MyDateEntry(interface_agregar[1],
                     width=28,
                     justify='center',
+                    date_pattern = "dd/mm/y",
                     selectbackground='gray80',
                     selectforeground='black',
                     normalbackground='white',
@@ -1263,6 +1265,7 @@ def start():
     fechaIngresoEmp = MyDateEntry(interface_agregar[1],
                     width=28,
                     justify='center',
+                    date_pattern = "dd/mm/y",
                     selectbackground='gray80',
                     selectforeground='black',
                     normalbackground='white',
@@ -1367,7 +1370,7 @@ def start():
     cpProv = ttk.Entry(interface_agregar[2], width = 30)
     cpProv.grid(row = 24, column = 2,pady=5)
 
-    submitProv=tk.Button(interface_agregar[2], text="Registrar", background='#0781F4', fg='white',
+    submitProv=tk.Button(interface_agregar[2], text="Registrar", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: regProv(claveProv, nombreProv,apPatProv,apMatProv, rfcProv, 
     telProv,empresaProv,ciudadProv, calleProv, coloniaProv, cpProv))
     submitProv.grid(row=26, column=2,pady=5)
@@ -1426,7 +1429,7 @@ def start():
     comboTwo.grid(row = 18, column = 2, pady = 5)
 
 
-    submitProd=tk.Button(interface_agregar[3], text="Ingresar", background='#FF8F00', fg='white',
+    submitProd=tk.Button(interface_agregar[3], text="Ingresar", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: regProd(codigoProd, nombreProd, marcaProd, 
     existProd, costoProd, precioventaProd, reordenProd, provedorProd, categProd.get()))
     submitProd.grid(row=20, column=2, pady=5)
@@ -1603,6 +1606,7 @@ def start():
     saleDate = MyDateEntry(interface_agregar[7],
                     width=20,
                     justify='center',
+                    date_pattern = "dd/mm/y",
                     selectbackground='gray80',
                     selectforeground='black',
                     normalbackground='white',
@@ -1672,7 +1676,8 @@ def start():
 
     interface_agregar[9].rowconfigure(0, weight=1)
     interface_agregar[9].rowconfigure(1, weight=1)
-    interface_agregar[9].rowconfigure(2, weight=1)
+    interface_agregar[9].rowconfigure(3, weight=1)
+
     interface_agregar[9].columnconfigure(0, weight=1)
     interface_agregar[9].columnconfigure(1, weight=1)
     interface_agregar[9].columnconfigure(2, weight=1)
@@ -1755,6 +1760,7 @@ def start():
     fechaNacEmpMod = MyDateEntry(interface_agregar[10],
                     width=28,
                     justify='center',
+                    date_pattern = "dd/mm/y",
                     selectbackground='gray80',
                     selectforeground='black',
                     normalbackground='white',
@@ -1776,6 +1782,7 @@ def start():
     fechaIngresoEmpMod = MyDateEntry(interface_agregar[10],
                     width=28,
                     justify='center',
+                    date_pattern = "dd/mm/y",
                     selectbackground='gray80',
                     selectforeground='black',
                     normalbackground='white',
@@ -1818,13 +1825,13 @@ def start():
     sueldoEmpMod = ttk.Entry(interface_agregar[10], width = 30)
     sueldoEmpMod.grid(row = 30, column = 2, pady=2)
 
-    submitEmpMod=tk.Button(interface_agregar[10], text="Modificar", background='#2ECC71', fg='white',
+    submitEmpMod=tk.Button(interface_agregar[10], text="Modificar", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: modEmp(aidiEmpMod, nombreEmpMod, apPatEmpMod, apMatEmpMod, rfcEmpMod,
     fechaNacEmpMod, fechaIngresoEmpMod, ciudadEmpMod, estadoEmpMod, paisEmpMod, calleEmpMod, coloniaEmpMod,
     cpEmpMod, telEmpMod, sueldoEmpMod))
     submitEmpMod.grid(row=34, column=2, pady=2)
 
-    submitEmpEli=tk.Button(interface_agregar[10], text="Eliminar", background='#2ECC71', fg='white',
+    submitEmpEli=tk.Button(interface_agregar[10], text="Eliminar", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: eliEmp(aidiEmpMod))
     submitEmpEli.grid(row=35, column=2, pady=2)
 
@@ -1834,7 +1841,7 @@ def start():
     interface_agregar[11].configure(bg='white')
     interface_agregar[11].pack_forget()
 
-    ttk.Label(interface_agregar[11], text="      \tMODIFICAR PROVEEDORES     ",
+    ttk.Label(interface_agregar[11], text="       \n\tMODIFICAR PROVEEDORES\n     ",
     font=("Times", 20), background='white').grid(row=0, column=2, sticky='NEWS')
 
     agregar_frames[11]=tk.Frame(options, bg = '#ba6b57')
@@ -1894,12 +1901,12 @@ def start():
     cpProvMod = ttk.Entry(interface_agregar[11], width = 30)
     cpProvMod.grid(row = 24, column = 2, columnspan=2, pady=5)
 
-    submitProvMod=tk.Button(interface_agregar[11], text="Modificar", background='#2ECC71', fg='white',
+    submitProvMod=tk.Button(interface_agregar[11], text="Modificar", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: modProv(claveProvMod, nombreProdMod, apPatProvMod, apMatProvMod,
     rfcProvMod, telProvMod, empresaProvMod, ciudadProvMod, calleProvMod, coloniaProvMod, cpProvMod))
     submitProvMod.grid(row=26, column=2, pady=2)
 
-    submitProvEli=tk.Button(interface_agregar[11], text="Eliminar", background='#2ECC71', fg='white',
+    submitProvEli=tk.Button(interface_agregar[11], text="Eliminar", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: eliProv(claveProvMod))
     submitProvEli.grid(row=27, column=2, pady=2)
     #**************************************************************************
@@ -1919,7 +1926,7 @@ def start():
     labelBoxMod = tk.Label(interface_agregar[12], background = 'white', image = manageProductImg)
     labelBoxMod.grid(row = 4, column = 4, columnspan = 2, rowspan = 12)
 
-    ttk.Label(interface_agregar[12], text="   \tMODIFICAR PRODUCTOS     ", 
+    ttk.Label(interface_agregar[12], text="   \n\tMODIFICAR PRODUCTOS\n     ", 
     font=("Times", 20), background='white').grid(row=0, column=2)
     ttk.Label(interface_agregar[12], text="Código de barras:",font=("Fixedsys", 9), background='white').grid(row=2, column=1, pady=5)
     ttk.Label(interface_agregar[12], text="Nombre:",font=("Fixedsys", 9), background='white').grid(row=4, column=1, pady=5)
@@ -1964,13 +1971,13 @@ def start():
     comboTwoMod.grid(row = 18, column = 2, pady = 5)
 
 
-    submitProdMod=tk.Button(interface_agregar[12], text="Modificar", background='#2ECC71', fg='white',
+    submitProdMod=tk.Button(interface_agregar[12], text="Modificar", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: modProd(codigoProdMod, nombreProdMod, marcaProdMod, existProdMod,
     costoProdMod, precioventaProdMod, reordenProdMod, proveedorProdMod, categProdMod.get()))
     submitProdMod.grid(row=26, column=2, pady=2)
 
 
-    submitProdEli=tk.Button(interface_agregar[12], text="Eliminar", background='#2ECC71', fg='white',
+    submitProdEli=tk.Button(interface_agregar[12], text="Eliminar", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: eliProd(codigoProdMod))
     submitProdEli.grid(row=27, column=2, pady=2)
 
@@ -2081,6 +2088,7 @@ def start():
     fechaVenta = MyDateEntry(interface_agregar[15],
                     width=28,
                     justify='center',
+                    date_pattern = "dd/mm/y",
                     selectbackground='gray80',
                     selectforeground='black',
                     normalbackground='white',
@@ -2113,12 +2121,12 @@ def start():
     global carrito
     carrito=[]
 
-    submitConcepto=tk.Button(interface_agregar[15], text='Agregar al carrito', background='#2ECC71', fg='white',
+    submitConcepto=tk.Button(interface_agregar[15], text='Agregar al carrito', background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: regConcepto(codigoProdVenta.get(),cantidadVenta.get(),
     precioUnitVenta.cget('text'), importeVenta.cget('text')))
     submitConcepto.grid(row=18, column = 2, pady = 5)
 
-    submitVenta=tk.Button(interface_agregar[15], text="Realizar compra", background='#2ECC71', fg='white',
+    submitVenta=tk.Button(interface_agregar[15], text="Realizar compra", background='#ba6b57', fg='white',
     relief=tk.FLAT, command = lambda: regVenta_2(codigoVenta.get(), codigoProdVenta.get(), cantidadVenta.get(),
     precioUnitVenta.cget('text'), importeVenta.cget('text'), fechaVenta, pago_var.get(), codigoEmpVenta.get()))
     submitVenta.grid(row=20, column = 2, pady = 5)
@@ -2170,7 +2178,7 @@ def start():
     'Importe')
 
     prodOrdTable = ttk.Treeview(interface_agregar[9], style = "Custom.Treeview")
-    prodOrdTable.grid(row=1, column=0, columnspan=9 ,sticky='NEWS', padx=10)
+    prodOrdTable.grid(row=1, column=0, columnspan=9 ,sticky='NEWS', padx=10, pady = 1)
     prodOrdTable['columns'] = ('Nombre', 'Marca', 'Existencia', 'Costo', 'Precio Venta', 'Punto de Reorden',
     'Proveedor', 'Categoria')
 
@@ -2217,6 +2225,10 @@ def start():
     transaction_yscrollb= ttk.Scrollbar(interface_agregar[8], orient="vertical", command=transactionTable.yview)
     transaction_yscrollb.grid(row=1, column=5, sticky='NS', padx=10)
     transactionTable.configure(yscrollcommand=transaction_yscrollb.set)
+
+    prodOrd_xscroll = ttk.Scrollbar(interface_agregar[9], orient = "horizontal", command = prodOrdTable.xview)
+    prodOrd_xscroll.grid(row = 2, column = 0, columnspan = 9, sticky = "WE", padx = 10, pady = 1)
+    prodOrdTable.configure(xscrollcommand = prodOrd_xscroll.set)
 
     prodOrd_yscrollb = ttk.Scrollbar(interface_agregar[9], orient = "vertical", command = prodOrdTable.yview)
     prodOrd_yscrollb.grid(row = 1, column = 9, sticky = "NS", padx = 10)
@@ -2265,121 +2277,121 @@ def start():
 
     def tableSupplier():
         supplierTable.heading("#0", text='ID', anchor='center')
-        supplierTable.column("#0", anchor="w",width=80)   
+        supplierTable.column("#0", anchor="w",minwidth=80,width=80)   
         supplierTable.heading("Nombre", text='Nombre')
-        supplierTable.column("Nombre", anchor="center",width=80) 
+        supplierTable.column("Nombre", anchor="center",minwidth=80,width=80) 
         supplierTable.heading("Apellido Paterno", text='Apellido Paterno')
         supplierTable.column("Apellido Paterno", anchor="center",minwidth=119, width=119) 
         supplierTable.heading("Apellido Materno", text='Apellido Materno')
         supplierTable.column("Apellido Materno", anchor="center",minwidth=124, width=124)      
         supplierTable.heading("RFC", text='RFC')
-        supplierTable.column("RFC", anchor="center",width=80)  
+        supplierTable.column("RFC", anchor="center",minwidth=80,width=80)  
         supplierTable.heading("Telefono", text='Teléfono')
-        supplierTable.column("Telefono", anchor="center",width=80) 
+        supplierTable.column("Telefono", anchor="center",minwidth=80,width=80) 
         supplierTable.heading("Empresa", text='Empresa')
-        supplierTable.column("Empresa", anchor="center",width=80)   
+        supplierTable.column("Empresa", anchor="center",minwidth=80,width=80)   
         supplierTable.heading("Ciudad", text='Ciudad')
-        supplierTable.column("Ciudad", anchor="center",width=80)   
+        supplierTable.column("Ciudad", anchor="center",minwidth=80,width=80)   
         supplierTable.heading("Calle", text='Calle')
-        supplierTable.column("Calle", anchor="center",width=80)   
+        supplierTable.column("Calle", anchor="center",minwidth=80,width=80)   
         supplierTable.heading("Colonia", text='Colonia')
-        supplierTable.column("Colonia", anchor="center",width=80)   
+        supplierTable.column("Colonia", anchor="center",minwidth=80,width=80)   
         supplierTable.heading("CP", text='CP')
-        supplierTable.column("CP", anchor="center",width=80)  
+        supplierTable.column("CP", anchor="center",minwidth=80,width=80)  
 
     def tableProduct():
         productTable.heading("#0", text='Codigo Barras', anchor='center')
-        productTable.column("#0", anchor="w",minwidth = 120, width=120)   
+        productTable.column("#0", anchor="w",minwidth = 115, width=115)   
         productTable.heading("Nombre", text='Nombre')
-        productTable.column("Nombre", anchor="center",width=80)   
+        productTable.column("Nombre", anchor="center",minwidth=80,width=80)   
         productTable.heading("Marca", text='Marca')
-        productTable.column("Marca", anchor="center",width=80)  
+        productTable.column("Marca", anchor="center",minwidth=80,width=80)  
         productTable.heading("Existencia", text='Existencia')
-        productTable.column("Existencia", anchor="center",width=80)   
+        productTable.column("Existencia", anchor="center",minwidth=80,width=80)   
         productTable.heading("Costo", text='Costo')
-        productTable.column("Costo", anchor="center",width=80)
+        productTable.column("Costo", anchor="center",minwidth=80,width=80)
         productTable.heading("Precio Venta", text='Precio Venta')
         productTable.column("Precio Venta", anchor="center",minwidth = 100, width = 100)    
         productTable.heading("Punto de Reorden", text = "Punto de Reorden")
-        productTable.column("Punto de Reorden", anchor = "center", minwidth = 125, width = 125)
+        productTable.column("Punto de Reorden", anchor = "center", minwidth = 127, width = 127)
         productTable.heading("Proveedor", text='Proveedor')
-        productTable.column("Proveedor", anchor="center",width=80)   
+        productTable.column("Proveedor", anchor="center",minwidth=80,width=80)   
         productTable.heading("Categoria", text='Categoria')
-        productTable.column("Categoria", anchor="center",width=80)   
+        productTable.column("Categoria", anchor="center",minwidth=80,width=80)   
 
     def tableProdOrd():
         prodOrdTable.heading("#0", text='Codigo Barras', anchor='center')
         prodOrdTable.column("#0", anchor="w",minwidth = 120, width=120)   
         prodOrdTable.heading("Nombre", text='Nombre')
-        prodOrdTable.column("Nombre", anchor="center",width=80)   
+        prodOrdTable.column("Nombre", anchor="center",minwidth=80,width=80)   
         prodOrdTable.heading("Marca", text='Marca')
-        prodOrdTable.column("Marca", anchor="center",width=80)  
+        prodOrdTable.column("Marca", anchor="center",minwidth=80,width=80)  
         prodOrdTable.heading("Existencia", text='Existencia')
-        prodOrdTable.column("Existencia", anchor="center",width=80)   
+        prodOrdTable.column("Existencia", anchor="center",minwidth=80,width=80)   
         prodOrdTable.heading("Costo", text='Costo')
-        prodOrdTable.column("Costo", anchor="center",width=80)
+        prodOrdTable.column("Costo", anchor="center",minwidth=80,width=80)
         prodOrdTable.heading("Precio Venta", text='Precio Venta')
         prodOrdTable.column("Precio Venta", anchor="center",minwidth = 100, width = 100)    
         prodOrdTable.heading("Punto de Reorden", text = "Punto de Reorden")
         prodOrdTable.column("Punto de Reorden", anchor = "center", minwidth = 125, width = 125)
         prodOrdTable.heading("Proveedor", text='Proveedor')
-        prodOrdTable.column("Proveedor", anchor="center",width=80)   
+        prodOrdTable.column("Proveedor", anchor="center",minwidth=80,width=80)   
         prodOrdTable.heading("Categoria", text='Categoria')
-        prodOrdTable.column("Categoria", anchor="center",width=80)   
+        prodOrdTable.column("Categoria", anchor="center",minwidth=80,width=80)   
 
     def tableCatPago():
         categoPagoTable.heading("#0", text='ID Venta', anchor='center')
-        categoPagoTable.column("#0", anchor="w",width=80)   
+        categoPagoTable.column("#0", anchor="w",minwidth=80,width=80)   
         categoPagoTable.heading("Cheque", text='Cheque')
-        categoPagoTable.column("Cheque", anchor="center",width=80)   
+        categoPagoTable.column("Cheque", anchor="center",minwidth=80,width=80)   
         categoPagoTable.heading("Vale", text='Vale')
-        categoPagoTable.column("Vale", anchor="center",width=80)  
+        categoPagoTable.column("Vale", anchor="center",minwidth=80,width=80)  
         categoPagoTable.heading("Tarjeta de Credito", text='Tarjeta de Credito')
-        categoPagoTable.column("Tarjeta de Credito", anchor="center",width=80)   
+        categoPagoTable.column("Tarjeta de Credito", anchor="center",minwidth=80,width=80)   
         categoPagoTable.heading("Tarjeta de Debito", text='Tarjeta de Debito')
-        categoPagoTable.column("Tarjeta de Debito", anchor="center",width=80)   
+        categoPagoTable.column("Tarjeta de Debito", anchor="center",minwidth=80,width=80)   
         categoPagoTable.heading("Pagaré", text='Pagaré')
-        categoPagoTable.column("Pagaré", anchor="center",width=80)   
+        categoPagoTable.column("Pagaré", anchor="center",minwidth=80,width=80)   
         categoPagoTable.heading("Efectivo", text='Efectivo')
-        categoPagoTable.column("Efectivo", anchor="center",width=80) 
+        categoPagoTable.column("Efectivo", anchor="center",minwidth=80,width=80) 
 
     def tableCatProd():
         categoProdTable.heading("#0", text='ID Producto', anchor='center')
-        categoProdTable.column("#0", anchor="w",width=80)   
+        categoProdTable.column("#0", anchor="w",minwidth=80,width=80)   
         categoProdTable.heading("Abarrotes", text='Abarrotes')
-        categoProdTable.column("Abarrotes", anchor="center",width=80)   
+        categoProdTable.column("Abarrotes", anchor="center",minwidth=80,width=80)   
         categoProdTable.heading("Botanas", text='Botanas')
-        categoProdTable.column("Botanas", anchor="center",width=80)  
+        categoProdTable.column("Botanas", anchor="center",minwidth=80,width=80)  
         categoProdTable.heading("Cervezas", text='Cervezas')
-        categoProdTable.column("Cervezas", anchor="center",width=80)   
+        categoProdTable.column("Cervezas", anchor="center",minwidth=80,width=80)   
         categoProdTable.heading("Refrescos", text='Refrescos')
-        categoProdTable.column("Refrescos", anchor="center",width=80)   
+        categoProdTable.column("Refrescos", anchor="center",minwidth=80,width=80)   
 
 
     def tableSale():
         saleTable.heading("#0", text='Clave de Venta')
-        saleTable.column("#0", anchor='w',width=80)     
+        saleTable.column("#0", anchor='w',minwidth=80,width=80)     
         saleTable.heading("Importe Total", text='Importe Total')
-        saleTable.column("Importe Total", anchor="center",width=80)   
+        saleTable.column("Importe Total", anchor="center",minwidth=80,width=80)   
         saleTable.heading("Fecha de Venta", text='Fecha de Venta')
-        saleTable.column("Fecha de Venta", anchor="center",width=80)   
+        saleTable.column("Fecha de Venta", anchor="center",minwidth=80,width=80)   
         saleTable.heading("Forma de Pago", text='Forma de Pago')
-        saleTable.column("Forma de Pago", anchor="center",width=80)
+        saleTable.column("Forma de Pago", anchor="center",minwidth=80,width=80)
         saleTable.heading("Clave Empleado", text = "Clave Empleado")
-        saleTable.column("Clave Empleado", anchor = "center", width = 80)
+        saleTable.column("Clave Empleado", anchor = "center", minwidth=80,width = 80)
 
 
     def tableTransaction():
         transactionTable.heading("#0", text='Clave Venta', anchor='center')
-        transactionTable.column("#0", anchor="w",width=80)   
+        transactionTable.column("#0", anchor="w",minwidth=80,width=80)   
         transactionTable.heading("Codigo Producto", text='Codigo Producto')
-        transactionTable.column("Codigo Producto", anchor="center",width=80)   
+        transactionTable.column("Codigo Producto", anchor="center",minwidth=80,width=80)   
         transactionTable.heading("Cantidad", text='Cantidad')
-        transactionTable.column("Cantidad", anchor="center",width=80)  
+        transactionTable.column("Cantidad", anchor="center",minwidth=80,width=80)  
         transactionTable.heading("Precio Unitario", text='Precio Unitario')
-        transactionTable.column("Precio Unitario", anchor="center",width=80)   
+        transactionTable.column("Precio Unitario", anchor="center",minwidth=80,width=80)   
         transactionTable.heading("Importe", text='Importe')
-        transactionTable.column("Importe", anchor="center",width=80)   
+        transactionTable.column("Importe", anchor="center",minwidth=80,width=80)   
 
     
     main()
