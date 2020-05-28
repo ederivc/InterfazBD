@@ -24,7 +24,6 @@ class Login:
         self.usName = StringVar()
         self.usPass = StringVar()
 
-        bgLab1 = tk.Label(self.window, background = 'blue').pack()
         
         title = tk.Label(self.window, text = "Iniciar Sesion", font = ("Times",40,"bold"), relief = GROOVE, bg = "#144d87")
         title.place(x = 0, y = 0, relwidth = 1)
@@ -50,7 +49,7 @@ class Login:
 def fun(usName, usPass):
     if(usName == "" or usPass == ""):
         mBox.showerror("ERROR", "Debes de llenar todos los campos.")
-    elif(usName == "e" and usPass == "e"):
+    elif(usName == "Administrador" and usPass == "Password"):
         mBox.showinfo("BIENVENIDO", "BIENVENIDO A LA BASE DE DATOS")
         window.destroy()
         BaseDatos.start()
@@ -60,5 +59,15 @@ def fun(usName, usPass):
 
 if __name__ == "__main__":
     window = tk.Tk()
+
+    w = 800
+    h = 500
+    ws = window.winfo_screenwidth() 
+    hs = window.winfo_screenheight()
+    x = (ws/2) - (w/2)
+    y = (hs/2) - (h/2)
+    window.geometry('%dx%d+%d+%d' % (w, h, x, y))
+
     obj = Login(window)
     window.mainloop()
+
